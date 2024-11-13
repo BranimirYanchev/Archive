@@ -1,0 +1,38 @@
+/* Section 1 */
+.section-1 {
+    background-image: url('https://images.inc.com/uploaded_files/image/1920x1080/getty_485465920_129129.jpg'); /* Замени 'your-image.jpg' с пътя към твоето изображение */
+    background-size: cover;
+    background-position: center;
+    height: 100vh; /* Заема цялото визуално поле */
+    display: flex;
+    align-items: center;
+    padding-left: 50px; /* Разстояние от ляво */
+    color: #ffffff;
+}
+
+.section-1-content{
+    z-index: 2; /* Поставяме текста над затъмняващия слой */
+}
+
+.section-1-content h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.section-1-content p {
+    font-size: 18px;
+    max-width: 500px; /* Ограничаване на ширината на текста */
+    line-height: 1.5;
+}
+
+/* Затъмняващ слой върху фона */
+.section-1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Затъмняване с полупрозрачен черен цвят */
+    z-index: 1; /* Поставяме слоя върху изображението, но под текста */
+}
