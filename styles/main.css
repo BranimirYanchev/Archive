@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* Common */
+
+:root {
+    --primary-color: #fff;
+    --secondary-color: #000;
+    --third-color: blue;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-size: 16px;
+    color: black;
+    line-height: 1.7;
+    font-family: "Montserrat", sans-serif;
+    background: var(--primary-color);
+}
+
+/* End of Common */
+
+/* -------------- */
+
+/* Header + Navbar */
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    position: fixed;
+    width: 100%;
+    margin-top: 24px;
+}
+
+header::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color); 
+    z-index: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 86%;
+    z-index: 2;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    width: 4%;
+}
+
+.logo > img{
+    width: 100%;
+}
+
+nav .menu {
+    list-style: none;
+    display: flex;
+    gap: 100px;
+}
+
+nav .menu li a:not(.exclude){
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.btn {
+    border-radius: 10px;
+    padding: 14px 25px;
+    padding-right: 25px;
+    padding-left: 25px;
+    font-size: 18px;
+    line-height: 1;
+    transition: transform .2s ease; 
+
+    background: var(--secondary-color);
+    color: var(--primary-color) !important;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.btn:hover{
+    transform: scale(1.1) !important;
+}
+
+
+.menu li{
+    transition: transform .2s ease; 
+}
+
+.menu li:hover {
+    transform: scale(1.2);
+    font-size: 16px;
+}
+
+.menu li:not(.exclude)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+
+.menu li:not(.exclude):hover::after {
+    width: 100%; 
+} 
