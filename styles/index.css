@@ -27,12 +27,15 @@
 
 .section-1-content {
     display: flex;
-    gap: 30%;
     align-items: center;
 }
 
 .section-1-content>* {
     display: inline-block;
+}
+
+.section-1-content > .image{
+    margin-left: 10vw;
 }
 
 .section-1-content>.image>img {
