@@ -34,7 +34,7 @@ header{
     z-index: 99;
     position: fixed;
     width: 100%;
-    height: 76px;
+    height: 90px;
 }
 
 header::before{
@@ -44,7 +44,7 @@ header::before{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--primary-color); 
+    background-color: var(--secondary-color);
     z-index: 1;
 }
 
@@ -60,8 +60,8 @@ header::before{
     font-size: 24px;
     font-weight: bold;
     color: #000;
-    width: 8.2%;
-    margin-top: 45px;
+    width: 6.2%;
+    margin-top: 8px;
     margin-left: -92px;
 }
 
@@ -77,7 +77,7 @@ nav .menu {
 
 nav .menu li a:not(.exclude){
     text-decoration: none;
-    color: #000;
+    color: #fff;
     font-weight: bold;
     font-size: 16px;
 }
@@ -92,9 +92,14 @@ nav .menu li a:not(.exclude){
     transition: transform .2s ease; 
 
     background: var(--secondary-color);
-    color: var(--primary-color) !important;
+    color: var(--primary-color);
     font-weight: bold;
     text-decoration: none;
+}
+
+.rev-btn{
+    background: var(--primary-color);
+    color: var(--secondary-color) !important;
 }
 
 .btn:hover{
