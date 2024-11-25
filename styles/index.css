@@ -5,7 +5,6 @@
     align-items: center;
     justify-content: center;
     color: var(--secondary-color);
-    background: var(--primary-color);
 }
 
 .section-1-content {
@@ -14,34 +13,17 @@
     width: 85%;
 }
 
-.section-1-content h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
-}
-
-.section-1-content p {
-    font-size: 18px;
-    max-width: 500px;
-    line-height: 1.5;
-}
-
-.section-1-content {
-    display: flex;
-    align-items: center;
-}
-
-.section-1-content>* {
-    display: inline-block;
-}
-
-.section-1-content > .image{
-    margin-left: 10vw;
-}
-
 .section-1-content>.image>img {
-    width: 350px;
+    width: 562px;
     animation: image-animation 4s linear infinite alternate;
-    margin-top: 120px;
+}
+
+.section-1-content > div > .button-container:hover{
+    transform: scale(1.1);
+}
+
+.section-1-content > div > .button-container > a:hover{
+    color: #fff !important;
 }
 
 @keyframes image-animation {
@@ -62,14 +44,5 @@
 .section-1-content > .text > .buttons{
     margin-top: 40px;
     width: 80%;
-    display: flex;
     gap: 22px;
-}
-
-.section-1-content > .text > .buttons > div:hover{
-    transition: transform .2s ease; 
-}
-
-.section-1-content > .text > .buttons > div:hover{
-        transform: scale(1.1) !important;
 }
