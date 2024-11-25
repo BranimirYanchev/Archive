@@ -17,12 +17,14 @@
 .section-1-content h1 {
     font-size: 48px;
     margin-bottom: 10px;
+    font-weight: bold;
+    line-height: 1.5;
 }
 
 .section-1-content p {
     font-size: 18px;
     max-width: 500px; /* Ограничаване на ширината на текста */
-    line-height: 1.5;
+    line-height: 1.5 !important;
 }
 
 /* Затъмняващ слой върху фона */
