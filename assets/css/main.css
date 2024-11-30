@@ -8,12 +8,12 @@
     --third-color: blue;
 }
 
-*{
+* {
     padding: 0;
     margin: 0;
 }
 
-p{
+p {
     line-height: 1.5;
 }
 
@@ -31,17 +31,16 @@ body {
 
 /* Header + Navbar */
 
-header{
+header {
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 99;
     position: fixed;
     width: 100%;
-    height: 103px;
 }
 
-header::before{
+header::before {
     content: "";
     position: absolute;
     top: 0;
@@ -64,7 +63,7 @@ header::before{
     margin-left: -92px;
 }
 
-.logo > img{
+.logo>img {
     width: 100%;
 }
 
@@ -75,7 +74,7 @@ nav .menu {
     margin-left: 88px;
 }
 
-nav .menu li a:not(.exclude){
+nav .menu li a:not(.exclude) {
     text-decoration: none;
     color: #fff;
     font-weight: bold;
@@ -89,7 +88,7 @@ nav .menu li a:not(.exclude){
     padding-left: 25px;
     font-size: 18px;
     line-height: 1;
-    transition: transform .2s ease; 
+    transition: transform .2s ease;
 
     background: var(--secondary-color);
     color: var(--primary-color);
@@ -97,22 +96,22 @@ nav .menu li a:not(.exclude){
     text-decoration: none;
 }
 
-.rev-btn{
+.rev-btn {
     background: var(--primary-color);
     color: var(--secondary-color) !important;
 }
 
-.button:hover{
+.button:hover {
     transform: scale(1.1) !important;
 }
 
-.menu{
+.menu {
     margin: 0;
     padding: 0;
 }
 
-.menu li{
-    transition: transform .2s ease; 
+.menu li {
+    transition: transform .2s ease;
 }
 
 .menu li:hover {
@@ -131,7 +130,52 @@ nav .menu li a:not(.exclude){
     transition: width 0.3s ease;
 }
 
-
 .menu li:not(.exclude):hover::after {
-    width: 100%; 
-} 
+    width: 100%;
+}
+
+/* End of Header + Navbar */
+
+/* Section 1 */
+
+/* Section 1 */
+.section-1 {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color);
+}
+
+.section-1-content {
+    z-index: 2;
+    /* Поставяме текста над затъмняващия слой */
+    width: 85%;
+}
+
+.s-1-title {
+    font-size: 5rem;
+}
+
+.section-1-content>.button-container:hover {
+    transform: scale(1.1);
+}
+
+.section-1-content>div>.button-container>a:hover {
+    color: #fff !important;
+}
+
+@keyframes image-animation {
+    0% {
+        transform: translateY(-20px) translateX(50px);
+    }
+
+    100% {
+        transform: translateY(-20px) translateX(0px);
+    }
+}
+
+
+.btn-mg-color {
+    background: rgb(26, 13, 171);
+}
