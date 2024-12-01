@@ -41,6 +41,16 @@ figure, header, nav, section, article, aside, footer, figcaption {
   outline: 0;
 }
 
+:root {
+  --primary-color: #fff;
+  --secondary-color: #000;
+  --third-color: blue;
+}
+
+p {
+  line-height: 1.3 !important;
+}
+
 .clearfix:after {
   content: ".";
   display: block;
@@ -316,73 +326,93 @@ Header Style
 --------------------------------------------- 
 */
 
-.sub-header {
-  background-color: #fff;
-  padding: 10px 0px;
-  border-bottom: 1px solid #eee;
+/* -------------- */
+
+/* Header + Navbar */
+
+header{
+    color: white;
 }
 
-.sub-header ul li {
-  display: inline-block;
+header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--secondary-color);
+    z-index: 1;
 }
 
-.sub-header ul.social-links {
-  text-align: right;
+.header{
+    width: 86%;
 }
 
-.sub-header ul.social-links li {
-  margin-left: 8px;
+.logo {
+    width: 6.2%;
+    margin-left: -92px;
 }
 
-.sub-header ul.social-links li a {
-  display: inline-block;
-  width: 30px;
-  height: 30px;
-  background-color: #cdcdcd;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 30px;
-  color: #fff;
-  font-size: 14px;
-  transition: all .3s;
+nav .menu {
+    gap: 5.5rem;
+    margin-left: 4rem;
 }
 
-.sub-header ul.social-links li a:hover {
-  background-color: #f35525;
+nav .menu li a:not(.exclude) {
+    text-decoration: none;
+    color: #fff;
 }
 
-.sub-header ul.info li {
-  font-size: 14px;
-  color: #7a7a7a;
-  border-right: 1px solid #eee;
-  margin-right: 25px;
-  padding-right: 25px;
+.button{
+    border-radius: 10px;
+    padding: 14px 25px;
+    padding-right: 25px;
+    padding-left: 25px;
+    font-size: 18px;
+    line-height: 1;
+    transition: transform .2s ease;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
 }
 
-.sub-header ul.info li:last-child {
-  margin-right: 0px;
-  padding-right: 0px;
-  border-right: none;
+.rev-btn {
+    background: var(--primary-color);
+    color: var(--secondary-color) !important;
 }
 
-.sub-header ul.info li i {
-  font-size: 20px;
-  color: #f35525;
-  margin-right: 8px;
+.button:hover {
+    transform: scale(1.1) !important;
 }
 
-.background-header {
-  background-color: #fff;
-  height: 80px!important;
-  position: fixed!important;
-  top: 0!important;
-  left: 0;
-  right: 0;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.15)!important;
-  -webkit-transition: all .5s ease 0s;
-  -moz-transition: all .5s ease 0s;
-  -o-transition: all .5s ease 0s;
-  transition: all .5s ease 0s;
+.menu li {
+    transition: transform .2s ease;
+}
+
+.menu li:hover {
+    transform: scale(1.2);
+    font-size: 16px;
+}
+
+.menu li:not(.exclude)::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.menu li:not(.exclude):hover::after {
+    width: 100%;
+}
+
+.w-70{
+  width: 70%;
 }
 
 .header-area {
@@ -394,11 +424,6 @@ Header Style
   -moz-transition: all .5s ease 0s;
   -o-transition: all .5s ease 0s;
   transition: all .5s ease 0s;
-}
-
-.header-area .main-nav {
-  background: transparent;
-  display: flex;
 }
 
 .header-area .main-nav .logo {
@@ -838,7 +863,27 @@ Banner Style
   background-color: rgba(255, 255, 255, 0.5);
 }
 
+/* 
+---------------------------------------------
+Section-1 Style
+--------------------------------------------- 
+*/
 
+.mt-6{
+  margin-top: 12rem;
+}
+
+.s-1-title {
+  font-size: 5rem;
+}
+
+.section-1-content>.button-container:hover {
+  transform: scale(1.1);
+}
+
+.section-1-content>div>.button-container>a:hover {
+  color: #fff !important;
+}
 
 /* 
 ---------------------------------------------
