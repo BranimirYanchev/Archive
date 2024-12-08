@@ -1,48 +1,21 @@
-/* Section 1 */
-.section-1 {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--secondary-color);
+/* 
+---------------------------------------------
+Section-1 Style
+--------------------------------------------- 
+*/
+
+.mt-6 {
+    margin-top: 12rem;
 }
 
-.section-1-content {
-    z-index: 2;
-    /* Поставяме текста над затъмняващия слой */
-    width: 85%;
+.s-1-title {
+    font-size: 6rem;
 }
 
-.section-1-content>.image>img {
-    width: 562px;
-    animation: image-animation 4s linear infinite alternate;
-}
-
-.section-1-content > div > .button-container:hover{
+.section-1-content>.button-container:hover {
     transform: scale(1.1);
 }
 
-.section-1-content > div > .button-container > a:hover{
+.section-1-content>div>.button-container>a:hover {
     color: #fff !important;
-}
-
-@keyframes image-animation {
-    0% {
-        transform: translateY(-20px) translateX(50px);
-    }
-
-    100% {
-        transform: translateY(-20px) translateX(0px);
-    }
-}
-
-
-.btn-mg-color{
-    background: rgb(26, 13, 171);
-}
-
-.section-1-content > .text > .buttons{
-    margin-top: 40px;
-    width: 80%;
-    gap: 22px;
 }
