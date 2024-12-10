@@ -26,4 +26,5 @@ Section-1 Style
 
 .section-1{
     height: 100vh;
+    background: inherit;
 }

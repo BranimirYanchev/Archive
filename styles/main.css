@@ -24,7 +24,6 @@ body {
     font-size: 12px;
     color: black;
     line-height: 1.7;
-    background: #f9f9f9;
 }
 
 /* End of Common */
@@ -34,6 +33,7 @@ body {
 
 header {
     color: white;
+    
 }
 
 header::before {
@@ -43,8 +43,8 @@ header::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--secondary-color);
     z-index: 1;
+    background-color: #0D0D0D;
 }
 
 .header {
@@ -52,34 +52,8 @@ header::before {
 }
 
 .logo {
-    width: 90px;
-    margin-left: -92px;
-}
-
-nav .menu {
-    gap: 5.5rem;
-    margin-left: 4rem;
-}
-
-
-.menu li {
-    text-align: center;
-    margin: 0 15px;
-}
-
-.menu a {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-}
-
-.menu i {
-    font-size: 1.5rem;
-}
-
-nav .menu li a:not(.exclude) {
-    text-decoration: none;
-    color: #fff;
+    width: 80px;
+    margin-left: -53px;
 }
 
 .button {
@@ -105,30 +79,6 @@ nav .menu li a:not(.exclude) {
     transform: scale(1.1) !important;
 }
 
-.menu li {
-    transition: transform .2s ease;
-}
-
-.menu li:hover {
-    transform: scale(1.2);
-    font-size: 16px;
-}
-
-.menu li:not(.exclude)::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -2px;
-    width: 0;
-    height: 1px;
-    background-color: var(--primary-color);
-    transition: width 0.3s ease;
-}
-
-.menu li:not(.exclude):hover::after {
-    width: 100%;
-}
-
 .w-70 {
     width: 70%;
 }
@@ -143,3 +93,134 @@ nav .menu li a:not(.exclude) {
     -o-transition: all .5s ease 0s;
     transition: all .5s ease 0s;
 }
+
+/* Burger button */
+.burger-btn {
+    width: 50px;
+    /* Increased size */
+    height: 40px;
+    /* Increased size */
+    cursor: pointer;
+}
+
+.burger-btn div {
+    background-color: #fff;
+    height: 6px;
+    /* Thicker bars */
+    border-radius: 3px;
+    width: 100%;
+    /* Rounded edges for better aesthetics */
+    transition: all 0.3s ease-in-out;
+}
+
+.burger-btn div:not(:last-child) {
+    margin-bottom: 6px;
+    /* Spacing between bars */
+}
+
+/* Transform the bars when the button is open */
+.burger-btn.open div:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
+    /* Top bar rotates */
+}
+
+.burger-btn.open div:nth-child(2) {
+    opacity: 0;
+    /* Middle bar disappears */
+}
+
+.burger-btn.open div:nth-child(3) {
+    transform: translateY(-23px) rotate(-45deg);
+    /* Bottom bar rotates */
+}
+
+/* Fullscreen menu */
+.fullscreen-menu {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: translateY(-100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.fullscreen-menu.active {
+    transform: translateY(0);
+}
+
+.fullscreen-menu a {
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 20px 0;
+    text-transform: uppercase;
+    transition: transform 0.3s ease-in-out;
+}
+
+.fullscreen-menu a:hover {
+    transform: scale(1.2);
+}
+
+.fullscreen-menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.fullscreen-menu a:hover::after {
+    width: 100%;
+}
+
+/* Search Form Styling */
+.search-form {
+    max-width: 600px; /* Set the max width of the search bar */
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 8px 15px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.search-input {
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    flex-grow: 1;
+    border-radius: 30px;
+    outline: none;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+.search-button {
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 50%;
+    padding: 12px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-button:hover  {
+    transform: scale(1.1);
+}
+
+/* Font Awesome Search Icon */
+.search-button i {
+    color: white;
+    font-size: 20px;
+}
+
