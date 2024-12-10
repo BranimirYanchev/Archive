@@ -8,6 +8,10 @@ Section-1 Style
     margin-top: 12rem;
 }
 
+.mt-7 {
+    margin-top: 14rem;
+}
+
 .s-1-title {
     font-size: 6rem;
 }
@@ -18,4 +22,8 @@ Section-1 Style
 
 .section-1-content>div>.button-container>a:hover {
     color: #fff !important;
+}
+
+.section-1{
+    height: 100vh;
 }

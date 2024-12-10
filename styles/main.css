@@ -52,13 +52,29 @@ header::before {
 }
 
 .logo {
-    width: 6.2%;
+    width: 90px;
     margin-left: -92px;
 }
 
 nav .menu {
     gap: 5.5rem;
     margin-left: 4rem;
+}
+
+
+.menu li {
+    text-align: center;
+    margin: 0 15px;
+}
+
+.menu a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.menu i {
+    font-size: 1.5rem;
 }
 
 nav .menu li a:not(.exclude) {
