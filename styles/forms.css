@@ -3,8 +3,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 90vh;
     background-color: #fff; /* Black background */
+    margin-top: 30px;
 }
 
 /* Card container for forms */
@@ -115,8 +116,12 @@ a:hover {
 /* Back arrow link */
 .back-arrow {
     color: #000;
-    height: 10px;
-    width: 10px;
-    text-decoration: none;
-    margin-left: 110px;
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    transition: all 0.1 ease-in-out;
+}
+
+.back-arrow:hover{
+    transform: scale(1.1);
 }

@@ -23,22 +23,24 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <a href="index.html" class="back-arrow">
-        <span>&#8592;</span>
+    <div class="preloader-container d-flex justify-content-center align-items-center">
+        <div class="preloader" id="preloader"></div>
+    </div>
+
+    <a href="index.html" class="back-arrow text-decoration-none mt-2">
+        Назад
     </a>
 
     <div class="form-container">
         <!-- Sign In Form -->
         <div class="form-card" id="signInForm">
             <h2 class="mb-4">Вход</h2>
-            <form action="#" method="POST">
+            <form action="#" method="POST" id="login-form">
                 <div class="input-group">
-                    <input type="email" id="signInEmail" placeholder=" " required />
-                    <label for="signInEmail">Имейл</label>
+                    <input type="email" name="email" id="email" placeholder="Имейл" required />
                 </div>
                 <div class="input-group">
-                    <input type="password" id="signInPassword" placeholder=" " required />
-                    <label for="signInPassword">Парола</label>
+                    <input type="password" name="password" id="password" placeholder="Парола" required />
                 </div>
                 <button type="submit" class="submit-button button border-0">Вход</button>
                 <button type="button" class="toggle-button">Нямаш акаунт? Създай си!</button>
@@ -48,25 +50,24 @@
         <!-- Sign Up Form -->
         <div class="form-card" id="signUpForm">
             <h2 class="mb-4">Регистрация</h2>
-            <form action="#" method="POST">
+            <form action="#" method="POST" id="register-form">
                 <div class="input-group">
-                    <input type="email" id="signUpEmail" placeholder=" " required />
-                    <label for="signUpEmail">Имейл</label>
+                    <input type="email" id="email" name="email" placeholder="Имейл" required />
                 </div>
                 <div class="input-group">
-                    <input type="text" id="signUpUsername" placeholder=" " required />
-                    <label for="signUpUsername">Име</label>
+                    <input type="text" id="name" name="name" placeholder="Име" required />
                 </div>
                 <div class="input-group">
-                    <input type="password" id="signUpPassword" placeholder=" " required />
-                    <label for="signUpPassword">Парола</label>
+                    <input type="text" id="name" name="name" placeholder="Фамилия" required />
                 </div>
                 <div class="input-group">
-                    <input type="password" id="signUpConfirmPassword" placeholder=" " required />
-                    <label for="signUpConfirmPassword">Потвърди паролата</label>
+                    <input type="password" name="password" id="password" placeholder="Парола" required />
                 </div>
                 <div class="input-group">
-                    <select id="userRole" required>
+                    <input type="password" id="password" name="password" placeholder="Повтори паролата" required />
+                </div>
+                <div class="input-group">
+                    <select id="userRole" name="userRole" required>
                         <option value="" disabled selected>Роля</option>
                         <option value="teacher">Учител</option>
                         <option value="student">Ученик</option>
@@ -82,6 +83,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
     <script src="../scripts/forms.js"></script>
+    <script src="../scripts/preloader.js"></script>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>  
 </body>

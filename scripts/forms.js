@@ -1,20 +1,43 @@
-const id = sessionStorage.getItem('id');;
-const forms = [$('#signInForm')[0], $('#signUpForm')[0]];
-const btns = $('.toggle-button');
+let id = sessionStorage.getItem('id');
+const formContainers = [$('#signInForm')[0], $('#signUpForm')[0]];
+const toggleBtns = $('.toggle-button');
+const submitBtns = $('.submit-button');
 
-defaultHiddenForm(forms, id);
+if (id == null) {
+    id = 0;
+}
 
-btns.on('click', function() {
-    toggleForms(forms);
-    sessionStorage.setItem('id', btns.index(this));
+$(formContainers[id]).addClass('d-none')
+
+toggleBtns.on('click', function () {
+    toggleformContainers(formContainers);
+    sessionStorage.setItem('id', toggleBtns.index(this));
 });
 
-function defaultHiddenForm(forms, id = 0) {
-    forms[id].classList.add('d-none')
+$(submitBtns).on('click', function(e){
+    e.preventDefault();
+    const currentId = submitBtns.index(this);
+    const forms = [$('#login-form')[0], $('#register-form')[0]];
+    let data = formToJSON(forms[currentId]);
+    console.log(data);
+})
+
+// Function to toggle between Sign In and Sign Up formContainers
+function toggleformContainers(formContainers) {
+    formContainers.forEach(e => $(e).toggleClass('d-none'));
 }
 
-// Function to toggle between Sign In and Sign Up forms
-function toggleForms(forms) {
-    forms.forEach(e => e.classList.toggle('d-none'));
+// Convert form data to JSON
+function formToJSON(form) {
+    const formData = new FormData(form);
+    console.log(formData)
+    const jsonObject = {};
+    formData.forEach((value, key) => {
+        jsonObject[key] = value;
+    });
+    return JSON.stringify(jsonObject);
 }
 
+function setData(data, method) {
+
+}
