@@ -16,10 +16,13 @@ toggleBtns.on('click', function () {
 
 $(submitBtns).on('click', function(e){
     e.preventDefault();
+
+    const url = "http://localhost:5175/api/echo"
     const currentId = submitBtns.index(this);
     const forms = [$('#login-form')[0], $('#register-form')[0]];
+
     let data = formToJSON(forms[currentId]);
-    console.log(data);
+    sendData(data, "POST", url);
 })
 
 // Function to toggle between Sign In and Sign Up formContainers
@@ -35,9 +38,24 @@ function formToJSON(form) {
     formData.forEach((value, key) => {
         jsonObject[key] = value;
     });
-    return JSON.stringify(jsonObject);
+    return jsonObject;
 }
 
-function setData(data, method) {
-
+function sendData(data, method, url) {
+    $.ajax({
+        url : url,
+        type : method,
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function(response) {
+            if(response.url != ""){
+                sessionStorage.setItem("email", data.email);
+                window.open(response.url, "_self");
+            }
+            
+        },
+        error: function(xhr, status, error) {
+            console.error("Error:", error);
+        }
+    })
 }
