@@ -43,8 +43,10 @@
                 <div class="input-group">
                     <input type="email" name="email" id="email" placeholder="Имейл" required />
                 </div>
-                <div class="input-group">
-                    <input type="password" name="password" id="password" placeholder="Парола" required />
+                <div class="input-group password-group">
+                    <input type="password" name="password" id="password" class="toggled" placeholder="Парола" required />
+                    <i class="fa-solid fa-eye-slash toggle-slash"></i>
+                    <i class="fa-solid fa-eye d-none toggle"></i>
                 </div>
                 <button type="submit" class="submit-button button border-0">Вход</button>
                 <button type="button" class="toggle-button">Нямаш акаунт? Създай си!</button>
@@ -72,15 +74,14 @@
                 <div class="input-group">
                     <input type="text" id="lastName" name="lastName" placeholder="Фамилия" required />
                 </div>
-                <div class="input-group">
-                    <input type="password" name="password" id="password" placeholder="Парола" required />
+                <div class="input-group password-group">
+                    <input type="password" name="password" id="password" class="toggled" placeholder="Парола" required />
+                    <i class="fa-solid fa-eye-slash toggle-slash"></i>
+                    <i class="fa-solid fa-eye d-none toggle"></i>
                 </div>
                 <div class="input-group">
-                    <input type="password" id="repeatedPassword" name="repeatedPassword" placeholder="Повтори паролата" required />
-                    <button id="togglePassword" class="togglePassword">
-                        <i class="bi bi-eye"></i>
-                    </button>
-                </div>
+                    <input type="password" name="repeatedPassword" id="repeatedPassword" class="toggled" placeholder="Парола" required />
+                 </div>
                 <button type="submit" class="submit-button button">Потвърди</button>
                 <button type="button" class="toggle-button">Имаш акаунт? Влез!</button>
             </form>

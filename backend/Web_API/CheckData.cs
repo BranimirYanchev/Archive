@@ -16,13 +16,13 @@ class CheckLoginData
         get; set;
     }
 
-    public CheckLoginData(string email, string password)
+    public CheckLoginData(string email = "", string password = "")
     {
         Email = email;
         Password = password;
     }
 
-    private bool IsValidData(string data, string regex)
+    public bool IsValidData(string data, string regex)
     {
         if (!new Regex(regex).IsMatch(data))
         {
@@ -119,21 +119,11 @@ class CheckRegisterData
         return true;
     }
 
-    private bool IsValidData(string data, string regex)
-    {
-        if (!new Regex(regex).IsMatch(data))
-        {
-            return false;
-        }
-
-        return true;
-    }
-
     public RegisterResponseMessage Message(bool isUserExists = false)
     {
         // Example logic for creating a response
-        bool isEmailValid = IsValidData(Email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-        bool isPasswordValid = IsValidData(Password, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
+        bool isEmailValid = new CheckLoginData().IsValidData(Email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+        bool isPasswordValid = new CheckLoginData().IsValidData(Password, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$");
         bool isFirstNameValid = IsEmptyField(FirstName);
         bool isLastNameValid = IsEmptyField(LastName);
         bool arePasswordsMatch = ArePasswordsMatch(Password, RepeatedPassword);

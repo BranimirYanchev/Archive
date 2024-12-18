@@ -6,7 +6,7 @@ const toggleBtns = $('.toggle-button');
 const submitBtns = $('.submit-button');
 
 if (id == null) {
-    id = 0;
+    id = 1;
 }
 
 $(formContainers[id]).addClass('d-none')
@@ -32,7 +32,33 @@ $(submitBtns).on('click', function (e) {
     }
 
     sendData(data, "POST", url);
-})
+});
+const togglePassBtnsT = $('.toggle');
+const togglePassBtnsS = $('.toggle-slash');
+
+togglePassBtnsS.on('click', function(){
+    console.log(togglePassBtnsS.index(this));
+    togglePassVisibility(togglePassBtnsS.index(this));
+});
+
+togglePassBtnsT.on('click', function(){
+    console.log(togglePassBtnsT.index(this));
+    togglePassVisibility(togglePassBtnsT.index(this));
+});
+
+
+function togglePassVisibility(i){
+    console.log(i);    
+    const passwordField = $('.toggled')[i];
+    const isPassword = passwordField.getAttribute('type') === 'password';
+
+    // Toggle password field type
+    passwordField.setAttribute('type', isPassword ? 'text' : 'password');
+
+    // Toggle icons visibility
+    $('.toggle').toggleClass('d-none');
+    $('.toggle-slash').toggleClass('d-none');
+}
 
 // Function to toggle between Sign In and Sign Up formContainers
 function toggleformContainers(formContainers) {
@@ -87,42 +113,36 @@ toastr.options = {
     "onclick": null
 };
 
+const errorMessages = {
+    email: "Неправилен имейл!",
+    firstName: "Полето име не може да бъде празно!",
+    lastName: "Полето фамилия не може да бъде празно!",
+    password: "Неправилна парола!",
+    passwordsMatch: "Паролите не съвпадат!",
+    isUserExists: "Потребител с тези данни вече съществува!"
+}
+
+// TODO: Add info messages and toastr.info()
+
 function handleRegisterData(response) {
-    const messages = {
-        email: "Неправилен имейл!",
-        firstName: "Полето име не може да бъде празно!",
-        lastName: "Полето фамилия не може да бъде празно!",
-        password: "Неправилна парола!",
-        passwordsMatch: "Паролите не съвпадат!",
-        isUserExists: "Потребител с тези данни вече съществува!"
-    }
-
-
     Object.keys(response).forEach((key) => {
         if (response[key] == false && key != "url") {
             console.warn(key);
             if (key != "isUserExists") {
-                toastr.error(messages[key]);
+                toastr.error(errorMessages[key]);
                 return;
             };
         }else if(key == "isUserExists" && response[key]){
-            toastr.error(messages[key]);
+            toastr.error(errorMessages[key]);
             return;
         }
     });
 }
 
 function handleLoginData(response) {
-    console.warn(response);
-    const messages = {
-        email: "Неправилен имейл!",
-        password: "Неправилна парола!",
-        isUserExists: "Потребител с тези данни не съществува!"
-    }
-
     Object.keys(response).forEach((key) => {
         if (response[key] == false && key != "url") {
-            toastr.error(messages[key]);
+            toastr.error(errorMessages[key]);
             return;
         }
     });

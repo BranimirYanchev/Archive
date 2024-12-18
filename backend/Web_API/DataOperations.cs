@@ -28,13 +28,10 @@ class DataOperations
         myConnection = database.Connect();
         myConnection.Open();
 
-        Console.WriteLine("I'm here!");
-
         // Prepare the SQL statement with parameters to prevent SQL injection
         string query = "INSERT INTO users (email, password) VALUES (@Email, @PasswordHash)";
         database.runQuery(query, email, password);
 
-        Console.WriteLine("User inserted!");
         myConnection.Close();
     }
 }
