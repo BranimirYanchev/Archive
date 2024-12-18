@@ -19,8 +19,26 @@ var app = builder.Build();
 app.UseCors("AllowAll");
 
 // Define API endpoints
-app.MapGet("/api/greet", () => new { message = "MAMA MU DEEBa"});
-app.MapPost("/api/echo", async (HttpContext context) =>
+app.MapPost("/api/register", async (HttpContext context) =>
+{
+    using var reader = new StreamReader(context.Request.Body);
+    var requestBody = await reader.ReadToEndAsync();
+
+    // Parse the JSON dynamically
+    var json = JsonDocument.Parse(requestBody);
+    string email = json.RootElement.GetProperty("email").GetString();
+    string password = json.RootElement.GetProperty("password").GetString();
+    string repeatedPassword = json.RootElement.GetProperty("repeatedPassword").ToString();
+    string firstName = json.RootElement.GetProperty("firstName").ToString();
+    string lastName = json.RootElement.GetProperty("lastName").ToString();
+
+    CheckRegisterData data = new CheckRegisterData("", email, firstName, lastName, password, repeatedPassword);
+
+    // Let ASP.NET handle serialization
+    return data.Message();
+});
+
+app.MapPost("/api/login", async (HttpContext context) =>
 {
     using var reader = new StreamReader(context.Request.Body);
     var requestBody = await reader.ReadToEndAsync();
@@ -30,7 +48,7 @@ app.MapPost("/api/echo", async (HttpContext context) =>
     string email = json.RootElement.GetProperty("email").GetString();
     string password = json.RootElement.GetProperty("password").GetString();
 
-    CheckData data = new CheckData(email, password);
+    CheckLoginData data = new CheckLoginData(email, password);
 
     // Let ASP.NET handle serialization
     return data.Message();

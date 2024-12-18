@@ -1,16 +1,33 @@
-using System.Security.AccessControl;
-using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
+using System;
 
-public class YourDbContext : DbContext
+class Database
 {
-    public YourDbContext(DbContextOptions<YourDbContext> options)
-        : base(options)
-    { }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    MySqlConnection myConnection;
+    public MySqlConnection Connect()
     {
-        optionsBuilder.UseMySQL("server=localhost;port=8888;database=archive-db;user=admin;password=admin1234");
+        string myConnectionString  = "server=127.0.0.1;port=8889;user=admin;password=admin1234;database=archive-db;";
+
+        myConnection = new MySqlConnection(myConnectionString);
+        
+        return myConnection;
     }
 
-    public DbSet<User> Customers { get; set; }
+    public List<bool> runQuery(string query, string email, string password)
+    {
+        List<bool> message = new List<bool>();
+        using (MySqlCommand command = new MySqlCommand(query, myConnection))
+        {
+            command.Parameters.AddWithValue("@Email", email);
+            command.Parameters.AddWithValue("@PasswordHash", password);
+
+            using (var reader = command.ExecuteReader())  // Opening DataReader
+            {
+                message.Add(reader.HasRows);
+                reader.Close();  // Explicitly close the reader
+            }
+        }
+
+        return message;
+    }
 }
