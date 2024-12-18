@@ -1,9 +1,16 @@
-sessionStorage.clear();
-
 let id = sessionStorage.getItem('id');
 const formContainers = [$('#signInForm')[0], $('#signUpForm')[0]];
 const toggleBtns = $('.toggle-button');
 const submitBtns = $('.submit-button');
+
+if(sessionStorage.getItem('isUserLogged')){
+    const data = {
+        email: sessionStorage.getItem('email'),
+        password: sessionStorage.getItem('password')
+    }
+
+    sendData(data, "POST", "http://localhost:5175/api/login", "L");
+}
 
 if (id == null) {
     id = 1;
@@ -86,6 +93,7 @@ function sendData(data, method, url, type = "R") {
                 sessionStorage.setItem("email", data.email);
                 sessionStorage.setItem("id", 0);
                 sessionStorage.setItem("isUserLogged", true);
+                sessionStorage.setItem('password', data.password);
                 window.open(response.url, "_self");
             } else {
                 if (type == "R") {
