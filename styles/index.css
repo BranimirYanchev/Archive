@@ -4,16 +4,8 @@ Section-1 Style
 --------------------------------------------- 
 */
 
-.mt-6 {
-    margin-top: 12rem;
-}
-
-.mt-7 {
-    margin-top: 14rem;
-}
-
 .s-1-title {
-    font-size: 6rem;
+    font-size: 150px;
 }
 
 .section-1-content>.button-container:hover {
@@ -24,7 +16,68 @@ Section-1 Style
     color: #fff !important;
 }
 
-.section-1{
-    height: 100vh;
-    background: inherit;
+/* Главна секция */
+.archive-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 46rem; /* Пълна височина на екрана */
+    position: relative;
+}
+
+/* Снимка като фон */
+.section-1 > .container {
+    width: 90%; /* Уголемяване на ширината */
+    max-width: 1400px;
+    height: 90%; /* Увеличена височина */
+    position: relative;
+    background: url("../images/img-section-1.png");
+    background-position: center;
+    background-size: cover;
+    background-color: #faf4e8;
+    border-radius: 20px; /* Закръглени ъгли */
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+}
+
+.section-1-heading{
+    color: #e7dbc8;
+}
+
+.section-1-description{
+    color: #e7dbc8;
+    font-size: 50px;
+    margin: 0px;
+    height: 76px;
+}
+
+/* Полупрозрачен слой за контраст */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px; 
+}
+
+.section-1-btns{
+    height: 71px;
+}
+
+.section-2 > .container{
+    width: 90%; /* Уголемяване на ширината */
+    max-width: 1400px;
+    height: 90%; /* Увеличена височина */
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-color: #faf4e8;
+    border-radius: 20px; /* Закръглени ъгли */
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
 }
