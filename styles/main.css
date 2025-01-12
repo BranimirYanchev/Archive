@@ -5,8 +5,8 @@
 /* Common */
 
 :root {
-    --primary-color: #fff;
-    --secondary-color: #000;
+    --primary-color: #e7dbc8;
+    --secondary-color: #5a3e2b;
     --third-color: blue;
 }
 
@@ -24,6 +24,7 @@ body {
     font-size: 12px;
     color: black;
     line-height: 1.7;
+    background: #e7dbc8 !important;
 }
 
 /* End of Common */
@@ -59,20 +60,21 @@ header::before {
 .button {
     border-radius: 10px;
     padding: 14px 25px;
-    padding-right: 25px;
-    padding-left: 25px;
-    font-size: 18px;
+    font-size: 26px;
     line-height: 1;
     transition: transform .2s ease;
     background: var(--secondary-color);
     color: var(--primary-color);
     font-weight: bold;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .rev-btn {
-    background: var(--primary-color);
-    color: var(--secondary-color) !important;
+    background: #8a5a3e;
+    color: var(--primary-color) !important;
 }
 
 .button:hover {

@@ -4,16 +4,26 @@ Section-1 Style
 --------------------------------------------- 
 */
 
-.mt-6 {
-    margin-top: 12rem;
+.section-content {
+    width: 90%;
+    height: 90%;
+    /* Увеличена височина */
+    position: relative;
+    background-color: #faf4e8;
+    border-radius: 20px;
+    /* Закръглени ъгли */
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
 }
 
-.mt-7 {
-    margin-top: 14rem;
-}
+/* 
+---------------------------------------------
+Section-1 Style
+--------------------------------------------- 
+*/
 
-.s-1-title {
-    font-size: 6rem;
+.section-1{
+    height: 100vh;
 }
 
 .section-1-content>.button-container:hover {
@@ -24,7 +34,109 @@ Section-1 Style
     color: #fff !important;
 }
 
-.section-1{
-    height: 100vh;
-    background: inherit;
+/* Главна секция */
+.archive-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Пълна височина на екрана */
+    position: relative;
 }
+
+/* Снимка като фон */
+.section-1>.section-content {
+    background: url("../images/img-section-1.png");
+    background-position: center;
+    background-size: cover;
+    width: 90%;
+}
+
+.overlay > div{
+    gap: 6%;
+}
+
+.section-1-heading {
+    color: #e7dbc8;
+    font-size: 150px;
+}
+
+.section-1-description {
+    color: #e7dbc8;
+    font-size: 50px;
+    margin: 0px;
+    height: 76px;
+}
+
+/* Полупрозрачен слой за контраст */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+
+
+.section-1-btns {
+    margin-top: 32px;
+    height: 71px;
+}
+
+/* 
+---------------------------------------------
+Section-2 Style
+--------------------------------------------- 
+*/
+
+.section-2 {
+    height: 100vh;
+}
+
+.section-2>.section-content{
+    width: 76.4%;
+    height: 67.7%;
+    border-radius: 45px;
+    margin-left: -3.3%;
+}
+
+.section-2>.container {
+    width: 72%;
+    height: 68%;
+    margin-right: 247px;
+    margin-bottom: 3px;
+    padding: 0;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 300px;
+    /* Adjust as needed */
+    height: 100%;
+}
+
+.swiper-btn::after{
+    color: #e7dbc8;
+}
+
+
+.section-2-background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+}
+
+.swiper-slide {
+    height: 101% !important;
+    margin-right: -2px;
+    background-color: #faf4e8;
+}
+
