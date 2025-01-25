@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Албум</title>
+    <style>   
+    </style>
+</head>
+<body>
+    <div id="album">
+        <div class="page">Страница 1</div>
+        <div class="page">Страница 2</div>
+        <div class="page">Страница 3</div>
+        <div class="page">Страница 4</div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="../scripts/turn.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#album").turn({
+                width: 600,
+                height: 400,
+                autoCenter: true,
+            });
+        });        
+    </script>
+</body>
+</html>

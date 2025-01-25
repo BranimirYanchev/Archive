@@ -27,46 +27,105 @@
     <div class="preloader-container d-flex justify-content-center align-items-center">
         <div class="preloader" id="preloader"></div>
     </div>
-    <!-- ***** Header Area Start ***** -->
-    <header class="header-area header-sticky d-flex align-items-center justify-content-center position-fixed w-100 z-3 ">
-        <div class="header z-1 d-flex align-items-center ms-4">
-            <div class="logo">
-                <img src="../images/logo.png" class="w-100" alt="Лого">
-            </div>
-
-            <form class="search-form w-100 ms-auto"  action="#" method="GET">
-                <div class="search-container">
-                    <!-- Magnifying glass icon -->
-                    <input type="text" id="searchInput" class="search-input" placeholder="Търси..." />
-                    <button type="submit" class="search-button">
-                        <i class="fas fa-search"></i> <!-- Font Awesome search icon -->
-                    </button>
-                </div>
-            </form>
-            <!-- Burger button -->
-            <button class="burger-btn d-flex flex-column justify-content-between align-items-center p-0 border-0 bg-transparent z-3 ms-auto" id="burgerButton">
-                <div></div>
-                <div></div>
-                <div></div>
-            </button>
-
-            <!-- Fullscreen menu -->
-            <div class="fullscreen-menu hide d-flex flex-column justify-content-center align-items-center z-2 h-100 w-100 position-fixed top-0 start-0" id="fullscreenMenu">
-                <a href="index.html">Начало</a>
-                <a href="#archive">Архив</a>
-                <a href="#about">За нас</a>
-                <a href="#contact">Контакти</a>
-            </div>
-            <a href="forms.html" class="button rev-btn fs-5 ms-4" id="login">Влез</a>
-        </div>
-    </header>
 
     <main>
-        <section>
-            <h1></h1>
-            <script>$("h1").text("Добре дошъл, " + sessionStorage.getItem("email"))</script>
-        </section>
+        <h1>Profile and Archives Management</h1>
+        <div class="container">
+            <!-- Profile Section -->
+            <section id="profile-section">
+                <h2>Edit Profile</h2>
+                <form id="profile-form">
+                    <label for="profile-pic">Profile Picture</label>
+                    <input type="file" id="profile-pic" accept="image/*">
+    
+                    <label for="first-name">First Name</label>
+                    <input type="text" id="first-name" placeholder="Enter first name">
+    
+                    <label for="last-name">Last Name</label>
+                    <input type="text" id="last-name" placeholder="Enter last name">
+    
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter email">
+    
+                    <label for="class">Class</label>
+                    <input type="text" id="class" placeholder="Enter class">
+    
+                    <button type="button" onclick="saveProfile()">Save Profile</button>
+                </form>
+            </section>
+    
+            <!-- Archives Section -->
+            <section id="archives-section" class="archives">
+                <h2>Manage Archives</h2>
+                <form id="archive-form">
+                    <label for="archive-title">Title</label>
+                    <input type="text" id="archive-title" placeholder="Enter archive title">
+    
+                    <label for="archive-image">Image</label>
+                    <input type="file" id="archive-image" accept="image/*">
+    
+                    <label for="archive-date">Date</label>
+                    <input type="date" id="archive-date">
+    
+                    <label for="archive-description">Description</label>
+                    <textarea id="archive-description" rows="5" placeholder="Enter description (links, images, videos allowed)"></textarea>
+    
+                    <button type="button" onclick="addArchive()">Add Archive</button>
+                </form>
+    
+                <div id="archive-list">
+                    <!-- Dynamically generated archive items will go here -->
+                </div>
+            </section>
+        </div>
+    
+        <script>
+            function saveProfile() {
+                const profilePic = document.getElementById('profile-pic').files[0]?.name || 'No file selected';
+                const firstName = document.getElementById('first-name').value;
+                const lastName = document.getElementById('last-name').value;
+                const email = document.getElementById('email').value;
+                const userClass = document.getElementById('class').value;
+    
+                alert(`Profile saved:\n- Picture: ${profilePic}\n- Name: ${firstName} ${lastName}\n- Email: ${email}\n- Class: ${userClass}`);
+            }
+    
+            function addArchive() {
+                const title = document.getElementById('archive-title').value;
+                const image = document.getElementById('archive-image').files[0]?.name || 'No image';
+                const date = document.getElementById('archive-date').value;
+                const description = document.getElementById('archive-description').value;
+    
+                if (!title || !date || !description) {
+                    alert('Title, date, and description are required!');
+                    return;
+                }
+    
+                const archiveList = document.getElementById('archive-list');
+    
+                const archiveItem = document.createElement('div');
+                archiveItem.classList.add('archive-item');
+    
+                archiveItem.innerHTML = `
+                    <h3>${title}</h3>
+                    <p><strong>Date:</strong> ${date}</p>
+                    <p><strong>Image:</strong> ${image}</p>
+                    <p>${description}</p>
+                `;
+    
+                archiveList.appendChild(archiveItem);
+    
+                // Clear the form
+                document.getElementById('archive-form').reset();
+            }
+        </script>
     </main>
+
+    <script>
+        if(sessionStorage.getItem("email") == null){
+            window.open('forms.html', '_self')
+        }
+    </script>
   <!-- ***** Header Area End ***** -->
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

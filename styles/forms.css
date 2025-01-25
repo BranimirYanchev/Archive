@@ -4,14 +4,14 @@
     justify-content: center;
     align-items: center;
     min-height: 90vh;
-    background-color: #fff;
+    background: #e7dbc8 !important;
     /* Black background */
     margin-top: 30px;
 }
 
 /* Card container for forms */
 .form-card {
-    background: #fff;
+    background-color: #faf4e8;
     /* White background for the form card */
     padding: 40px;
     border-radius: 12px;
@@ -168,4 +168,8 @@ a:hover {
     width: 10%;
     display: flex;
     align-items: center;
-}   
+}
+
+.sec-clr{
+    color: var(--secondary-color);
+}
