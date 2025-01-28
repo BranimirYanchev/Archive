@@ -6,5 +6,4 @@ burgerButton.addEventListener('click', () => {
     fullscreenMenu.classList.toggle('active');
     burgerButton.classList.toggle('open'); // Toggle "open" class for X transformation
     $('body')[0].classList.toggle('overflow-hidden');;
-    burgerButton.classList.toggle('mt-2');
 });

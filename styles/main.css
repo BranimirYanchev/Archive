@@ -106,7 +106,7 @@ header {
     width: 100%;
     /* Rounded edges for better aesthetics */
     transition: all 0.3s ease-in-out;
-}
+} 
 
 .burger-btn div:not(:last-child) {
     margin-bottom: 6px;

@@ -1,30 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Албум</title>
-    <style>   
+    <title>Универсален стилизиран параграф</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #333;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .italic {
+            font-style: italic;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+        .link {
+            color: #0077cc;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
-    <div id="album">
-        <div class="page">Страница 1</div>
-        <div class="page">Страница 2</div>
-        <div class="page">Страница 3</div>
-        <div class="page">Страница 4</div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-    <script src="../scripts/turn.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $("#album").turn({
-                width: 600,
-                height: 400,
-                autoCenter: true,
-            });
-        });        
-    </script>
 </body>
 </html>

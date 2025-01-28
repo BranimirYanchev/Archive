@@ -1,85 +1,126 @@
-h1 {
-    text-align: center;
+.section-content {
+    width: 90%;
+    height: 90%;
+    /* Увеличена височина */
+    position: relative;
+    background-color: #faf4e8;
+    border-radius: 20px;
+    /* Закръглени ъгли */
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
 }
-.container {
-    max-width: 800px;
+
+* {
+    color: var(--secondary-color);
+}
+
+main {
+    height: 3000px;
+    padding-top: 30px;
+}
+
+.section-1{
+    height: 1100px;
+}
+
+.burger-btn div{
+    background: var(--secondary-color) !important;
+}
+
+.bg-secondary-soft {
+    background-color: rgba(208, 212, 217, 0.1) !important;
+}
+
+.rounded {
+    border-radius: 5px !important;
+}
+
+.py-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+.px-4 {
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+}
+
+.file-upload .square {
+    height: 250px;
+    width: 250px;
     margin: auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    vertical-align: middle;
+    border: 1px solid #e5dfe4;
+    background-color: #fff;
+    border-radius: 5px;
 }
-label {
+
+.text-secondary {
+    --bs-text-opacity: 1;
+    color: rgba(208, 212, 217, 0.5) !important;
+}
+
+.btn-success-soft {
+    color: #28a745 !important;
+    background-color: rgba(40, 167, 69, 0.1);
+}
+
+.btn-danger-soft {
+    color: #dc3545 !important;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.form-control {
     display: block;
-    margin-top: 10px;
-}
-input, textarea, button {
     width: 100%;
-    margin-top: 5px;
-    padding: 8px;
-    font-size: 14px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9375rem;
+    font-weight: 400;
+    line-height: 1.6;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #e5dfe4;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 5px;
+    -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
-.archives {
-    margin-top: 20px;
-}
-.archive-item {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 6px;
-}        body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background-color: #e7dbc8;
-    color: #5a3e2b;
-}
-h1, h2 {
-    text-align: center;
-    color: #8a5a3e;
-}
+
+/* Section 2 */
+
 .container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    border: 1px solid #8a5a3e;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
 }
-label {
-    display: block;
-    margin-top: 15px;
-    font-weight: bold;
+.section-2 {
+    height: 300px;
 }
-input, textarea, button {
-    width: 100%;
-    margin-top: 8px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #5a3e2b;
+.section-header {
+    margin-top: 44px;
+    display: flex;
+    justify-content: space-around;
+}
+.section-title {
+    font-size: 2rem;
+    color: #333;
+
+    margin-right: 43%;
+}
+.add-button {
+    padding: 10px 15px;
+    font-size: 20px;
+    color: white;
+    background-color: #28a745;
+    border: none;
     border-radius: 8px;
-}
-button {
-    background-color: #8a5a3e;
-    color: #fff;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s;
+    transition: background-color 0.2s ease;
 }
-button:hover {
-    background-color: #5a3e2b;
-}
-.archives {
-    margin-top: 30px;
-}
-.archive-item {
-    border: 1px solid #5a3e2b;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-    background-color: #f8f4ed;
-}
-.archive-item h3 {
-    margin-top: 0;
-    color: #8a5a3e;
+.add-button:hover {
+    background-color: #218838;
 }
