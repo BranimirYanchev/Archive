@@ -19,12 +19,20 @@ main {
     padding-top: 30px;
 }
 
+.open > div{
+    background: #faf4e8 !important;
+}
+
+a{
+    text-decoration: none !important;
+}
+
 .section-1{
     height: 1100px;
 }
 
 .burger-btn div{
-    background: var(--secondary-color) !important;
+    background: var(--secondary-color);
 }
 
 .bg-secondary-soft {

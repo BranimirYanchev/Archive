@@ -61,7 +61,6 @@ $('#userRole').on('change', function(){
 });
 
 
-
 /* ------------------------ */
 /* Submit Button Handling */
 /* ------------------------ */
