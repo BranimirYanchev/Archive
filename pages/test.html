@@ -3,35 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Универсален стилизиран параграф</title>
+    <title>Архив</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
             padding: 20px;
         }
-        p {
-            font-size: 16px;
-            line-height: 1.6;
-            text-align: justify;
-            color: #333;
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            background-color: #222;
+            color: white;
+            border-radius: 8px;
         }
-        .bold {
-            font-weight: bold;
+        .header h1 {
+            font-size: 1.8rem;
         }
-        .italic {
-            font-style: italic;
+        .search-box {
+            flex-grow: 1;
+            margin: 0 20px;
+            position: relative;
         }
-        .highlight {
-            background-color: yellow;
+        .search-box input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
         }
-        .link {
-            color: #0077cc;
-            text-decoration: underline;
+        .burger-menu {
+            cursor: pointer;
+        }
+        .burger-menu div {
+            width: 30px;
+            height: 3px;
+            background: white;
+            margin: 6px 0;
+            transition: 0.4s;
         }
     </style>
 </head>
 <body>
+    <header class="header">
+        <h1>Архив</h1>
+        <div class="search-box">
+            <input type="text" placeholder="Търсене...">
+        </div>
+        <div class="burger-menu">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
 </body>
 </html>

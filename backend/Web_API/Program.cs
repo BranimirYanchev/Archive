@@ -32,8 +32,13 @@ app.MapPost("/api/register", async (HttpContext context) =>
     string firstName = json.RootElement.GetProperty("firstName").ToString();
     string lastName = json.RootElement.GetProperty("lastName").ToString();
     string role = json.RootElement.GetProperty("userRole").ToString();
+    string code = "";
 
-    CheckRegisterData data = new CheckRegisterData(role, email, firstName, lastName, password, repeatedPassword);
+    if(role == "teacher"){
+        code = json.RootElement.GetProperty("code").ToString();
+    }
+
+    CheckRegisterData data = new CheckRegisterData(role, email, firstName, lastName, password, repeatedPassword, code);
 
     // Let ASP.NET handle serialization
     return data.Message();

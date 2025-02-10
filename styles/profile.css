@@ -8,6 +8,7 @@
     /* Закръглени ъгли */
     box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);
     overflow: hidden;
+    padding-bottom: 3%;
 }
 
 * {
@@ -15,32 +16,39 @@
 }
 
 main {
-    height: 3000px;
+    height: auto;
     padding-top: 30px;
 }
 
-.open > div{
-    background: #faf4e8 !important;
+.section-1 {
+    height: auto;
+    padding-bottom: 8%;
 }
 
-a{
-    text-decoration: none !important;
-}
-
-.section-1{
-    height: 1100px;
-}
-
-.burger-btn div{
-    background: var(--secondary-color);
+.burger-btn div {
+    background: var(--secondary-color) !important;
 }
 
 .bg-secondary-soft {
     background-color: rgba(208, 212, 217, 0.1) !important;
 }
 
+.h-360 {
+    height: 360px;
+}
+
 .rounded {
     border-radius: 5px !important;
+}
+
+.editor-container {
+    height: 200px;
+}
+
+#editor {
+    height: 100%;
+    border: 1px solid #ccc;
+    background-color: var(--bs-body-bg);
 }
 
 .py-5 {
@@ -48,14 +56,26 @@ a{
     padding-bottom: 3rem !important;
 }
 
+.mt--13{
+    margin-top: -15% !important;
+}
+
+.mt--7{
+    margin-top: -7% !important;
+}
+
 .px-4 {
     padding-right: 1.5rem !important;
     padding-left: 1.5rem !important;
 }
 
+.file-upload, .my-5{
+    width: 94% !important;
+    margin-left: 3% !important;
+}
+
 .file-upload .square {
     height: 250px;
-    width: 250px;
     margin: auto;
     vertical-align: middle;
     border: 1px solid #e5dfe4;
@@ -105,20 +125,24 @@ a{
     max-width: 1200px;
     margin: 20px auto;
 }
+
 .section-2 {
     height: 300px;
 }
+
 .section-header {
     margin-top: 44px;
     display: flex;
     justify-content: space-around;
 }
+
 .section-title {
     font-size: 2rem;
     color: #333;
 
     margin-right: 43%;
 }
+
 .add-button {
     padding: 10px 15px;
     font-size: 20px;
@@ -129,6 +153,7 @@ a{
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
+
 .add-button:hover {
     background-color: #218838;
 }

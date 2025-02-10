@@ -60,3 +60,13 @@ $(document).ready(function () {
     // Преоразмеряване на книгата при промяна на размера на прозореца
     $(window).on("resize", resizeFlipbook);
 });
+
+console.log($('.book'));
+
+$('.book').on('mouseover', function(){
+    $('.tooltiptext')[$(".book").index(this)].classList.toggle('d-none');
+})
+
+$('.book').on('mouseout', function(){
+    $('.tooltiptext')[$(".book").index(this)].classList.toggle('d-none');
+})

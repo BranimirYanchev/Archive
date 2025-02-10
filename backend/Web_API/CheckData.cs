@@ -1,6 +1,8 @@
 using System.Text.RegularExpressions;
 using System;
 using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.SignalR;
+using Org.BouncyCastle.Bcpg.Sig;
 
 // Login
 
@@ -39,7 +41,7 @@ class CheckLoginData
         bool isPasswordValid = IsValidData(Password, @"^(?=.*\d)(?=.*[a-z]).{8,}$");
         bool isUserExists = false;
 
-        if(isPasswordValid)
+        if (isPasswordValid)
         {
             string hashedPassword = new DataOperations().HashPassword(Password);
             isUserExists = new CheckUserInDatabase().IsUserExists(Email, hashedPassword);
@@ -97,7 +99,12 @@ class CheckRegisterData
         get; set;
     }
 
-    public CheckRegisterData(string role, string email, string firstName, string lastName, string password, string repeatedPassword)
+    public string Code
+    {
+        get; set;
+    }
+
+    public CheckRegisterData(string role, string email, string firstName, string lastName, string password, string repeatedPassword, string code)
     {
         Role = role;
         Email = email;
@@ -105,11 +112,25 @@ class CheckRegisterData
         LastName = lastName;
         Password = password;
         RepeatedPassword = repeatedPassword;
+        Code = code;
+    }
+
+    public bool IsCodeValid()
+    {
+        if (Role != "teacher")
+        {
+            return true;
+        }
+        else if (Code != "123456")
+        {
+            return false;
+        }
+        return true;
     }
 
     public bool ArePasswordsMatch(string pass, string pass1)
     {
-        if(!(pass == pass1))
+        if (!(pass == pass1))
         {
             return false;
         }
@@ -127,6 +148,7 @@ class CheckRegisterData
 
     public RegisterResponseMessage Message(bool isUserExists = false)
     {
+        Database database = new Database();
         // Example logic for creating a response
         bool isEmailValid = new CheckLoginData().IsValidData(Email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
         bool isPasswordValid = new CheckLoginData().IsValidData(Password, @"^(?=.*\d)(?=.*[a-z]).{8,}$");
@@ -134,44 +156,55 @@ class CheckRegisterData
         bool isLastNameValid = IsNameValid(LastName);
         bool arePasswordsMatch = ArePasswordsMatch(Password, RepeatedPassword);
         bool IsRoleSelected = true;
+        bool isCodeValid = IsCodeValid();
+        int id = database.GetLastUserID();
+        string url = "";
 
-        if(Role == "role"){
+        if (Role == "role")
+        {
             IsRoleSelected = false;
         }
 
-        if(isPasswordValid && arePasswordsMatch && IsRoleSelected)
+        if (isEmailValid && isPasswordValid && isFirstNameValid && isLastNameValid && arePasswordsMatch && !isUserExists && isCodeValid && IsRoleSelected)
         {
             string hashedPassword = new DataOperations().HashPassword(Password);
             isUserExists = new CheckUserInDatabase().IsUserExists(Email, hashedPassword);
 
-            if(!isUserExists){
-                new DataOperations().InsertUser(Email, hashedPassword, Role);
+            if (!isUserExists)
+            {
+                new DataOperations().InsertUser(id, Email, hashedPassword, Role);
+                SaveDataToJSON.SaveUserInfo(id, FirstName, LastName);
+                url = "profile.html";
             }
         }
 
         return new RegisterResponseMessage
         {
+            Role = IsRoleSelected,
+            Code = isCodeValid,
             Email = isEmailValid,
             FirstName = isFirstNameValid,
             LastName = isLastNameValid,
             Password = isPasswordValid,
             PasswordsMatch = arePasswordsMatch,
             IsUserExists = isUserExists,
-            Role = IsRoleSelected,
-            Url = isEmailValid && isPasswordValid && isFirstNameValid && isLastNameValid && arePasswordsMatch && !isUserExists && IsRoleSelected ? "profile.html" : ""
+            Id = id.ToString(),
+            Url = url
         };
     }
 }
 
 class RegisterResponseMessage
 {
+    public bool Role { get; set; }
     public bool Email { get; set; }
     public bool FirstName { get; set; }
     public bool LastName { get; set; }
     public bool Password { get; set; }
     public bool PasswordsMatch { get; set; }
     public bool IsUserExists { get; set; }
-    public bool Role {get; set;}
+    public bool Code { get; set; }
+    public string Id { get; set; }
     public string Url { get; set; }
 }
 
@@ -185,7 +218,7 @@ class CheckUserInDatabase
 
         // Prepare the SQL statement to select user data
         string query = "SELECT email, password FROM users WHERE email = @Email AND password = @PasswordHash;";
-        if (database.runQuery(query, email, password)[0])
+        if (database.IsUserSelected(query, 0, email, password)[0])
         {
             Console.WriteLine("User with this data already exists!");
             conn.Close();

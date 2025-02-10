@@ -68,9 +68,9 @@ Section-1 Style
 
 /* Снимка като фон */
 .section-1>.section-content {
-    background: url("../images/img-section-1.png");
+    background: url("../images/colage.png");
     background-position: center;
-    background-size: cover;
+    background-size: 125% 149%;
     width: 90%;
 }
 
@@ -214,15 +214,33 @@ Section-3 Style
 --------------------------------------------- 
 */
 
-.section-3 > h1{
+.section-3>h1 {
     font-size: 7rem;
-    color: #5a3e2b; 
+    color: #5a3e2b;
     margin-bottom: 3%;
 }
 
-.section-3{
-    height: 110vh;  
+.section-3 {
+    height: 110vh;
 }
+
+/* Tooltip text */
+.tooltiptext {
+    width: 77px;
+    background-color: #5a3e2b;
+    color: #e7dbc8;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
+    top: -39px;
+    left: -70px;
+    font-size: 10px;
+}
+
 
 #bookViewer {
     position: fixed;
@@ -378,11 +396,15 @@ Bookshelf styles
     align-items: flex-end;
 }
 
-.book, .book-3, .book-2{
+.book,
+.book-3,
+.book-2 {
     transition: ease-in-out;
 }
 
-.book:hover, .book-3:hover, .book-2:hover{
+.book:hover,
+.book-3:hover,
+.book-2:hover {
     transform: scale(1.2);
     cursor: grabbing;
 }
@@ -1946,7 +1968,7 @@ Bookshelf styles
     }
 }
 
-footer{
+footer {
     color: #5a3e2b;
     height: 100px;
 }

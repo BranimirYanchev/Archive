@@ -22,15 +22,15 @@ class DataOperations
         }
     }
     // Method to connect and insert data into the database
-    public void InsertUser(string email, string password, string role = "")
+    public void InsertUser(int id, string email, string password, string role = "")
     {
         MySqlConnection myConnection = database.Connect();
         myConnection = database.Connect();
         myConnection.Open();
 
         // Prepare the SQL statement with parameters to prevent SQL injection
-        string query = "INSERT INTO users (email, password, role) VALUES (@Email, @PasswordHash, @Role)";
-        database.runQuery(query, email, password, role);
+        string query = "INSERT INTO users (id, email, password, role) VALUES (@Id, @Email, @PasswordHash, @Role)";
+        database.IsUserSelected(query, id, email, password, role);
 
         myConnection.Close();
     }
