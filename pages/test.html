@@ -1,69 +1,21 @@
 <!DOCTYPE html>
-<html lang="bg">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Архив</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            padding: 20px;
-        }
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 20px;
-            background-color: #222;
-            color: white;
-            border-radius: 8px;
-        }
-        .header h1 {
-            font-size: 1.8rem;
-        }
-        .search-box {
-            flex-grow: 1;
-            margin: 0 20px;
-            position: relative;
-        }
-        .search-box input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            outline: none;
-            font-size: 1rem;
-        }
-        .burger-menu {
-            cursor: pointer;
-        }
-        .burger-menu div {
-            width: 30px;
-            height: 3px;
-            background: white;
-            margin: 6px 0;
-            transition: 0.4s;
-        }
-    </style>
+    <title>Upload Image</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <header class="header">
-        <h1>Архив</h1>
-        <div class="search-box">
-            <input type="text" placeholder="Търсене...">
-        </div>
-        <div class="burger-menu">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </header>
+
+    <input type="file" id="imageInput" accept="image/*">
+    <button id="uploadBtn">Upload</button>
+
+    <script>
+        $(document).ready(function () {
+
+        });
+    </script>
 
 </body>
 </html>

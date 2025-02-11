@@ -174,3 +174,24 @@ a:hover {
 .sec-clr{
     color: var(--secondary-color);
 }
+
+#fullscreenMenu > a {
+    text-decoration: none !important;
+}
+
+.burger-btn{
+    left: 95%;
+    top: 3%;
+}
+
+.burger-btn div {
+    background: var(--secondary-color) !important;
+}
+
+.open > div{
+    background: var(--primary-color) !important;
+}
+
+.bg-secondary-soft {
+    background-color: rgba(208, 212, 217, 0.1) !important;
+}

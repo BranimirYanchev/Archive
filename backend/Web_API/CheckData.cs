@@ -39,12 +39,14 @@ class CheckLoginData
         // Example logic for creating a response
         bool isEmailValid = IsValidData(Email, @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
         bool isPasswordValid = IsValidData(Password, @"^(?=.*\d)(?=.*[a-z]).{8,}$");
+        int id = 0;
         bool isUserExists = false;
 
         if (isPasswordValid)
         {
             string hashedPassword = new DataOperations().HashPassword(Password);
             isUserExists = new CheckUserInDatabase().IsUserExists(Email, hashedPassword);
+            id = new Database().GetCurrentUserID(Email);
         }
 
         return new LoginResponseMessage
@@ -52,6 +54,7 @@ class CheckLoginData
             Email = isEmailValid,
             Password = isPasswordValid,
             IsUserExists = isUserExists,
+            Id = id,
             Url = isEmailValid && isPasswordValid && isUserExists ? "profile.html" : ""
         };
     }
@@ -62,6 +65,7 @@ class LoginResponseMessage
     public bool Email { get; set; }
     public bool Password { get; set; }
     public bool IsUserExists { get; set; }
+    public int Id { get; set; }
     public string Url { get; set; }
 }
 
@@ -173,7 +177,7 @@ class CheckRegisterData
             if (!isUserExists)
             {
                 new DataOperations().InsertUser(id, Email, hashedPassword, Role);
-                SaveDataToJSON.SaveUserInfo(id, FirstName, LastName);
+                SaveDataToJSON.SaveUserInfo(id, FirstName, LastName, Role);
                 url = "profile.html";
             }
         }

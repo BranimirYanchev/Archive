@@ -33,7 +33,7 @@ function formToJSON(form) {
     const formData = new FormData(form);
     const jsonObject = {};
     formData.forEach((value, key) => {
-        jsonObject[key] = value;
+        jsonObject[key] = value.trim();
     });
     return jsonObject;
 }

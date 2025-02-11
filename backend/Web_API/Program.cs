@@ -2,6 +2,8 @@ using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 
+string email = "";
+
 // Add CORS services
 builder.Services.AddCors(options =>
 {
@@ -26,7 +28,7 @@ app.MapPost("/api/register", async (HttpContext context) =>
 
     // Parse the JSON dynamically
     var json = JsonDocument.Parse(requestBody);
-    string email = json.RootElement.GetProperty("email").GetString();
+    email = json.RootElement.GetProperty("email").GetString();
     string password = json.RootElement.GetProperty("password").GetString();
     string repeatedPassword = json.RootElement.GetProperty("repeatedPassword").ToString();
     string firstName = json.RootElement.GetProperty("firstName").ToString();
@@ -34,7 +36,8 @@ app.MapPost("/api/register", async (HttpContext context) =>
     string role = json.RootElement.GetProperty("userRole").ToString();
     string code = "";
 
-    if(role == "teacher"){
+    if (role == "teacher")
+    {
         code = json.RootElement.GetProperty("code").ToString();
     }
 
@@ -51,7 +54,7 @@ app.MapPost("/api/login", async (HttpContext context) =>
 
     // Parse the JSON dynamically
     var json = JsonDocument.Parse(requestBody);
-    string email = json.RootElement.GetProperty("email").GetString();
+    email = json.RootElement.GetProperty("email").GetString();
     string password = json.RootElement.GetProperty("password").GetString();
 
     CheckLoginData data = new CheckLoginData(email, password);
@@ -66,5 +69,25 @@ app.MapPost("/api/register_teacher", async (HttpContext context) =>
     var requestBody = await reader.ReadToEndAsync();
 });
 
+app.UseStaticFiles(); // Enable serving static files
+
+app.MapPost("/api/save_user_image", async (HttpContext context) =>
+{
+    var form = await context.Request.ReadFormAsync(); // Read form data
+    var file = form.Files["file"]; // Get the uploaded file
+    string id = form["id"].ToString();
+
+    SaveImage saveImg = new SaveImage(file, id);
+
+    return  saveImg.Message;
+});
+
+app.MapPost("/api/check_if_image_exists", async (HttpContext context) =>
+{
+    var form = await context.Request.ReadFormAsync(); // Read form data
+    string id = form["id"];
+
+    return new {url = new Database().GetProfileImgUrl(id)};
+});
 
 app.Run();
