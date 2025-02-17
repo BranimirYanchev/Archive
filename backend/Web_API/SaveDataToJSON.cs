@@ -7,6 +7,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.VisualBasic;
 using System.Security.Cryptography.X509Certificates;
 using System.Reflection.Metadata.Ecma335;
+using System.Threading.Tasks;
+using System.Drawing;
+using System.Drawing.Imaging;
+using Microsoft.AspNetCore.Http;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Png;
 
 static class SaveDataToJSON
 {
@@ -40,6 +47,7 @@ static class SaveDataToJSON
                     FirstName = firstName,
                     LastName = lastName,
                     Role = role,
+                    Grade = "",
                     Timestamp = DateTime.Now
                 }
             };
@@ -57,8 +65,6 @@ static class SaveDataToJSON
 
             // Записване с правилна кодировка (UTF-8 без BOM)
             File.WriteAllText(fileName, json, new System.Text.UTF8Encoding(false));
-
-            Console.WriteLine($"Файлът {fileName} беше успешно записан.");
         }
         catch (Exception ex)
         {
@@ -73,6 +79,7 @@ class SaveImage
     private IFormFile File { get; set; }
     public ResponseMessage Message { get; set; }
     public string Id { get; set; }
+    public string UploadPath { get; set; }
     public SaveImage(IFormFile file, string userId)
     {
         File = file;
@@ -80,14 +87,24 @@ class SaveImage
         {
             IsFileSaved = false,
             IsFileTypeCorrect = false,
+            IsFileInCorrectSize = false,
+            IsNotFileExists = false,
             IsFileSelected = false,
-            IsFileInCorrectSize = false
         };
 
         Id = userId;
 
-        SaveImageToJSON();
+        UploadPath = $"../users/{Id}";
+
+        SaveImageToDirectory();
     }
+
+    public SaveImage(string id)
+    {
+        Id = id;
+        UploadPath = $"../users/{Id}";
+    }
+
     private bool CheckImage()
     {
         if (File == null || File.Length == 0)
@@ -121,50 +138,87 @@ class SaveImage
 
         return true;
     }
-    public async void SaveImageToJSON()
+
+    public async Task<bool> SaveImageToDirectory()
     {
         CheckFileSize(File);
 
         if (!CheckImage() || !Message.IsFileInCorrectSize)
         {
             System.Console.WriteLine(1);
-            return;
+            return false;
         }
 
         try
         {
-            string uploadPath = $"../users/{Id}";
-
-            if (!Directory.Exists(uploadPath))
+            if (!Directory.Exists(UploadPath))
             {
-                Directory.CreateDirectory(uploadPath);
+                Directory.CreateDirectory(UploadPath);
             }
+
+            Message.IsNotFileExists = true;
 
             string uniqueFileName = "profile_img" + Path.GetExtension(File.FileName);
-            string filePath = Path.Combine(uploadPath, uniqueFileName);
+            string filePath = Path.Combine(UploadPath, uniqueFileName);
 
-            string previousPath = Path.Combine(uploadPath, new Database().GetProfileImgUrl(Id));
-            if (previousPath != "" && System.IO.File.Exists(previousPath))
+            // Get previous image path from DB
+            string previousPath = Path.Combine(UploadPath, new Database().GetProfileImgUrl(Id));
+
+            await DeleteImg();
+
+            using (var memoryStream = new MemoryStream())
             {
-                System.IO.File.Delete(previousPath);
+                await File.CopyToAsync(memoryStream);
+                memoryStream.Position = 0; // Reset stream position
+
+                // ✅ Use ImageSharp to process & save image
+                using (var image = await Image.LoadAsync(memoryStream))
+                {
+                    image.Mutate(x => x.Resize(800, 800)); // Resize to 800x800
+                    await image.SaveAsync(filePath, new PngEncoder());
+                }
             }
 
-            using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-            {
-                await File.CopyToAsync(stream);
-            }
-
-            new Database().InsertProfileImagePath(Id, $"{uniqueFileName}");
-            
+            // ✅ Update image path in DB
+            new Database().InsertProfileImagePath(Id, uniqueFileName);
             Message.IsFileSaved = true;
+
+            return true;
         }
         catch (Exception ex)
         {
-            System.Console.WriteLine(ex);
+            Console.WriteLine($"Error: {ex.Message}");
+            return false;
         }
     }
+    public async Task<bool> DeleteImg()
+    {
+        
+        Database database = new Database();
 
-   
+        string previousPath = Path.Combine(UploadPath, database.GetProfileImgUrl(Id));
+
+        System.Console.WriteLine(previousPath);
+        if (previousPath != "" && System.IO.File.Exists(previousPath))
+        {
+            System.IO.File.Delete(previousPath);
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            await Task.Delay(100); // ⏳ Малко изчакване преди запис
+        }
+
+        database.InsertProfileImagePath(Id);
+
+        if (!System.IO.File.Exists(previousPath) && database.GetProfileImgUrl(Id) == "")
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+
     public void CheckFileSize(IFormFile file)
     {
         try
@@ -176,7 +230,7 @@ class SaveImage
             Console.WriteLine($"File size: {fileSizeInBytes} bytes");
 
             // Example: Check if file size is larger than a specific limit (e.g., 10MB)
-            long maxFileSize = 3 * 1024 * 1024; // 10MB in bytes
+            long maxFileSize = 1 * 1024 * 1024; // 1MB in bytes
             if (fileSizeInBytes <= maxFileSize)
             {
                 Message.IsFileInCorrectSize = true;
@@ -193,6 +247,7 @@ class ResponseMessage
 {
     public bool IsFileSelected { get; set; }
     public bool IsFileTypeCorrect { get; set; }
+    public bool IsFileInCorrectSize { get; set; }
+    public bool IsNotFileExists { get; set; }
     public bool IsFileSaved { get; set; }
-    public bool IsFileInCorrectSize {get; set;}
 }

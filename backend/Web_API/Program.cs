@@ -90,4 +90,34 @@ app.MapPost("/api/check_if_image_exists", async (HttpContext context) =>
     return new {url = new Database().GetProfileImgUrl(id)};
 });
 
+app.MapPost("/api/delete_user_image", async (HttpContext context) =>
+{
+    var form = await context.Request.ReadFormAsync(); // Read form data
+    string id = form["id"];
+
+    System.Console.WriteLine(id);
+
+    return new {isDeleted = new SaveImage(id).DeleteImg()};
+});
+
+app.MapPost("/api/update_data", async (HttpContext context) =>
+{
+    var form = await context.Request.ReadFormAsync(); // Read form data
+    string id = form["id"];
+
+    UpdateUserRequest userRequest = new UpdateUserRequest();
+
+    userRequest.FirstName = form["firstname"];
+    userRequest.LastName = form["lastname"];
+    userRequest.Description = form["description"];
+    userRequest.Grade = form["grade"];
+    userRequest.Email = form["email"];
+    userRequest.OldPass = form["oldPass"];
+    userRequest.Password = form["newPass"];
+    userRequest.RepeatedPassword = form["repeatedPass"];
+
+    return new UserController(id).UpdateUser(userRequest);
+});
+
+
 app.Run();

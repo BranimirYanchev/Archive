@@ -135,3 +135,5 @@
 /Applications/MAMP/htdocs/Archive/backend/Web_API/obj/Debug/net7.0/test.genruntimeconfig.cache
 /Applications/MAMP/htdocs/Archive/backend/Web_API/obj/Debug/net7.0/ref/test.dll
 /Applications/MAMP/htdocs/Archive/backend/Web_API/bin/Debug/net7.0/test.staticwebassets.runtime.json
+/Applications/MAMP/htdocs/Archive/backend/Web_API/bin/Debug/net7.0/SixLabors.ImageSharp.dll
+/Applications/MAMP/htdocs/Archive/backend/Web_API/bin/Debug/net7.0/Newtonsoft.Json.dll

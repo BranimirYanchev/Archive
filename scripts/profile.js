@@ -21,7 +21,7 @@ const infoForm = {
     firstName: $("input[name='firstName']"),
     lastName: $("input[name='lastName']"),
     email: $("input[name='email']"),
-    grade: $("input[name='grade']"),
+    grade: $("#grade"),
 };
 
 const isChanged = {
@@ -39,13 +39,109 @@ const profileImgSettings = {
     profileImgIcon: $("#profile-img-icon"),
 }
 
-profileImgSettings.profileImg.hide();
+const description = $('.ql-editor');
 
-const description = $("#editor");
+const password = {
+    oldPass: $("#old-pass"),
+    newPass: $("#new-pass"),
+    repeatedPass: $("#repeated-pass")
+}
+
+let imgType = "I";
+let email = sessionStorage.getItem("email");
+
+const errorMessages = {
+    email: "Неправилен имейл!",
+    firstName: "Полето име не отговаря на изискванията!",
+    lastName: "Полето фамилия не отговаря на изискванията!",
+    isPasswordValid: "Грешна парола!",
+    аrePasswordsMatch: "Паролите не съвпадат!",
+}
+
+profileImgSettings.profileImg.hide();
 
 // Clear the session
 $(".go-to-forms").on('click', () => {
     sessionStorage.clear();
+});
+
+$("#save-data-btn").on("click", function () {
+    let formData = new FormData(); 
+    Object.keys(isChanged).forEach((key, value) => {
+        if(isChanged[key] && infoForm[key] != "" && infoForm[key] != undefined){
+            formData.append(key, infoForm[key].val());
+            if(key == "email"){
+                email = infoForm[key].val();
+            }
+        }else{
+            isChanged[key] = false;
+        }
+    });
+
+    if(description.text() != ""){
+        formData.append("description", description.html())
+    }else{
+        isChanged.description = false;
+    }
+
+    console.log(isChanged.description);
+    console.log(description.html());
+
+    if(password.oldPass.val() != "" && password.newPass.val() != "" && password.repeatedPass.val() != ""){
+        formData.append("oldPass", password.oldPass.val());
+        formData.append("newPass", password.newPass.val());
+        formData.append("repeatedPass", password.repeatedPass.val());
+        isChanged.changePass = true;
+    }
+
+    let formDataLength = 0;
+
+    for (let entry of formData.entries()) {
+        formDataLength++;
+    }
+
+    if(formDataLength > 0){
+        formData.append("id", sessionStorage.getItem("user_Id"))
+    }
+
+
+    let url = "http://localhost:5175/api/update_data";
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        contentType: false, 
+        processData: false,
+        success: function (response) {
+            let isTrue = false;
+            console.log(response.value)
+            Object.keys(isChanged).forEach((key, value) => {
+                if(isChanged[key] && !response.value[key] && key != "changePass"){
+                    toastr.error(errorMessages[key]);
+                    isTrue = true;
+                }
+            });
+
+            if(!isTrue && isChanged.email && response.value.email){
+                console.log(email)
+                sessionStorage.setItem("email", email)
+                toastr.success("Данните са запазени успешно!");
+            }
+
+            if(isChanged.changePass && !response.value.arePasswordsMatch){
+                toastr.error("Паролите не съвпадат!");
+            }else if(isChanged.changePass && !response.value.isPasswordValid){
+                toastr.error("Грешна парола!");
+            }else if (isChanged.changePass && response.value.isPasswordValid && response.value.arePasswordsMatch){
+                toastr.success("Данните бяха запазени успешно!")
+            }
+        },
+        error: function (error) {
+            toastr.error(error.responseJSON);
+            hasProfileImage = false;
+        }
+    })
 });
 
 setData();
@@ -65,6 +161,9 @@ function setData() {
             infoForm.firstName.val(response.FirstName);
             infoForm.lastName.val(response.LastName);
             infoForm.email.val(sessionStorage.getItem("email"));
+            if(!response.Grade == undefined && !response.Grade == ""){
+                infoForm.grade.val(response.Grade);
+            }
 
             if (response.Role != "student") {
                 $($(".form-label")[3]).hide();
@@ -74,10 +173,43 @@ function setData() {
                 infoForm.grade.show();
                 infoForm.grade.val(response.Grade);
             }
+
+            description.html(data.description);
+
+            console.log(1);
         },
         error: function (xhr, status, error) {
             console.error("Error fetching user ID:", error);
         }
+    });
+}
+
+// Check if fields are being changed
+function areFieldsChanged() {
+    Object.keys(infoForm).forEach(key => {
+        infoForm[key].on("change", function () {
+            if ($(this).val().trim() !== "") {
+                isChanged[key] = true;
+            }
+        });
+    });
+
+    $("#imageFile").on("change", function () {
+        isChanged.profileImg = true;
+
+        // Pass the selected file to the setImage function
+        imageOperations(this.files, "I", "http://Localhost:5175/api/save_user_image");
+        preventSpam($("#uploadImgBtn"))
+    });
+
+    $("#removeImgBtn").on("click", function (e) {
+        e.preventDefault();
+        imageOperations("", "D", "http://localhost:5175/api/delete_user_image");
+    });
+
+    description.on("click", function(){
+        console.log(1)
+        isChanged.description = true;
     });
 }
 
@@ -101,7 +233,7 @@ function hasProfileImage() {
                 profileImgSettings.profileImg.show();
                 profileImgSettings.profileImgIcon.hide();
                 hasUserImage = true;
-                return;
+                return true;
             }
             hasUserImage = false;
         },
@@ -112,61 +244,90 @@ function hasProfileImage() {
     });
 }
 
-// Check if fields are being changed
-function areFieldsChanged() {
-    Object.keys(infoForm).forEach(key => {
-        infoForm[key].on("change", function () {
-            if ($(this).val().trim() !== "") {
-                isChanged[key] = true;
-            }
-        });
-    });
-
-    $("#imageFile").on("change", function () {
-        console.log(1);
-        isChanged.profileImg = true;
-
-        // Pass the selected file to the setImage function
-        setImage(this.files);
-    });
-}
-
-
-function setImage(imgs) {
-    if (imgs.length === 0) {
+function imageOperations(imgs = "", type, url) {
+    if (imgs.length === 0 && type == "I") {
         alert("Please select an image first.");
         return;
     }
 
-    let formData = new FormData();
-    formData.append("file", imgs[imgs.length - 1]);
-    formData.append("id", sessionStorage.getItem("user_Id"));
+    let timer = 100;
 
-    let url = "http://localhost:5175/api/save_user_image";
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-            hasProfileImage();
-            if (hasUserImage) {
-                toastr.success("Снимката е качена успешно!");
-                location.reload();
-            } else {
-                toastr.info("Сървърна грешка! Опитайте пак, моля!");
+    if (type == "I") {
+        timer = 1500;
+    }
+
+    toastr.info("Изчакайте 1 секунди!");
+
+    setTimeout(function () {
+        let formData = new FormData();
+
+        console.log(imgs[imgs.length - 1])
+
+        if (type == "I") {
+            formData.append("file", imgs[imgs.length - 1]);
+        }
+
+        formData.append("id", sessionStorage.getItem("user_Id"));
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (type == "I") {
+                    if(response.isFileSaved){
+                        hasProfileImage();
+                        toastr.success("Снимката е качена успешно!");
+                        location.reload();
+                    }else {
+                        returnErrorMessage(response);
+                        location.reload();
+                    }
+
+                } else {
+                    if (response.isDeleted) {
+                        toastr.success("Снимката бе премахната!");
+                        location.reload();
+                    } else {
+                        toastr.warning("Моля опитайте пак!");
+                    }
+                }
+            },
+            error: function (error) {
+                toastr.error(error.responseJSON);
             }
-        },
-        error: function (error) {
-            toastr.error(error.responseJSON);
+        });
+    }, timer);
+}
+
+
+function returnErrorMessage(response) {
+    let errorMessages = {
+        isFileSelected: "Не е избран файл!",
+        isFileTypeCorrect: "Грешен файлов тип!",
+        isFileInCorrectSize: "Файлът е твърде тежък!",
+        isNotFileExists: "Първо премахнете предишната снимка!",
+        isFileSaved: "Опитайте пак!"
+    }
+
+    let isTrue = true;
+
+    Object.keys(response).forEach((key, value) => {
+        console.log(response[key])
+        if (!response[key] && key != "isFileSaved") {
+            toastr.error(errorMessages[key]);
+            isTrue = false;
+            return true;
         }
     });
 }
 
+function preventSpam(el) {
+    el.prop("disabled", true);
 
-function returnErrorMessage(){
-    let errorMessages = {
-
-    }
+    setTimeout(() => {
+        el.prop("disabled", false);
+    }, 500);
 }

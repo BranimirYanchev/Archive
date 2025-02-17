@@ -16,17 +16,30 @@ class Database
     // Checks if user exists!
     public List<bool> IsUserSelected(string query, int id, string email, string password, string role = "")
     {
+        password = new DataOperations().HashPassword(password);
         List<bool> message = new List<bool>();
+
+        MySqlConnection conn = Connect();
+        conn.Open();
+
         using (MySqlCommand command = new MySqlCommand(query, myConnection))
         {
             if (id != 0)
             {
                 command.Parameters.AddWithValue("@Id", id);
             }
-            command.Parameters.AddWithValue("@Email", email);
-            command.Parameters.AddWithValue("@PasswordHash", password);
 
-            if (role != "role")
+            System.Console.WriteLine(password);
+
+            if(!string.IsNullOrEmpty(email)){
+                command.Parameters.AddWithValue("@Email", email);
+            }
+
+            if(!string.IsNullOrEmpty(password)){
+                command.Parameters.AddWithValue("@PasswordHash", password);
+            }
+
+            if (role != "role" && role != "")
             {
                 command.Parameters.AddWithValue("@Role", role);
             }
@@ -36,6 +49,8 @@ class Database
                 message.Add(reader.HasRows);
                 reader.Close();  // Explicitly close the reader
             }
+
+            conn.Close();
         }
 
         return message;
@@ -84,7 +99,7 @@ class Database
         return id;
     }
 
-    public bool InsertProfileImagePath(string id, string imgUrl)
+    public bool InsertProfileImagePath(string id, string imgUrl="")
     {
         Database database = new Database();
         using (MySqlConnection connection = database.Connect())
@@ -92,7 +107,12 @@ class Database
             connection.Open();
             using (var command = new MySqlCommand("UPDATE users SET `img-url` = @ImgUrl WHERE `Id` = @Id;", connection))
             {
-                command.Parameters.AddWithValue("@ImgUrl", imgUrl);
+                if(imgUrl == ""){
+                    command.Parameters.AddWithValue("@ImgUrl", null);
+                }else{
+                    command.Parameters.AddWithValue("@ImgUrl", imgUrl);
+                }
+
                 command.Parameters.AddWithValue("@Id", id);
 
                 var result = command.ExecuteScalar();

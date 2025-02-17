@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Dec 18, 2024 at 12:49 AM
+-- Generation Time: Feb 17, 2025 at 04:54 PM
 -- Server version: 8.0.35
 -- PHP Version: 8.2.20
 
@@ -30,15 +30,18 @@ SET time_zone = "+00:00";
 CREATE TABLE `users` (
   `id` int NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `password` varchar(255) NOT NULL,
+  `role` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'teacher',
+  `img-url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `email`, `password`) VALUES
-(90, 'yanchevbranimir@gmail.com', '84eae56a7651e0addab395bbe859ec3e2444a92ec6127099b42ac5b471293657');
+INSERT INTO `users` (`id`, `email`, `password`, `role`, `img-url`) VALUES
+(0, 'admin@pmgblg.bg', '60fe74406e7f353ed979f350f2fbb6a2e8690a5fa7d1b0c32983d1d8b3f95f67', 'administrator', ''),
+(1, 'yanchevbranimir@gmail.com', '84eae56a7651e0addab395bbe859ec3e2444a92ec6127099b42ac5b471293657', 'student', NULL);
 
 --
 -- Indexes for dumped tables
@@ -48,17 +51,8 @@ INSERT INTO `users` (`id`, `email`, `password`) VALUES
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  ADD PRIMARY KEY (`id`,`email`,`password`,`role`),
+  ADD UNIQUE KEY `id` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

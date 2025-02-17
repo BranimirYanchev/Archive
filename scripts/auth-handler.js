@@ -103,7 +103,6 @@ const errorMessages = {
 function handleRegisterData(response, type) {
     Object.keys(response).some((key) => {
         if (response[key] === false && key !== "url") {
-            console.log(1)
             if (key !== "isUserExists") {
                 toastr.error(errorMessages[key]);
             }

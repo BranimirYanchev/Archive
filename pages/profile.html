@@ -87,6 +87,7 @@
                                                 <div class="col-md-6">
                                                     <label class="form-label">Клас *</label> <br>
                                                     <select name="grade" id="grade" class="form-control">
+                                                        <option value="">Изберете клас: </option>
                                                         <option value="5">5</option>
                                                         <option value="6">6</option>
                                                         <option value="7">7</option>
@@ -114,9 +115,9 @@
                                                     <!-- Button -->
                                                     <input type="file" id="imageFile" name="file" hidden>
                                                     <label class="btn btn-success-soft btn-block" for="imageFile" id="uploadImgBtn">Качи</label>
-                                                    <button type="button" class="btn btn-danger-soft">Премахни</button>
+                                                    <a class="btn btn-danger-soft" id="removeImgBtn">Премахни</a>
                                                     <!-- Content -->
-                                                    <p class="text-muted mt-3 mb-0"><span class="me-1">Бележка:</span>Мин. размер 300px x 300px</p>
+                                                    <p class="text-muted mt-3 mb-0"><span class="me-1">Можете да качвате по ЕДНА снимка на ДЕН!</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,18 +143,18 @@
                                                 <h4 class="my-4">Промени паролата</h4>
                                                 <!-- Old password -->
                                                 <div class="col-md-6">
-                                                    <label for="exampleInputPassword1" class="form-label">Стара парола *</label>
-                                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                                    <label for="old-pass" class="form-label">Стара парола *</label>
+                                                    <input type="password" class="form-control" id="old-pass">
                                                 </div>
                                                 <!-- New password -->
                                                 <div class="col-md-6">
-                                                    <label for="exampleInputPassword2" class="form-label">Нова парола *</label>
-                                                    <input type="password" class="form-control" id="exampleInputPassword2">
+                                                    <label for="new-pass" class="form-label">Нова парола *</label>
+                                                    <input type="password" class="form-control" id="new-pass">
                                                 </div>
                                                 <!-- Confirm password -->
                                                 <div class="col-md-12">
-                                                    <label for="exampleInputPassword3" class="form-label">Потвърди паролата *</label>
-                                                    <input type="password" class="form-control" id="exampleInputPassword3">
+                                                    <label for="repeated-pass" class="form-label">Потвърди паролата *</label>
+                                                    <input type="password" class="form-control" id="repeated-pass">
                                                 </div>
                                             </div>
                                         </div>
@@ -161,7 +162,7 @@
                                 </div> <!-- Row END -->
                                 <!-- button -->
                                 <div class="gap-3 d-md-flex justify-content-md-start text-center ms-3">
-                                    <button type="button" class="btn btn-primary btn-lg">Запази промените</button>
+                                    <button type="button" class="btn btn-primary btn-lg" id="save-data-btn">Запази промените</button>
                                     <a href="forms.html" type="button" class="btn btn-danger btn-lg go-to-forms">Излез от профила</a>
                                 </div>
                             </form> <!-- Form END -->
@@ -197,7 +198,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
   <script src="../scripts/preloader.js"></script>
   <script src="../scripts/navbar.js"></script>
-  <script src="../scripts/forms.js"></script>
+  <!-- <script src="../scripts/forms.js"></script> -->
   <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
   <script src="../scripts/profile.js"></script>
   <!-- Bootstrap JS and dependencies -->

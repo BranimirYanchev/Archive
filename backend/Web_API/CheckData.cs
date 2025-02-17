@@ -44,8 +44,7 @@ class CheckLoginData
 
         if (isPasswordValid)
         {
-            string hashedPassword = new DataOperations().HashPassword(Password);
-            isUserExists = new CheckUserInDatabase().IsUserExists(Email, hashedPassword);
+            isUserExists = new CheckUserInDatabase().IsUserExists(Email, Password);
             id = new Database().GetCurrentUserID(Email);
         }
 
@@ -119,6 +118,8 @@ class CheckRegisterData
         Code = code;
     }
 
+    public CheckRegisterData(){}
+
     public bool IsCodeValid()
     {
         if (Role != "teacher")
@@ -171,12 +172,11 @@ class CheckRegisterData
 
         if (isEmailValid && isPasswordValid && isFirstNameValid && isLastNameValid && arePasswordsMatch && !isUserExists && isCodeValid && IsRoleSelected)
         {
-            string hashedPassword = new DataOperations().HashPassword(Password);
-            isUserExists = new CheckUserInDatabase().IsUserExists(Email, hashedPassword);
+            isUserExists = new CheckUserInDatabase().IsUserExists(Email, Password);
 
             if (!isUserExists)
             {
-                new DataOperations().InsertUser(id, Email, hashedPassword, Role);
+                new DataOperations().InsertUser(id, Email, Password, Role);
                 SaveDataToJSON.SaveUserInfo(id, FirstName, LastName, Role);
                 url = "profile.html";
             }
@@ -218,7 +218,6 @@ class CheckUserInDatabase
     {
         Database database = new Database();
         MySqlConnection conn = database.Connect();
-        conn.Open();
 
         // Prepare the SQL statement to select user data
         string query = "SELECT email, password FROM users WHERE email = @Email AND password = @PasswordHash;";
