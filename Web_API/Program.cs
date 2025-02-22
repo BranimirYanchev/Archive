@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 string email = "";
 
+new Database.Connect();
+
 // Add CORS services
 builder.Services.AddCors(options =>
 {
