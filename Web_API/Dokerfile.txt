@@ -1,0 +1,17 @@
+# Стъпка 1: Използвай официалния .NET 7.0 SDK като билд среда
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /source
+
+# Копирай .csproj файла и възстанови зависимостите
+COPY Web_API.csproj .
+RUN dotnet restore
+
+# Копирай останалите файлове и билдни приложението
+COPY . .
+RUN dotnet publish -c Release -o /app/publish
+
+# Стъпка 2: Използвай официалния .NET 7.0 Runtime като изпълнителна среда
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "Web_API.dll"]
