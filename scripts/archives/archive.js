@@ -4,7 +4,7 @@ function setArchives() {
     // Извикване с callback
     getLastUserId(function(id) {
         for (let i = 1; i <= id; i++) {
-            let url = `../../backend/users/${i}/archives.json?nocache=${new Date().getTime()}`;
+            let url = `https://archive-4vi4.onrender.com//users/${i}/archives.json?nocache=${new Date().getTime()}`;
     
             $.ajax({
                 url: url,
@@ -52,7 +52,7 @@ function setArchives() {
 
 function getLastUserId(callback){
     $.ajax({
-        url: "http://localhost:5175/api/get_last_user_id",
+        url: "https://archive-4vi4.onrender.com/api/get_last_user_id",
         type: "GET",
         success: function (response) {  
             let id = response.id - 1;
