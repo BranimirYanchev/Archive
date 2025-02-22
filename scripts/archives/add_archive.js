@@ -137,7 +137,7 @@ function addTag(keyword) {
 setData();
 
 function setData() {
-    let url = `../../backend/users/${sessionStorage.getItem('user_Id')}/archives.json`
+    let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/archives.json`
 
     $.ajax({
         url: url,
