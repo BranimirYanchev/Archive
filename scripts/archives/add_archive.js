@@ -21,10 +21,10 @@ if(archiveId == null || archiveId == undefined){
 $(".submit-btn").on('click', function (e) {
     e.preventDefault();
 
-    let url = "http://localhost:5175/api/save_archive";
+    let url = "https://archive-4vi4.onrender.com//api/save_archive";
 
     if(isBeingEdited){
-        url = "http://localhost:5175/api/update_archive";
+        url = "https://archive-4vi4.onrender.com/api/update_archive";
     }
 
     sendData(url);
@@ -32,7 +32,7 @@ $(".submit-btn").on('click', function (e) {
 
 $(".delete-btn").on("click", function(e){
     e.preventDefault();
-    let url = "http://localhost:5175/api/delete_archive";
+    let url = "https://archive-4vi4.onrender.com//api/delete_archive";
     sendData(url);
 });
 
