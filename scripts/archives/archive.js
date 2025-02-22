@@ -5,6 +5,8 @@ function setArchives() {
     getLastUserId(function(id) {
         for (let i = 1; i <= id; i++) {
             let url = `https://archive-4vi4.onrender.com/users/${i}/archives.json?nocache=${new Date().getTime()}`;
+
+            console.log(url);
     
             $.ajax({
                 url: url,
