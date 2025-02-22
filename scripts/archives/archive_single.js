@@ -8,7 +8,7 @@ function setArchives() {
         authorId = sessionStorage.getItem("user_Id")
     }
 
-    let url = `../../backend/users/${authorId}/archives.json`;
+    let url = `https://archive-4vi4.onrender.com//users/${authorId}/archives.json`;
 
     $.ajax({
         url: url,
