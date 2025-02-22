@@ -97,7 +97,7 @@ $("#save-data-btn").on("click", function () {
     }
 
 
-    let url = "http://localhost:5175/api/update_data";
+    let url = "https://archive-4vi4.onrender.com/update_data";
 
     $.ajax({
         url: url,
@@ -143,7 +143,7 @@ areFieldsChanged();
 function setData() {
     setArchives();
 
-    let url = `../backend/users/${sessionStorage.getItem('user_Id')}/profile_info.json?nocache=${new Date().getTime()}`;
+    let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/profile_info.json?nocache=${new Date().getTime()}`;
 
     $.ajax({
         url: url,
@@ -206,7 +206,7 @@ function areFieldsChanged() {
 
     $("#removeImgBtn").on("click", function (e) {
         e.preventDefault();
-        imageOperations("", "D", "http://localhost:5175/api/delete_user_image");
+        imageOperations("", "D", "https://archive-4vi4.onrender.com/api/delete_user_image");
     });
 
     description.on("click", function(){
@@ -215,7 +215,7 @@ function areFieldsChanged() {
 }
 
 function setArchives() {
-    let url = `../backend/users/${sessionStorage.getItem("user_Id")}/archives.json?nocache=${new Date().getTime()}`;
+    let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem("user_Id")}/archives.json?nocache=${new Date().getTime()}`;
 
     $.ajax({
         url: url,
@@ -315,7 +315,7 @@ function getUserId(){
 
     formData.append("email", sessionStorage.getItem("email"));
 
-    let url = "http://localhost:5175/api/get_user_id";
+    let url = "https://archive-4vi4.onrender.com/api/get_user_id";
 
     $.ajax({
         url: url,
