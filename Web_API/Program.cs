@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices.JavaScript;
 using System.Text.Json;
 using Mysqlx.Crud;
+using Microsoft.Extensions.FileProviders;
 var builder = WebApplication.CreateBuilder(args);
 
 string email = "";
@@ -21,12 +22,10 @@ var app = builder.Build();
 // Enable CORS globally
 app.UseCors("AllowAll");
 
-using Microsoft.Extensions.FileProviders;
-
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "Web_API", "users")),
+        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "users")),
     RequestPath = "/users"
 });
 
