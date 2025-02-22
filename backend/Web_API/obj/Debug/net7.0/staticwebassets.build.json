@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ruu+apR0FqArV7z8ee8WtYAIoby2vcOKPyjofjyPsDM=",
+  "Hash": "aRIpWsq+RFXDPublaEBHH8x9dT/eY5t5VIZG31XFVQg=",
   "Source": "test",
   "BasePath": "_content/test",
   "Mode": "Default",
@@ -8,12 +8,13 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "test/wwwroot",
+      "Name": "test\\wwwroot",
       "Source": "test",
-      "ContentRoot": "/Applications/MAMP/htdocs/Archive/backend/Web_API/wwwroot/",
+      "ContentRoot": "C:\\Users\\yanch\\Documents\\GitHub\\Archive\\backend\\Web_API\\wwwroot\\",
       "BasePath": "_content/test",
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [],
+  "Endpoints": []
 }
