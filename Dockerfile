@@ -10,7 +10,7 @@ WORKDIR /src
 
 # Copy the project file and restore dependencies
 COPY ["Web_API/test.csproj", "Web_API/"]
-RUN dotnet restore "Web_API/Web_API.csproj"
+RUN dotnet restore "Web_API/test.csproj"
 
 # Copy everything else and build the application
 COPY . .
