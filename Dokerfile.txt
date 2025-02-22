@@ -1,0 +1,24 @@
+# Използване на официалния .NET 7 SDK като база
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
+WORKDIR /app
+EXPOSE 80
+EXPOSE 443
+
+# Билд стъпка
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+WORKDIR /src
+COPY ["Web_API/Web_API.csproj", "Web_API/"]
+RUN dotnet restore "Web_API/Web_API.csproj"
+COPY . .
+WORKDIR "/src/Web_API"
+RUN dotnet build -c Release -o /app/build
+
+# Публикуване
+FROM build AS publish
+RUN dotnet publish -c Release -o /app/publish
+
+# Финален имидж
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Web_API.dll"]
