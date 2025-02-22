@@ -143,43 +143,47 @@ areFieldsChanged();
 function setData() {
     setArchives();
 
-    let url = `../backend/users/${sessionStorage.getItem('user_Id')}/profile_info.json`
+    let url = `../backend/users/${sessionStorage.getItem('user_Id')}/profile_info.json?nocache=${new Date().getTime()}`;
 
     $.ajax({
         url: url,
         method: "GET",
         dataType: "json",
+        cache: false, // Предотвратява кеширане
         success: function (data) {
             let response = data.personalInfo;
-
+    
             console.log($(".section-2"));
-            if(response.Role == "parent"){$(".section-2").addClass("d-none");}
-
+            if (response.Role == "parent") {
+                $(".section-2").addClass("d-none");
+            }
+    
             infoForm.firstName.val(response.FirstName);
             infoForm.lastName.val(response.LastName);
             infoForm.email.val(sessionStorage.getItem("email"));
-            if(!response.Grade == undefined && !response.Grade == ""){
+    
+            if (response.Grade !== undefined && response.Grade !== "") {
                 infoForm.grade.val(response.Grade);
             }
-
-            if (response.Role != "student") {
+    
+            if (response.Role !== "student") {
                 $($(".form-label")[3]).hide();
                 infoForm.grade.hide();
             } else {
                 $($(".form-label")[3]).show();
                 infoForm.grade.show();
                 infoForm.grade.val(response.Grade);
-                if(response.Role == "teacher" || response.Role == "student"){
-                    sessionStorage.setItem("name", response.FirstName + " " + response.LastName)
+                if (response.Role === "teacher" || response.Role === "student") {
+                    sessionStorage.setItem("name", response.FirstName + " " + response.LastName);
                 }
             }
-
+    
             description.html(data.description);
         },
         error: function (xhr, status, error) {
-            console.error("Error fetching user ID:", error);
+            console.error("Error fetching user profile:", error);
         }
-    });
+    });    
 }
 
 // Check if fields are being changed

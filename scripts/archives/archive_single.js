@@ -16,8 +16,7 @@ function setArchives() {
         success: function (response) {
             response.forEach(e => {
                 if(e.id ==  archiveId){
-                    $(".section-content").html(
-                        $(".section-content").html() + 
+                    $(".section-content").append( 
                         ` <div class="heading text-center mt-5" id=${e.id}>
                             <h1>${e.title}</h1>
                             <h2>${e.timestamp} | ${e.author}</h2>
@@ -30,11 +29,6 @@ function setArchives() {
     
                         <div class="content-conatiner d-flex flex-column align-items-center mt-4">
                             <p>${e.description}</p>
-    
-                            <video width="640" height="360" controls class="mt-4">
-                                <source src="../../images/1.mp4" type="video/mp4">
-                                Вашият браузър не поддържа видео елемента.
-                            </video>
                         </div>`
                     );
                 }
