@@ -1,4 +1,4 @@
 // Simulate content loading using jQuery
-$(window).on("load", function() {
-    $(".preloader-container").addClass("d-none");
-});
+setInterval(() => {
+    $(".preloader-container").addClass("d-none");  
+}, 100);

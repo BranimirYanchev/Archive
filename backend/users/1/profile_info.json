@@ -1,0 +1,10 @@
+{
+  "personalInfo": {
+    "FirstName": "Бранимир",
+    "LastName": "Янчев",
+    "Role": "student",
+    "Grade": "11",
+    "Timestamp": "2025-02-16T23:31:48.174046+02:00"
+  },
+  "description": "<h2>Аз съм <strong>Бранимир</strong> на <strong>17</strong> от <a href=\"https://www.google.com/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://bg.wikipedia.org/wiki/%25D0%2591%25D0%25BB%25D0%25B0%25D0%25B3%25D0%25BE%25D0%25B5%25D0%25B2%25D0%25B3%25D1%2580%25D0%25B0%25D0%25B4&amp;ved=2ahUKEwiRpvH_p8uLAxUAUMMIHfIWDu0QFnoECDwQAQ&amp;usg=AOvVaw1THcXbF6KLxWluoxSjs0lS\" rel=\"noopener noreferrer\" target=\"_blank\">Благоевград</a>.</h2>"
+}

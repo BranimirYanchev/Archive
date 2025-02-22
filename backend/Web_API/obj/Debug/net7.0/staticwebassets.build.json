@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "ruu+apR0FqArV7z8ee8WtYAIoby2vcOKPyjofjyPsDM=",
+  "Source": "test",
+  "BasePath": "_content/test",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "test/wwwroot",
+      "Source": "test",
+      "ContentRoot": "/Applications/MAMP/htdocs/Archive/backend/Web_API/wwwroot/",
+      "BasePath": "_content/test",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}
