@@ -14,11 +14,11 @@ $(submitBtns).on('click', function (e) {
     const currentId = submitBtns.index(this);
     const forms = [$('#login-form')[0], $('#register-form')[0]];
 
-    let url = "http://localhost:5175/api/register";
+    let url = "https://archive-4vi4.onrender.com/api/register";
     let data = formToJSON(forms[currentId]);
 
     if (currentId == 0) {
-        url = "http://localhost:5175/api/login";
+        url = "https://archive-4vi4.onrender.com/api/login";
         sendData(data, "POST", url, "L");
         return;
     }
