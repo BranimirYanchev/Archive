@@ -1,44 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PMG-Archive</title>
-    
+    <title>Alma-Chronicles</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+
     <!-- CSS -->
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/index.css">
 
-    <!-- External CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <header>
-        <div class="header">
-            <div class="logo">
-                <img src="../images/logo.png" alt="Лого">
-            </div>
-            <nav>
-                <ul class="menu">
-                    <li><a href="#home">Начало</a></li>
-                    <li><a href="#archive">Архив</a></li>
-                    <li><a href="#about">За нас</a></li>
-                    <li><a href="#contact">Контакти</a></li>
-                </ul>
-            </nav>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+        integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
-            <a href="#register" class="button rev-btn ms-auto" id="login">Влез</a
-            </div>
-    </header>
-    
+    <!-- Swiper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Add Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="preloader-container d-flex justify-content-center align-items-center">
+        <div class="preloader" id="preloader"></div>
+    </div>
     <main>
-        <section class="section-1">
-            <div class="section-1-content">
-                <h1>Заглавие на секцията</h1>
-                <p>Това е кратък текст, който предоставя допълнителна информация за секцията.</p>
+        <section class="section-1 d-flex justifiy-content-center archive-section">
+            <div class="d-flex align-items-center mt-7 justify-content-center section-content">
+                <div class="overlay">
+                    <div class="btn-container">
+                        <button class="burger-btn d-flex flex-column justify-content-between align-items-center p-0 border-0 bg-transparent z-3 ms-auto" id="burgerButton">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </button>
+                        <div class="fullscreen-menu hide d-flex flex-column justify-content-center align-items-center z-2 h-100 w-100 position-fixed top-0 start-0" id="fullscreenMenu">
+                            <a href="index.html">Начало</a>
+                            <a href="archives/archives.html">Архив</a>
+                            <a class="go-to-profile" href="forms.html">Вход</a>
+                        </div>
+                    </div>
+                    <div class="h-75 d-flex w-100 flex-column align-items-center justify-content-center">
+                        <h1 class="text-center section-1-heading">Алма-хроники</h1>
+                        <p class="text-center w-75 section-1-description">Запознайте се със миналото на <span>ПМГ</span>
+                        </p>
+                        <div class="container d-flex justify-content-center gap-5 section-1-btns">
+                            <a href="archives/archives.html" class="button">Разгледай</a>
+                            <a href="forms.html" class="button rev-btn go-to-profile">Добави</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-2 d-flex justify-content-center align-items-center archive-section">
+            <img src="../images/obyrnato.png" alt="" class="section-2-background">
+            <div class="d-flex align-items-center mt-7 section-content">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- Slides -->
+                        <div class="swiper-slide d-flex" id="slide-1">
+                            <div class="image-container d-flex align-items-center">
+                                <img src="../images/sport.png" class="w-100 h-75" alt="">
+                            </div>
+
+                            <div class="container">
+                                <h1 class="text-center">Спорт</h1>
+                                <h6 class="text-center">30 Март 2025г.</h6>
+                                <p>В категорията „Спорт“ в онлайн архива могат да се намерят снимки, видеа и статии,
+                                    отразяващи спортния живот в гимназията – отборни състезания, индивидуални
+                                    постижения, турнири и история на спортните дейности. Всичко това показва успехите на
+                                    учениците и вдъхновява към активен начин на живот.</p>
+                                <div class="container d-flex justify-content-center">
+                                    <a href="archives/archives.html" class="button">Разгледай</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide d-flex" id="slide-2">
+                            <div class="image-container d-flex align-items-center">
+                                <img src="../images/sport.png" class="w-100 h-75" alt="">
+                            </div>
+
+                            <div class="container">
+                                <h1 class="text-center">Спорт</h1>
+                                <h6 class="text-center">30 Март 2025г.</h6>
+                                <p>В категорията „Спорт“ в онлайн архива могат да се намерят снимки, видеа и статии,
+                                    отразяващи спортния живот в гимназията – отборни състезания, индивидуални
+                                    постижения, турнири и история на спортните дейности. Всичко това показва успехите на
+                                    учениците и вдъхновява към активен начин на живот.</p>
+                                <div class="container d-flex justify-content-center">
+                                    <a href="archives/archives.html" class="button">Разгледай</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide d-flex" id="slide-3">
+                            <div class="image-container d-flex align-items-center">
+                                <img src="../images/sport.png" class="w-100 h-75" alt="">
+                            </div>
+
+                            <div class="container">
+                                <h1 class="text-center">Спорт</h1>
+                                <h6 class="text-center">30 Март 2025г.</h6>
+                                <p>В категорията „Спорт“ в онлайн архива могат да се намерят снимки, видеа и статии,
+                                    отразяващи спортния живот в гимназията – отборни състезания, индивидуални
+                                    постижения, турнири и история на спортните дейности. Всичко това показва успехите на
+                                    учениците и вдъхновява към активен начин на живот.</p>
+                                <div class="container d-flex justify-content-center">
+                                    <a href="archives/archives.html" class="button">Разгледай</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- More slides -->
+                    </div>
+                    <!-- Add Navigation -->
+                    <div class="swiper-button-next swiper-btn"></div>
+                    <div class="swiper-button-prev swiper-btn"></div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination swiper-pgn"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-3 archive-section flex-column">
+            <h1>Албуми</h1> 
+            <div class="bookshelf">
+                <div class="shelf">
+                    <div class="shelf-flex">
+                        <div class="camera">
+                            <div class="flash"></div>
+                            <div class="trigger"></div>
+                        </div>
+                        <div class="flex book-row">
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум на създателите</span>
+                            </div>
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум Клуб ,,Журналистика"</span>
+                            </div>
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум Клуб ,,Химия"</span>
+                            </div>
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум 2024-2025 12 A</span>
+                            </div>
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум 2024-2025 12 Б</span>
+                            </div>
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум 2024-2025 12 В</span>
+                            </div>
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум 2024-2025 12 Г</span>
+                            </div>
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум 2024-2025 12 Д</span>
+                            </div>
+                            <div class="book readable-book">
+                                <span class="tooltiptext d-none">Албум 2024-2025 12 Е</span>
+                            </div>
+                            <div class="book-stopper"></div>
+                        </div>
+                        <div class="plant-1">
+                            <div class="plant-pot">
+                                <div class="leaf"></div>
+                                <div class="leaf"></div>
+                                <div class="leaf"></div>
+                                <div class="leaf"></div>
+                                <div class="leaf"></div>
+                            </div>
+                        </div>
+                        <div class="flex book-row">
+                            <div class="book-2 readable-book"></div>
+                            <div class="book-2 readable-book"></div>
+                            <div class="book-2 readable-book"></div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="shelf">
+                    <div class="shelf-flex">
+                        <div class="book-stack">
+                        <div class="book readable-book"></div>
+                        <div class="book readable-book"></div>
+                        <div class="book readable-book"></div>
+                        </div>
+                        <div class="plant-pot plant-pot-2">
+                        <div class="cactus">
+                            <div class="spike"></div>
+                            <div class="spike"></div>
+                            <div class="spike"></div>
+                            <div class="spike"></div>
+                            <div class="spike"></div>
+                            <div class="spike"></div>
+                            <div class="spike"></div>
+                        </div>
+                        </div>
+                        <div class="potions">
+                        <div class="potion-parent">
+                            <div class="potion"></div>
+                            <div class="potion-cap"></div>
+                        </div>
+                        <div class="potion-parent">
+                            <div class="potion"></div>
+                            <div class="potion-cap"></div>
+                        </div>
+                        <div class="potion-parent">
+                            <div class="potion"></div>
+                            <div class="potion-cap"></div>
+                        </div>
+                        <div class="potion-parent">
+                            <div class="potion"></div>
+                            <div class="potion-cap"></div>
+                        </div>
+                        <div class="potion-stand"></div>
+                        </div>
+                        <div class="potion-parent">
+                        <div class="potion-large potion-large-1">
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                            <div class="bubble"></div>
+                        </div>
+                        </div>
+                        <div class="potion-parent">
+                        <div class="potion-large potion-large-2">
+                            <div class="bubble bubble-2"></div>
+                            <div class="bubble bubble-2"></div>
+                            <div class="bubble bubble-2"></div>
+                        </div>
+                        </div>
+                        <div class="potion-parent">
+                        <div class="potion-large potion-large-3"></div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="shelf">
+                    <div class="shelf-flex">
+                        <div class="plant-pot plant-pot-2 hanging-plant-pot">
+                        <div class="hanging-plant">
+                            <div class="hanging-plant-pole"></div>
+                            <div>
+                            <div class="vine"></div>
+                            <div class="vine"></div>
+                            <div class="vine"></div>
+                            </div>
+                            <div>
+                            <div class="hanging-leaf"></div>
+                            <div class="hanging-leaf"></div>
+                            <div class="hanging-leaf"></div>
+                            <div class="hanging-leaf"></div>
+                            <div class="hanging-leaf"></div>
+                            </div>
+                            <div>
+                            <div class="berry"></div>
+                            <div class="berry"></div>
+                            <div class="berry"></div>
+                            <div class="berry"></div>
+                            <div class="berry"></div>
+                            <div class="berry"></div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="flex book-row">
+                        <div class="book-stopper-2"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        <div class="book-3 readable-book"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="bookViewer">
+                <button id="closeViewer"><i class="fa-solid fa-x"></i></button>
+                <div class="flipbook">
+                    <div class="page">Cover</div>
+                    <div class="page">Page 1</div>
+                    <div class="page">Page 2</div>
+                    <div class="page">Page 3</div>
+                    <div class="page">Back Cover</div>
+                </div>
             </div>
         </section>
     </main>
+
+    <footer class="d-flex align-items-center">
+        <div class="w-100 h-20 text-center">&copy; Създадено от Бранимир Янчев и Александър Джаджев</div>
+    </footer>
+
+    <script>
+        var profileUrl = "profile.html";
+        var formsUrl = "forms.html"
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <script src="../scripts/preloader.js"></script>
+    <script src="../scripts/index.js"></script>
+    <script src="../scripts/turn.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
