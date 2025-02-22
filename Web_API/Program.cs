@@ -21,6 +21,15 @@ var app = builder.Build();
 // Enable CORS globally
 app.UseCors("AllowAll");
 
+using Microsoft.Extensions.FileProviders;
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "Web_API", "users")),
+    RequestPath = "/users"
+});
+
 // Define API endpoints
 app.MapPost("/api/register", async (HttpContext context) =>
 {
