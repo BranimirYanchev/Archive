@@ -6,7 +6,7 @@ class Database
     MySqlConnection myConnection;
     public MySqlConnection Connect()
     {
-        string myConnectionString = "server=sql303.infinityfree.com;user=if0_38375820;database=if0_38375820_alma_chronicles_db;password=g9bkV2pSUIE;";
+        string myConnectionString = "server=brvftrf5xgl4awjmc3ih-mysql.services.clever-cloud.com;port=3306;user=ujgzqhu3rohbx1zm;password=ukppJ82P3387I6yjUysf;database=brvftrf5xgl4awjmc3ih;SslMode=Required;";
 
         myConnection = new MySqlConnection(myConnectionString);
 
