@@ -21,7 +21,7 @@ if(archiveId == null || archiveId == undefined){
 $(".submit-btn").on('click', function (e) {
     e.preventDefault();
 
-    let url = "https://archive-4vi4.onrender.com//api/save_archive";
+    let url = "https://archive-4vi4.onrender.com/api/save_archive";
 
     if(isBeingEdited){
         url = "https://archive-4vi4.onrender.com/api/update_archive";
