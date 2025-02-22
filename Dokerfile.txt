@@ -1,9 +1,9 @@
 # Стъпка 1: Използвай официалния .NET 7.0 SDK като билд среда
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /source
+WORKDIR /Web_API
 
 # Копирай .csproj файла и възстанови зависимостите
-COPY Web_API.csproj .
+COPY Web_API/Web_API.csproj .
 RUN dotnet restore
 
 # Копирай останалите файлове и билдни приложението
