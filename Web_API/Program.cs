@@ -126,6 +126,11 @@ app.MapGet("/api/get_last_user_id", async (HttpContext context) =>
     return new {id = new Database().GetLastUserID()};
 });
 
+app.MapGet("/api/test", async (HttpContext context) =>
+{   
+    return new {status = "ОK!"};
+});
+
 // app.MapPost("/api/save_user_image", async (HttpContext context) =>
 // {
 //     var form = await context.Request.ReadFormAsync(); // Read form data
