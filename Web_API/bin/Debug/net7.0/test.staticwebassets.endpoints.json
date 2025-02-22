@@ -1,5 +1,88 @@
 {
   "Version": 1,
   "ManifestType": "Build",
-  "Endpoints": []
+  "Endpoints": [
+    {
+      "Route": "text.5ipweew5fc.txt",
+      "AssetFile": "text.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 22 Feb 2025 10:50:30 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        },
+        {
+          "Name": "label",
+          "Value": "text.txt"
+        }
+      ]
+    },
+    {
+      "Route": "text.txt",
+      "AssetFile": "text.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 22 Feb 2025 10:50:30 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    }
+  ]
 }
