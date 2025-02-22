@@ -1,24 +1,17 @@
-# Използване на официалния .NET 7 SDK като база
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
-# Билд стъпка
+# Стъпка 1: Използвай официалния .NET 7.0 SDK като билд среда
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["Web_API/Web_API.csproj", "Web_API/"]
-RUN dotnet restore "Web_API/Web_API.csproj"
-COPY . .
-WORKDIR "/src/Web_API"
-RUN dotnet build -c Release -o /app/build
+WORKDIR /source
 
-# Публикуване
-FROM build AS publish
+# Копирай .csproj файла и възстанови зависимостите
+COPY Web_API.csproj .
+RUN dotnet restore
+
+# Копирай останалите файлове и билдни приложението
+COPY . .
 RUN dotnet publish -c Release -o /app/publish
 
-# Финален имидж
-FROM base AS final
+# Стъпка 2: Използвай официалния .NET 7.0 Runtime като изпълнителна среда
+FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
 ENTRYPOINT ["dotnet", "Web_API.dll"]
