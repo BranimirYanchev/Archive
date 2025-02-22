@@ -21,4 +21,4 @@ RUN dotnet publish -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "Web_API.dll"]
+ENTRYPOINT ["dotnet", "test.dll"]
