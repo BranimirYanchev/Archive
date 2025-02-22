@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy the project file and restore dependencies
-COPY ["Web_API/Web_API.csproj", "Web_API/"]
+COPY ["Web_API/test.csproj", "Web_API/"]
 RUN dotnet restore "Web_API/Web_API.csproj"
 
 # Copy everything else and build the application
