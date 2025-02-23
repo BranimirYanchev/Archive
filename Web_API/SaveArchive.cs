@@ -52,7 +52,7 @@ class SaveArchive
             return new { isSavedData = false, isDataCorrect = false };
         }
 
-        string directory = $"../users/{AuthorId}";
+        string directory = $"users/{AuthorId}";
         if (!Directory.Exists(directory))
         {
             Directory.CreateDirectory(directory);
@@ -122,7 +122,7 @@ class UpdateArchive
 
     public Object UpdateArchiveInJSON()
     {
-        string filePath = $"../users/{AuthorId}/archives.json"; // Пътят към JSON файла
+        string filePath = $"users/{AuthorId}/archives.json"; // Пътят към JSON файла
 
         if (!CheckData())
         {
@@ -176,7 +176,7 @@ class DeleteArchive
 
     public Object DeleteArchiveFromJSON(string id, string email)
     {
-        string filePath = $"../users/{new Database().GetCurrentUserID(email)}/archives.json"; // Пътят към JSON файла
+        string filePath = $"users/{new Database().GetCurrentUserID(email)}/archives.json"; // Пътят към JSON файла
 
         // Четене на текущото съдържание на JSON файла
         string json = File.ReadAllText(filePath);
