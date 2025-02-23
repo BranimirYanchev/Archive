@@ -68,7 +68,7 @@ Section-1 Style
 
 /* Снимка като фон */
 .section-1>.section-content {
-    background: url("../images/colage.png");
+    background: url("../images/1.png");
     background-position: center;
     background-size: 125% 143%;
     width: 90%;
