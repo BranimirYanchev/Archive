@@ -97,7 +97,7 @@ $("#save-data-btn").on("click", function () {
     }
 
 
-    let url = "https://archive-4vi4.onrender.com/update_data";
+    let url = "https://archive-4vi4.onrender.com/api/update_data";
 
     $.ajax({
         url: url,
