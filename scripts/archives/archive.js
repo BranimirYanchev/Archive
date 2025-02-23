@@ -1,6 +1,8 @@
 setArchives()
 
 function setArchives() {
+
+     $(".preloader-container").removeClass("d-none");  
     // Извикване с callback
     getLastUserId(function(id) {
         for (let i = 1; i <= id; i++) {
@@ -45,6 +47,8 @@ function setArchives() {
                             console.log(i);
                             window.open(`archive_single.html?id=${this.id}&authorId=${$(this).attr("authorid")}`, "_self");
                         });
+
+                        $(".preloader-container").addClass("d-none");  
                     });
                 }  
             });
