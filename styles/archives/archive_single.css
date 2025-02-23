@@ -14,6 +14,8 @@ main{
 }
 
 .burger-btn{
+    top: 6% !important;
+    left: 92.5%;
     margin: -2% !important;
 }
 
@@ -21,11 +23,6 @@ main{
     height: 95%;
     margin-bottom: 5%;
     padding-bottom: 2%;
-}
-
-.burger-btn{
-    top: 3.5% !important;
-    left: 92.5%
 }
 
 .heading>h1 {
