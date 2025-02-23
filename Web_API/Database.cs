@@ -61,7 +61,7 @@ class Database
         using (MySqlConnection connection = database.Connect())
         {
             connection.Open();
-            using (var command = new MySqlCommand("SELECT IFNULL(MAX(Id), 0) + 1 FROM Users", connection))
+            using (var command = new MySqlCommand("SELECT IFNULL(MAX(Id), 0) + 1 FROM users", connection))
             {
                 var result = command.ExecuteScalar();
                 if (result != null && result != DBNull.Value)
@@ -82,7 +82,7 @@ class Database
         using (MySqlConnection connection = database.Connect())
         {
             connection.Open();
-            using (var command = new MySqlCommand("SELECT Id FROM Users WHERE Email = @Email LIMIT 1", connection))
+            using (var command = new MySqlCommand("SELECT Id FROM users WHERE Email = @Email LIMIT 1", connection))
             {
                 command.Parameters.AddWithValue("@Email", email);
 
@@ -131,7 +131,7 @@ class Database
         using (MySqlConnection connection = database.Connect())
         {
             connection.Open();
-            using (var command = new MySqlCommand("SELECT IFNULL(MAX(Id), 0) + 1 FROM Archives", connection))
+            using (var command = new MySqlCommand("SELECT IFNULL(MAX(Id), 0) + 1 FROM archives", connection))
             {
                 var result = command.ExecuteScalar();
                 if (result != null && result != DBNull.Value)
