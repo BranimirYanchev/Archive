@@ -32,7 +32,7 @@ $(".submit-btn").on('click', function (e) {
 
 $(".delete-btn").on("click", function(e){
     e.preventDefault();
-    let url = "https://archive-4vi4.onrender.com//api/delete_archive";
+    let url = "https://archive-4vi4.onrender.com/api/delete_archive";
     sendData(url);
 });
 
