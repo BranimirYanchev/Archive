@@ -16,7 +16,7 @@ public class UserController : ControllerBase
     public UserController(string id)
     {
         Message = new Message();
-        FilePath = $"../users/{id}/profile_info.json"; // Path to the JSON file
+        FilePath = $"users/{id}/profile_info.json"; // Path to the JSON file
         Id = id;
     }
 
@@ -85,7 +85,7 @@ public class UserController : ControllerBase
         }
 
         if(Message.isPasswordValid && Message.ArePasswordsMatch){
-            new Database().IsUserSelected("UPDATE Users SET Password = @PasswordHash WHERE Id = @Id;", int.Parse(Id),  email, newPass);
+            new Database().IsUserSelected("UPDATE users SET Password = @PasswordHash WHERE Id = @Id;", int.Parse(Id),  email, newPass);
         }
 
         SaveUserData(existingData);
