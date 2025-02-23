@@ -1,8 +1,4 @@
-// JavaScript for burger menu toggle
-const burgerButton = $('#burgerButton')[0];
-const fullscreenMenu = $('#fullscreenMenu')[0];
-
-burgerButton.addEventListener('click', function(e){
+$(".burger-btn").on('click', function(e){
     toggleMenu();
 });
 
