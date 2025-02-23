@@ -1,4 +1,6 @@
-setArchives()
+setArchives();
+
+$(".burger-btn").on("click", () => toggleMenu());
 
 function setArchives() {
     const archiveId = new URLSearchParams(window.location.search).get("id");
