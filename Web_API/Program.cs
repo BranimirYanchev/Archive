@@ -102,7 +102,7 @@ app.MapPost("/api/save_archive", async (HttpContext context) =>
 {
     var form = await context.Request.ReadFormAsync(); // Read form data
     
-    return new SaveArchive(form["title"], form["description"], form["category"], form["keywords"], form["email"], form["author"]).SaveArchiveToJSON();
+    return new SaveArchive(form["title"], form["description"], form["category"], form["keywords"], form["email"], form["author"], form["image"]).SaveArchiveToJSON();
 });
 
 app.MapPost("/api/update_archive", async (HttpContext context) =>
