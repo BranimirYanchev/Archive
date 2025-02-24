@@ -25,9 +25,10 @@ app.UseCors("AllowAll");
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-    "users"),
+        Path.Combine(Directory.GetCurrentDirectory(), "users")),
     RequestPath = "/users"
 });
+
 
 // Define API endpoints
 app.MapPost("/api/register", async (HttpContext context) =>
