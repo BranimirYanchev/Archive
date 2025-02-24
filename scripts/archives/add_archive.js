@@ -64,7 +64,7 @@ $("#imageUpload").on("change", function (event) {
         return;
     }
 
-    if(event.target.files.length > 1){
+    if($("#previewContainer").children().length > 1){
         return true;
     }
 
