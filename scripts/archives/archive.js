@@ -8,7 +8,7 @@ function setArchives() {
         for (let i = 1; i <= id; i++) {
             let url = `https://archive-4vi4.onrender.com/users/${i}/archives.json?nocache=${new Date().getTime()}`;
 
-            console.log(url);
+            console.log(1);
     
             $.ajax({
                 url: url,
@@ -44,9 +44,10 @@ function setArchives() {
                         </div>`
                         );
                         $(".card").on("click", function (){  
-                            console.log(i);
                             window.open(`archive_single.html?id=${this.id}&authorId=${$(this).attr("authorid")}`, "_self");
                         });
+
+                         console.log(2);
 
                         $(".preloader-container").addClass("d-none");  
                     });
