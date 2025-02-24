@@ -116,7 +116,7 @@ function sendData(url){
     formData.append("title", elements.title.val());
     formData.append("description", elements.description.html());
     formData.append("category", elements.category.val());
-    formData.append("imgUrl", image);
+    formData.append("image", image);
     formData.append("keywords", keywords);
     formData.append("author", sessionStorage.getItem("name"));
     formData.append("email", sessionStorage.getItem("email"));
