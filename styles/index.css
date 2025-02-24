@@ -201,7 +201,7 @@ Section-2 Style
 .swiper-slide>.container>p {
     color: #8a5a3e;
     font-size: clamp(1.15rem, 2vh, 2rem);
-    width: 80%;
+    width: 88%;
 }
 
 .swiper-slide>.container>div {
