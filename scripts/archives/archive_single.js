@@ -26,7 +26,7 @@ function setArchives() {
                         </div>
     
                         <div class="image-container d-flex justify-content-center mt-4">
-                            <img src="${e.imageUrl}"alt="archive-img" />
+                            <img src="https://archive-4vi4.onrender.com/${e.imageUrl}"alt="archive-img" />
                         </div>
     
                         <div class="content-conatiner d-flex flex-column align-items-center mt-4">
