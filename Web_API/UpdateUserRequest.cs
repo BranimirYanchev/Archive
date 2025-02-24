@@ -85,7 +85,7 @@ public class UserController : ControllerBase
         }
 
         if(Message.isPasswordValid && Message.ArePasswordsMatch){
-            new Database().IsUserSelected("UPDATE users SET Password = @PasswordHash WHERE Id = @Id;", int.Parse(Id),  email, newPass);
+            new Database().IsUserSelected("UPDATE users SET password = @PasswordHash WHERE id = @Id;", int.Parse(Id),  email, newPass);
         }
 
         SaveUserData(existingData);
