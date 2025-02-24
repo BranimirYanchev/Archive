@@ -39,7 +39,7 @@ public class ArchiveController : ControllerBase
             }
 
             // Генерираме уникално име за файла
-            string uniqueFileName = $"archive-img{extension}";
+            string uniqueFileName = $"archive-img{Guid.NewGuid().ToString()}{extension}";
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
