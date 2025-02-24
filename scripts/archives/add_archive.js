@@ -3,8 +3,9 @@ const elements = {
     image: $("#imageUpload"),
     description: $(".ql-editor"),
     category: $("#category"),
-    video: "" // Add video
 };
+
+let image = "";
 
 if (sessionStorage.getItem("email") == null) {
     window.open("../forms.html", "_self")
@@ -51,24 +52,30 @@ $("#imageUpload").on("change", function (event) {
     let previewContainer = $("#previewContainer");
     previewContainer.css("overflow-x", "visible"); // Изчистваме предишните
 
-    $.each(event.target.files, function (index, file) {
-        let reader = new FileReader();
+    let file = event.target.files[0]; // Вземаме само първия файл
 
-        reader.readAsDataURL(file);
+    if (!file.type.startsWith("image/")) {
+        alert("Моля, качете изображение!");
+        return;
+    }
 
-        reader.onload = function (e) {
-            let previewBox = $("<div class='previewBox'></div>");
-            let img = $("<img>").attr("src", e.target.result);
-            let removeBtn = $("<button class='removeBtn'>❌</button>");
+    image = file;
 
-            removeBtn.on("click", function () {
-                previewBox.remove();
-            });
+    let reader = new FileReader();
 
-            previewBox.append(img).append(removeBtn);
-            previewContainer.append(previewBox);
-        };
-    });
+    reader.readAsDataURL(file);
+    reader.onload = function (e) {
+        let previewBox = $("<div class='previewBox'></div>");
+        let img = $("<img>").attr("src", e.target.result);
+        let removeBtn = $("<button class='removeBtn'>❌</button>");
+
+        removeBtn.on("click", function () {
+            previewBox.remove();
+        });
+
+        previewBox.append(img).append(removeBtn);
+        previewContainer.append(previewBox);
+    };
 });
 
 function readNewArchiveData(response){
@@ -109,6 +116,7 @@ function sendData(url){
     formData.append("title", elements.title.val());
     formData.append("description", elements.description.html());
     formData.append("category", elements.category.val());
+    formData.append("imgUrl", image);
     formData.append("keywords", keywords);
     formData.append("author", sessionStorage.getItem("name"));
     formData.append("email", sessionStorage.getItem("email"));
