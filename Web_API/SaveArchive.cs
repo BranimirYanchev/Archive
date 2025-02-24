@@ -7,6 +7,58 @@ using Microsoft.Extensions.ObjectPool;
 using System.Text.Json.Nodes;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
+
+public class ArchiveController : ControllerBase
+{
+    public IActionResult UploadImage(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest(new { isUploaded = false, message = "Файлът не е избран." });
+        }
+
+        // Проверка дали файлът е изображение
+        var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+        var extension = Path.GetExtension(file.FileName).ToLower();
+
+        if (!allowedExtensions.Contains(extension))
+        {
+            return BadRequest(new { isUploaded = false, message = "Неподдържан формат на файла!" });
+        }
+
+        try
+        {
+            // Създаваме директорията за качени изображения, ако не съществува
+            string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+            if (!Directory.Exists(uploadsFolder))
+            {
+                Directory.CreateDirectory(uploadsFolder);
+            }
+
+            // Генерираме уникално име за файла
+            string uniqueFileName = $"{Guid.NewGuid()}{extension}";
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                file.CopyTo(fileStream);
+            }
+
+            // Връщаме URL за изображението
+            string fileUrl = $"/uploads/{uniqueFileName}";
+
+            return Ok(new { isUploaded = true, imageUrl = fileUrl });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { isUploaded = false, message = "Грешка при качване на файла.", error = ex.Message });
+        }
+    }
+}
+
 
 class SaveArchive
 {
