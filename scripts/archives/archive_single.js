@@ -29,7 +29,7 @@ function setArchives() {
                             <img src="https://archive-4vi4.onrender.com/${e.imageUrl}"alt="archive-img" />
                         </div>
     
-                        <div class="content-conatiner d-flex flex-column align-items-center mt-4">
+                        <div class="content-conatiner d-flex flex-column mt-4">
                             <p>${e.description}</p>
                         </div>`
                     );
