@@ -13,11 +13,11 @@ using Microsoft.AspNetCore.Hosting;
 
 public class ArchiveController : ControllerBase
 {
-    public IActionResult UploadImage(IFormFile file)
+    public string UploadImage(IFormFile file, string imgUrl)
     {
         if (file == null || file.Length == 0)
         {
-            return BadRequest(new { isUploaded = false, message = "Файлът не е избран." });
+            return "No file!";
         }
 
         // Проверка дали файлът е изображение
@@ -26,20 +26,20 @@ public class ArchiveController : ControllerBase
 
         if (!allowedExtensions.Contains(extension))
         {
-            return BadRequest(new { isUploaded = false, message = "Неподдържан формат на файла!" });
+            return "Wrong extensions!";
         }
 
         try
         {
             // Създаваме директорията за качени изображения, ако не съществува
-            string uploadsFolder = Path.Combine(_env.WebRootPath, "uploads");
+            string uploadsFolder = imgUrl
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
             }
 
             // Генерираме уникално име за файла
-            string uniqueFileName = $"{Guid.NewGuid()}{extension}";
+            string uniqueFileName = $"archive-img{extension}";
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
@@ -47,14 +47,11 @@ public class ArchiveController : ControllerBase
                 file.CopyTo(fileStream);
             }
 
-            // Връщаме URL за изображението
-            string fileUrl = $"/uploads/{uniqueFileName}";
-
-            return Ok(new { isUploaded = true, imageUrl = fileUrl });
+            return filePath;
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new { isUploaded = false, message = "Грешка при качване на файла.", error = ex.Message });
+            return "Internal Server Error"
         }
     }
 }
@@ -70,7 +67,8 @@ class SaveArchive
     public string Id { get; set; }
     public string AuthorId { get; set; }
     public string Author { get; set; }
-    public SaveArchive(string title, string description, string category, string[] keywords, string email, string author)
+    public IFormFile Image { get; set; } 
+    public SaveArchive(string title, string description, string category, string[] keywords, string email, string author, IFormFile file)
     {
         Title = title;
         Description = description;
@@ -80,6 +78,7 @@ class SaveArchive
         Author = author;
         AuthorId = new Database().GetCurrentUserID(Email).ToString();
         Id = new Database().GetLastArchiveId().ToString();
+        Image = file;
     }
 
     public SaveArchive() { }
@@ -95,7 +94,8 @@ class SaveArchive
 
     public Object SaveArchiveToJSON()
     {
-        string ImgUrl = "";
+        string imgUrl = $"users/{AuthorId}/media";
+        imgUrl = new ArchiveController().UploadImage(Image, imgUrl);
 
         List<string> keywrds = Keywords[0].Split(',').Select(k => k.Trim()).ToList();
 
