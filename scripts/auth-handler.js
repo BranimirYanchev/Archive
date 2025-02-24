@@ -42,6 +42,7 @@ function formToJSON(form) {
 /* AJAX Data Sending Function */
 /* ----------------------------- */
 function sendData(data, method, url, type = "R") {
+    toastr.info("Моля изчакайте, докато се обработят вашите данни!");
     $.ajax({
         url: url,
         type: method,
