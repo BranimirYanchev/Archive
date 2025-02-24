@@ -32,7 +32,7 @@ public class ArchiveController : ControllerBase
         try
         {
             // Създаваме директорията за качени изображения, ако не съществува
-            string uploadsFolder = imgUrl
+            string uploadsFolder = imgUrl;
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
@@ -51,7 +51,7 @@ public class ArchiveController : ControllerBase
         }
         catch (Exception ex)
         {
-            return "Internal Server Error"
+            return "Internal Server Error";
         }
     }
 }
@@ -127,7 +127,7 @@ class SaveArchive
             description = Description,
             category = Category,
             keywords = keywrds,
-            imageUrl = ImgUrl,
+            imageUrl = imgUrl,
             timestamp = DateTime.Now.ToString("dd/MM/yyyy")
         };
 
