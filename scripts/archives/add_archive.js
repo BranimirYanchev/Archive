@@ -14,10 +14,13 @@ if (sessionStorage.getItem("email") == null) {
 let isBeingEdited = true;
 const archiveId = new URLSearchParams(window.location.search).get("id");
 
+$($("label")[1]).hide(); 
+$($("#previewContainer")[0]).hide();
+
 if(archiveId == null || archiveId == undefined){
     $(".delete-btn").hide();
-    $($("label")[1]).hide(); 
-    $($("#previewContainer")[0]).hide() 
+    $($("label")[1]).show(); 
+    $($("#previewContainer")[0]).show();
     isBeingEdited = false;
 }
 
