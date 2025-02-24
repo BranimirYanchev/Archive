@@ -1,5 +1,9 @@
 setArchives();
 
+let now = new Date();
+let hours = now.getHours().toString().padStart(2, '0');
+let minutes = now.getMinutes().toString().padStart(2, '0');
+let seconds = now.getSeconds().toString().padStart(2, '0');
 console.log(`${hours}:${minutes}:${seconds}`);
 
 function setArchives() {
@@ -9,11 +13,6 @@ function setArchives() {
     getLastUserId(function(id) {
         for (let i = 1; i <= id; i++) {
             let url = `https://archive-4vi4.onrender.com/users/${i}/archives.json?nocache=${new Date().getTime()}`;
-
-             let now = new Date();
-               let hours = now.getHours().toString().padStart(2, '0');
-              let minutes = now.getMinutes().toString().padStart(2, '0');
-              let seconds = now.getSeconds().toString().padStart(2, '0');
     
             $.ajax({
                 url: url,
