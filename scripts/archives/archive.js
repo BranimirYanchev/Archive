@@ -8,7 +8,11 @@ function setArchives() {
         for (let i = 1; i <= id; i++) {
             let url = `https://archive-4vi4.onrender.com/users/${i}/archives.json?nocache=${new Date().getTime()}`;
 
-            console.log(1);
+               let hours = now.getHours().toString().padStart(2, '0');
+              let minutes = now.getMinutes().toString().padStart(2, '0');
+              let seconds = now.getSeconds().toString().padStart(2, '0');
+          
+              console.log(`${hours}:${minutes}:${seconds}`);
     
             $.ajax({
                 url: url,
@@ -47,7 +51,7 @@ function setArchives() {
                             window.open(`archive_single.html?id=${this.id}&authorId=${$(this).attr("authorid")}`, "_self");
                         });
 
-                         console.log(2);
+                         console.log(`${hours}:${minutes}:${seconds}`);
 
                         $(".preloader-container").addClass("d-none");  
                     });
