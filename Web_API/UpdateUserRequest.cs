@@ -39,7 +39,7 @@ public class UserController : ControllerBase
             Message.ArePasswordsMatch = true;
         }
 
-        if (!string.IsNullOrEmpty(newPass) && new CheckLoginData().IsValidData(newPass, @"^(?=.*\d)(?=.*[a-z]).{8,}$") && !string.IsNullOrEmpty(oldPass) && new Database().IsUserSelected("SELECT * FROM Users WHERE Id = @Id AND Password = @PasswordHash;", int.Parse(Id),  email, oldPass)[0])
+        if (!string.IsNullOrEmpty(newPass) && new CheckLoginData().IsValidData(newPass, @"^(?=.*\d)(?=.*[a-z]).{8,}$") && !string.IsNullOrEmpty(oldPass) && new Database().IsUserSelected("SELECT * FROM users WHERE Id = @Id AND Password = @PasswordHash;", int.Parse(Id),  email, oldPass)[0])
         {
             Message.isPasswordValid = true;
         }
