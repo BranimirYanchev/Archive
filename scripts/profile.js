@@ -238,7 +238,7 @@ function setArchives() {
                 $("#card-container").append(
                     `<div class="card" id=${e.id}>
                         <div class="card-header">
-                            <img src="${e.imageUrl}"alt="archive-img" />
+                            <img src="https://archive-4vi4.onrender.com/${e.imageUrl}"alt="archive-img" />
                         </div>
                         <div class="card-body">
                             <span class="tag tag-purple">${category}</span>
