@@ -16,6 +16,8 @@ const archiveId = new URLSearchParams(window.location.search).get("id");
 
 if(archiveId == null || archiveId == undefined){
     $(".delete-btn").hide();
+    $("label")[1].hide();
+    $($("#previewContainer")[0]).hide() 
     isBeingEdited = false;
 }
 
@@ -110,6 +112,10 @@ function sendData(url){
         toastr.error("Моля попълнете всички полета!");
         return false;
     }   
+
+    if($($("#previewContainer")[0]).html() == ""){
+        toastr.error("Моля добавете снимка!");
+    }
 
     let formData = new FormData();
 
