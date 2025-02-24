@@ -25,7 +25,7 @@ app.UseCors("AllowAll");
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "users")),
+    "users",
     RequestPath = "/users"
 });
 
