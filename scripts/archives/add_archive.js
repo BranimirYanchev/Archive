@@ -138,6 +138,8 @@ function sendData(url){
         formData.append("id", archiveId);
     }
 
+    toastr.info("Моля изчакайте!");
+
     $.ajax({
         url: url,
         type: "POST",
@@ -158,7 +160,9 @@ function addTag(keyword) {
 setData();
 
 function setData() {
-    let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/archives.json`
+    let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/archives.json`;
+
+    toastr.info("Моля изчакайте!");
 
     $.ajax({
         url: url,
