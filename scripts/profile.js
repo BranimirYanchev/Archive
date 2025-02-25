@@ -235,7 +235,7 @@ function setArchives() {
             response.forEach(e => {
                 let category = "ученически живот";
                 if (e.category == "sport") category = "спорт";
-                else if (e.category == "news") category = "новини";
+                else if (e.category == "news") category = "култура";
     
                 $("#card-container").append(
                     `<div class="card" id=${e.id}>
