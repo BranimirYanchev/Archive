@@ -37,6 +37,9 @@ function setArchives() {
                     );
                 }
             });
-        }  
+        },
+        error: function (error){
+            window.open("../archives.html", "_self");
+        }
     });
 }
