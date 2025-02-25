@@ -22,3 +22,12 @@ if(sessionStorage.getItem("email")){
     $(".go-to-profile").attr("href",  formsUrl) 
 }
 
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": true,
+    "onclick": null
+};
