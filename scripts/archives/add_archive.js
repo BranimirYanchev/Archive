@@ -156,7 +156,11 @@ function sendData(url){
         contentType: false, 
         processData: false,
         success: function (response) {
-            readNewArchiveData(response);
+            if(!isBeingEdited){
+                readNewArchiveData(response);
+            }else{
+                isArchiveDeleted(response);
+            }
         }
     });
 }
