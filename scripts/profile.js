@@ -64,6 +64,7 @@ togglePassBtnsT.on('click', function(){
 });
 
 $("#save-data-btn").on("click", function () {
+    toastr.info("Моля изчакайте!");
     let formData = new FormData(); 
     Object.keys(isChanged).forEach((key, value) => {
         if(isChanged[key] && infoForm[key] != "" && infoForm[key] != undefined && key == "grade"){
@@ -142,6 +143,7 @@ areFieldsChanged();
 // Set data function
 function setData() {
     setArchives();
+    toastr.info("Моля изчакайте!");
 
     let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/profile_info.json?nocache=${new Date().getTime()}`;
 
@@ -216,7 +218,7 @@ function areFieldsChanged() {
 
 function setArchives() {
     let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem("user_Id")}/archives.json?nocache=${new Date().getTime()}`;
-
+    toastr.info("Моля изчакайте!");
     $.ajax({
         url: url,
         type: "GET",
