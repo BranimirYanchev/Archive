@@ -17,7 +17,7 @@ function setArchives() {
                     response.forEach(e => {
                         let category = "ученически живот";
                         if (e.category == "sport") category = "спорт";
-                        else if (e.category == "news") category = "култура";
+                        else if (e.category == "culture") category = "култура";
 
                         $(".card-container").html(
                             $(".card-container").html() + 
