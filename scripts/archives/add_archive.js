@@ -94,16 +94,20 @@ function readNewArchiveData(response){
     else if(response.isFileUpdated){
         window.open("../profile.html", "_self");
         toastr.success("Вашият архив беше запазен успешно!");
-    }
-    else if(response.isArchiveDeleted){
-        window.open("../profile.html", "_self");
-    }
-    else{
+    }else{
         if(!response.isDataCorrect){
             toastr.error("Моля попълнете всички полета!");
         }else{
             toastr.info("Има проблем с обработката. Моля опитайте отново!")
         }
+    }
+}
+
+function isArchiveDeleted(response){
+    if(response.isArchiveDeleted){
+        window.open("../profile.html", "_self");
+    }else{
+        toastr.error("Възникна грешка! Моля опитайте пак!");
     }
 }
 
