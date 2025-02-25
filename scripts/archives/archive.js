@@ -46,8 +46,6 @@ function setArchives() {
                             window.open(`archive_single.html?id=${this.id}&authorId=${$(this).attr("authorid")}`, "_self");
                         });
 
-                         console.log(`${hours}:${minutes}:${seconds}`);
-
                         $(".preloader-container").addClass("d-none");  
                     });
                 }  
