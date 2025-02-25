@@ -6,6 +6,7 @@ const elements = {
 };
 
 let image = "";
+let isButtonClicked = false;
 
 if (sessionStorage.getItem("email") == null) {
     window.open("../forms.html", "_self")
@@ -33,7 +34,9 @@ $(".submit-btn").on('click', function (e) {
         url = "https://archive-4vi4.onrender.com/api/update_archive";
     }
 
-    sendData(url);
+    if(!isButtonClicked){
+        sendData(url);
+    }
 });
 
 $(".delete-btn").on("click", function(e){
@@ -97,8 +100,10 @@ function readNewArchiveData(response){
     }else{
         if(!response.isDataCorrect){
             toastr.error("Моля попълнете всички полета!");
+            isButtonClicked = false;
         }else{
-            toastr.info("Има проблем с обработката. Моля опитайте отново!")
+            toastr.info("Има проблем с обработката. Моля опитайте отново!");
+            isButtonClicked = false;
         }
     }
 }
