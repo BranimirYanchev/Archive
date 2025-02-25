@@ -131,6 +131,7 @@ function sendData(url){
 
     if($($("#previewContainer")[0]).html() == "" && !isBeingEdited){
         toastr.error("Моля добавете снимка!");
+        return false;
     }
 
     let formData = new FormData();
