@@ -36,6 +36,22 @@ main{
     font-size: 16px;
 }
 
+.toast-error{
+    background-color: red !important;
+}
+
+.toast-info{
+    background-color: blue !important;
+}
+
+.toast-success{
+    background-color: green !important;
+}
+
+#toast-container > *{
+    background-color: transparent;
+}
+
 .image-container>img {
     width: 70%;
     /* Заема ширината на контейнера */
