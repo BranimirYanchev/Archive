@@ -6,6 +6,8 @@ function setArchives() {
     const archiveId = new URLSearchParams(window.location.search).get("id");
     let authorId = new URLSearchParams(window.location.search).get("authorId");
 
+    toastr.info("Моля изчакайте!");
+
     if(authorId == null){
         authorId = sessionStorage.getItem("user_Id")
     }
