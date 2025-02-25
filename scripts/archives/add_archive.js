@@ -127,9 +127,9 @@ function sendData(url){
     if (elements.title.val().trim() == "" || elements.description.text().trim() == "" || elements.category.val().trim() == "" || keywords.length == 0) {
         toastr.error("Моля попълнете всички полета!");
         return false;
-    }   
+    }  
 
-    if($($("#previewContainer")[0]).html() == ""){
+    if($($("#previewContainer")[0]).html() == "" && !isBeingEdited){
         toastr.error("Моля добавете снимка!");
     }
 
