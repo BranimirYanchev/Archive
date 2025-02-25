@@ -23,6 +23,22 @@
     left: 0 !important;
 }
 
+.toast-error{
+    background-color: red !important;
+}
+
+.toast-info{
+    background-color: blue !important;
+}
+
+.toast-success{
+    background-color: green !important;
+}
+
+#toast-container > *{
+    background-color: transparent;
+}
+
 /* Sort and filter */
 
 .filter-box {
