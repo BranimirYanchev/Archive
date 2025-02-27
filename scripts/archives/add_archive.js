@@ -111,8 +111,10 @@ function readNewArchiveData(response){
 function isArchiveDeleted(response){
     if(response.isArchiveDeleted){
         window.open("../profile.html", "_self");
+    }else if(response.isAFileEdited){
+        window.open("../profile.html", "_self");
     }else{
-        toastr.error("Възникна грешка! Моля опитайте пак!");
+         toastr.error("Възникна грешка! Моля опитайте пак!");
     }
 }
 
