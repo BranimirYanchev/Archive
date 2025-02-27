@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "21Y6upKuKSY3AeAa0qKwXFUJRGepBi/oDssGmEW2sVc=",
+  "Hash": "UA1t1ebOW3BJZ2x9Jjbj0mWxNzqmAJUhWkn+CqCGwKU=",
   "Source": "test",
   "BasePath": "_content/test",
   "Mode": "Default",
@@ -8,12 +8,118 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "test/wwwroot",
+      "Name": "test\\wwwroot",
       "Source": "test",
-      "ContentRoot": "/Applications/MAMP/htdocs/Alma-Chronicles/backend/Web_API/wwwroot/",
+      "ContentRoot": "C:\\xampp\\htdocs\\Alma-Chronicles\\backend\\Web_API\\wwwroot\\",
       "BasePath": "_content/test",
       "Pattern": "**"
     }
   ],
-  "Assets": []
+  "Assets": [
+    {
+      "Identity": "C:\\xampp\\htdocs\\Alma-Chronicles\\backend\\Web_API\\wwwroot\\text.txt",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\xampp\\htdocs\\Alma-Chronicles\\backend\\Web_API\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "text#[.{fingerprint}]?.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\text.txt"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "text.5ipweew5fc.txt",
+      "AssetFile": "C:\\xampp\\htdocs\\Alma-Chronicles\\backend\\Web_API\\wwwroot\\text.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 21:42:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "text.txt"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "text.txt",
+      "AssetFile": "C:\\xampp\\htdocs\\Alma-Chronicles\\backend\\Web_API\\wwwroot\\text.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 21:42:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    }
+  ]
 }

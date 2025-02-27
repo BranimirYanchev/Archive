@@ -6,7 +6,7 @@ class Database
     MySqlConnection myConnection;
     public MySqlConnection Connect()
     {
-        string myConnectionString = "server=127.0.0.1;port=8889;user=admin;password=admin1234;database=archive-db;";
+        string myConnectionString = "server=127.0.0.1;port=3306;user=admin;password=admin1234;database=archive-db;";
 
         myConnection = new MySqlConnection(myConnectionString);
 

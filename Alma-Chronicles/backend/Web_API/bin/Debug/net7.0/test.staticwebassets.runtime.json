@@ -1,1 +1,1 @@
-{"ContentRoots":["/Applications/MAMP/htdocs/Alma-Chronicles/backend/Web_API/wwwroot/"],"Root":{"Children":null,"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}
+{"ContentRoots":["C:\\xampp\\htdocs\\Alma-Chronicles\\backend\\Web_API\\wwwroot\\"],"Root":{"Children":{"text.txt":{"Children":null,"Asset":{"ContentRootIndex":0,"SubPath":"text.txt"},"Patterns":null}},"Asset":null,"Patterns":[{"ContentRootIndex":0,"Pattern":"**","Depth":0}]}}
