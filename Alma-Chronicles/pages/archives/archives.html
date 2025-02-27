@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alma-Chronicles</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../../images/logo.png" type="image/x-icon">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../../styles/main.css">
+    <link rel="stylesheet" href="../../styles/profile.css">
+    <link rel="stylesheet" href="../../styles/archives/archives.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <!-- Quill.js -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous">
+    <!-- Add Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
+        integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="preloader-container d-flex justify-content-center align-items-center">
+        <div class="preloader" id="preloader"></div>
+    </div>
+    <header class="header">
+        <h1>Архив</h1>
+        <div class="search-box d-flex justify-content-center">
+            <input type="text" placeholder="Търсене...">
+        </div>
+        <div class="btn-container">
+            <button
+                class="burger-btn d-flex flex-column justify-content-between align-items-center p-0 border-0 bg-transparent z-3"
+                id="burgerButton">
+                <div></div>
+                <div></div>
+                <div></div>
+            </button>
+            <div class="fullscreen-menu hide d-flex flex-column justify-content-center align-items-center z-2 h-100 w-100 position-fixed top-0 start-0"
+                id="fullscreenMenu">
+                <a href="../index.html">Начало</a>
+                <a href="archives.html">Архив</a>
+                <a class="go-to-profile" href="../forms.html">Вход</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="filter-box">
+            <label for="sort">Сортирай по:</label>
+            <select id="sort">
+                <option value="date">Дата</option>
+                <option value="name">Име</option>
+            </select>
+            <label for="category">Категория:</label>
+            <select id="category">
+                <option value="all">Всички</option>
+                <option value="docs">Ученически живот</option>
+                <option value="docs">Спорт</option>
+                <option value="docs">Култура</option>
+            </select>
+        </div>
+        <div class="w-100 d-flex justify-content-center align-items-center flex-column gap-5 mt-3 card-container">
+        </div>
+    </main>
+
+    <footer class="d-flex align-items-center">
+        <div class="w-100 h-20 text-center">&copy; Създадено от Бранимир Янчев и Александър Джаджев</div>
+    </footer>
+
+    <script>
+        var profileUrl = "../profile.html";
+        var formsUrl = "../forms.html"
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    <script src="../../scripts/preloader.js"></script>
+    <script src="../../scripts/navbar.js"></script>
+    <script src="../../scripts/archives/archive.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "21Y6upKuKSY3AeAa0qKwXFUJRGepBi/oDssGmEW2sVc=",
+  "Source": "test",
+  "BasePath": "_content/test",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "test/wwwroot",
+      "Source": "test",
+      "ContentRoot": "/Applications/MAMP/htdocs/Alma-Chronicles/backend/Web_API/wwwroot/",
+      "BasePath": "_content/test",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

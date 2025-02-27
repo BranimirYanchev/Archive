@@ -1,0 +1,171 @@
+/* 
+---------------------------------------------
+Section-1 Style
+--------------------------------------------- 
+*/
+
+* {
+    color: #8a5a3e;
+}
+
+main{
+    height: auto;
+    padding-bottom: 0 !important;
+}
+
+.burger-btn{
+    top: 6% !important;
+    left: 92.5%;
+    margin: -2% !important;
+}
+
+.section-content {
+    height: 95%;
+    margin-bottom: 5%;
+    padding-bottom: 2%;
+}
+
+.heading>h1 {
+    font-size: 60px;
+    width: 64%;
+    margin-left: 18%;
+    margin-top: -1%;
+}
+
+.heading>h2 {
+    font-size: 16px;
+}
+
+.toast-error{
+    background-color: red !important;
+}
+
+.toast-info{
+    background-color: blue !important;
+}
+
+.toast-success{
+    background-color: green !important;
+}
+
+#toast-container > *{
+    background-color: transparent;
+}
+
+.image-container>img {
+    width: 70%;
+    /* Заема ширината на контейнера */
+    height: auto;
+    /* Поддържа пропорциите на изображението */
+     object-fit: contain;
+    /* Центрира и изрязва изображението при нужда */
+    max-width: 1200px;
+    /* Максимален размер за голям екран */
+    border-radius: 15px;
+    /* Закръглени ръбове */
+
+    min-height: 200px;
+    max-height: 550px;
+}
+
+.open>div {
+    background: #faf4e8 !important;
+}
+
+.image-container {
+    height: 15%;
+    width: 100%;
+}
+
+.content-conatiner>p {
+    font-size: 21px;
+    line-height: 1.6;
+    text-align: justify;
+    color: #333;
+}
+
+.content-conatiner{
+    width: 83% !important;
+    margin-left: 9%;
+}
+
+#editor {
+    width: 100%;
+    height: 40%;
+    border: 1px solid #ccc;
+    background-color: var(--bs-body-bg);
+}
+
+.form-container {
+    background-color: #faf4e8;
+    padding: 40px;
+    border-radius: 20px;
+    width: 50%;;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);
+    min-width: 666px;
+}
+h2 {
+    text-align: center;
+}
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+input, textarea {
+    width: 100%;
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #007bff;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 5px;
+    text-align: center;
+    background: #f8f9fa;
+}
+.custom-file-upload:hover {
+    background: #e2e6ea;
+}
+.custom-file-upload input {
+    display: none;
+}
+.submit-btn {
+    background: #28a745;
+    color: white;
+    padding: 12px;
+    border: none;
+    width: 40%;
+    margin-left: 30%;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 27px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+.submit-btn:hover {
+    background: #218838;
+}
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* 
+---------------------------------------------
+Section-1 Style
+--------------------------------------------- 
+*/

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alma-Chronicles</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="../images/logo.png" type="image/x-icon">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/forms.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- External CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" rel="stylesheet">
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- Add Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="preloader-container d-flex justify-content-center align-items-center">
+        <div class="preloader" id="preloader"></div>
+    </div>
+
+    <div class="btn-container">
+        <button class="burger-btn d-flex flex-column justify-content-between align-items-center p-0 border-0 bg-transparent z-3 ms-auto" id="burgerButton">
+            <div></div>
+            <div></div>
+            <div></div>
+        </button>
+        <div class="fullscreen-menu hide d-flex flex-column justify-content-center align-items-center z-2 h-100 w-100 position-fixed top-0 start-0" id="fullscreenMenu">
+            <a href="index.html">Начало</a>
+            <a href="archives/archives.html">Архив</a>
+            <a class="go-to-profile" href="forms.html">Вход</a>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <!-- Sign In Form -->
+        <div class="form-card" id="signInForm">
+            <h2 class="mb-4 sec-clr">Вход</h2>
+            <form action="#" method="POST" id="login-form">
+                <div class="input-group">
+                    <input type="email" name="email" id="email" placeholder="Имейл" required />
+                </div>
+                <div class="input-group password-group">
+                    <div class="toggle-btns-containter">
+                        <i class="fa-solid fa-eye-slash toggle-slash"></i>
+                        <i class="fa-solid fa-eye d-none toggle-non-slash"></i>
+                    </div>  
+                    <input type="password" name="password" id="password" class="toggled" placeholder="Парола" required />
+                    <span class="red-clr">Паролата трябва да съдържа букви и цифри и да бъде дълга поне 8 символа!</span>
+                </div>
+                <button type="submit" class="submit-button button border-0">Вход</button>
+                <button type="button" class="toggle-button sec-clr">Нямаш акаунт? Създай си!</button>
+            </form>
+        </div>
+    
+        <!-- Sign Up Form -->
+        <div class="form-card" id="signUpForm">
+            <h2 class="mb-4 sec-clr">Регистрация</h2>
+            <form action="#" method="POST" id="register-form">
+                <div class="input-group">
+                    <select id="userRole" name="userRole" required>
+                        <option value="role" selected>Роля</option>
+                        <option value="teacher">Учител</option>
+                        <option value="student">Ученик</option>
+                        <option value="parent">Родител</option>
+                    </select>
+                </div>
+                <div>
+                    <div class="input-group code-input d-none">
+                        <input type="text" id="code" name="code" placeholder="Код" required />
+                        <span class="red-clr">Въведете учителския код!</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" name="email" placeholder="Имейл" required />
+                        <span class="red-clr">Въведете съществуващ имейл!</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="firstName" name="firstName" placeholder="Име" required />
+                        <span class="red-clr">Полето име трябва да съдържа главна буква и да бъде на кирилица!</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="lastName" name="lastName" placeholder="Фамилия" required />
+                        <span class="red-clr">Полето фамилия трябва да съдържа главна буква и да бъде на кирилица!</span>
+                    </div>
+                    <div class="input-group password-group">
+                        <div class="toggle-btns-containter">
+                            <i class="fa-solid fa-eye-slash toggle-slash"></i>
+                            <i class="fa-solid fa-eye d-none toggle-non-slash"></i>
+                        </div>  
+                        <input type="password" name="password" id="password" class="toggled" placeholder="Парола" required />
+                        <span class="red-clr">Паролата трябва да съдържа букви и цифри и да бъде дълга поне 8 символа!</span>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" name="repeatedPassword" id="repeatedPassword" class="toggled" placeholder="Потвърди парола" required />
+                        <span class="red-clr"></span>
+                     </div>    
+                </div>    
+                <button type="submit" class="submit-button button">Потвърди</button>
+                <button type="button" class="toggle-button sec-clr" >Имаш акаунт? Влез!</button>
+            </form>
+        </div>
+    </div>    
+
+    <footer class="d-flex align-items-center">
+        <div class="w-100 h-20 text-center">&copy; Създадено от Бранимир Янчев и Александър Джаджев</div>
+    </footer>
+
+    <script>
+        var profileUrl = "profile.html";
+        var formsUrl = "forms.html"
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.js"></script>
+    <script src="../scripts/forms.js"></script>
+    <script src="../scripts/preloader.js"></script>
+    <script src="../scripts/auth-handler.js"></script>
+    <script src="../scripts/navbar.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>  
+</body>
+</html>

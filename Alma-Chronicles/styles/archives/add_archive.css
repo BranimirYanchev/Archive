@@ -1,0 +1,228 @@
+/* 
+---------------------------------------------
+Section-1 Style
+--------------------------------------------- 
+*/
+
+body, html, * {
+    color: #8a5a3e;
+    scrollbar-width: none;
+}
+
+
+.burger-btn{
+    left: 89.5% !important;
+}
+
+main {
+    overflow-x: hidden !important;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh; /* Минимална височина да заема поне цял екран */
+}
+
+.content {
+    padding-bottom: 40px;
+    padding-top: 12px;
+    width: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form-container {
+    background-color: #faf4e8;
+    padding: 40px;
+    border-radius: 20px;
+    width: 50%;
+    box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);
+    min-width: 666px;
+    max-width: 800px;
+    min-height: auto; /* Автоматична височина */
+    height: auto !important; /* Презаписва зададените височини */
+    max-height: none; /* Премахване на max-height ограничението */
+    padding-bottom: 70px;
+    padding-top: 30px;
+}
+
+.toast-error{
+    background-color: red !important;
+}
+
+.toast-info{
+    background-color: blue !important;
+}
+
+.toast-success{
+    background-color: green !important;
+}
+
+#toast-container > *{
+    background-color: transparent;
+}
+
+input:hover{
+    cursor:text;
+}
+
+select:hover{
+    cursor: pointer;
+}
+
+.open > div{
+    background-color: #faf4e8 !important;
+}
+
+#editor {
+    width: 100%;
+    height: 18rem;
+    max-height: 300px;
+    border: 1px solid #ccc;
+    background-color: var(--bs-body-bg);
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+input, textarea , select{
+    width: 100%;
+    margin-top: 5px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.custom-file-upload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #007bff;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    margin-top: 5px;
+    text-align: center;
+    background: #f8f9fa;
+}
+.custom-file-upload:hover {
+    background: #e2e6ea;
+}
+.custom-file-upload input {
+    display: none;
+}
+.submit-btn, .delete-btn {
+    background: #28a745;
+    color: white;
+    padding: 12px;
+    border: none;
+    width: 22%;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
+}
+.submit-btn:hover {
+    background: #218838;
+}
+
+.delete-btn{
+    background: red;
+}
+
+.delete-btn:hover{
+    background: rgb(219, 7, 7);
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* 
+---------------------------------------------
+Section-1 Style
+--------------------------------------------- 
+*/
+
+.container {
+    width: 300px;
+}
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    gap: 1%;
+    min-height: 53px;
+}
+.tag {
+    background: #AEAEAE;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+}
+.tag span {
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#previewContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.previewBox {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.previewBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.removeBtn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer{
+    height: 76px;
+}

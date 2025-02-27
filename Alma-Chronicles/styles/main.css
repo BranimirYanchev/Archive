@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* Common */
+
+:root {
+    --primary-color: #e7dbc8;
+    --secondary-color: #5a3e2b;
+    --third-color: blue;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+p {
+    line-height: 1.5;
+}
+
+body {
+    font-size: 12px;
+    color: black;
+    line-height: 1.7;
+    background: #e7dbc8 !important;
+}
+
+/* End of Common */
+
+/* -------------- */
+/* Header + Navbar */
+
+header {
+    color: white;    
+}
+
+
+.header {
+    width: 86%;
+}
+
+.logo {
+    width: 80px;
+    margin-left: -53px;
+}
+
+.button {
+    border-radius: 10px;
+    padding: 14px 25px;
+    font-size: 26px;
+    line-height: 1;
+    transition: transform .2s ease;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rev-btn {
+    background: #8a5a3e;
+    color: var(--primary-color) !important;
+}
+
+.button:hover {
+    transform: scale(1.1) !important;
+}
+
+.w-70 {
+    width: 70%;
+}
+
+.header-area {
+    position: fixed;
+    background-color: #fff;
+    height: 107px;
+    z-index: 100;
+    -webkit-transition: all .5s ease 0s;
+    -moz-transition: all .5s ease 0s;
+    -o-transition: all .5s ease 0s;
+    transition: all .5s ease 0s;
+}
+
+/* Burger button */
+.burger-btn {
+    width: 50px;
+    /* Increased size */
+    height: 40px;
+    /* Increased size */
+    cursor: pointer;
+
+    position: absolute;
+    left: 93.5%;
+    top: 5%;    
+}
+
+.burger-btn div {
+    background-color: var(--primary-color);
+    height: 6px;
+    /* Thicker bars */
+    border-radius: 3px;
+    width: 100%;
+    /* Rounded edges for better aesthetics */
+    transition: all 0.3s ease-in-out;
+} 
+
+.burger-btn div:not(:last-child) {
+    margin-bottom: 6px;
+    /* Spacing between bars */
+}
+
+/* Transform the bars when the button is open */
+.burger-btn.open div:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
+    /* Top bar rotates */
+}
+
+.burger-btn.open div:nth-child(2) {
+    opacity: 0;
+    /* Middle bar disappears */
+}
+
+.burger-btn.open div:nth-child(3) {
+    transform: translateY(-23px) rotate(-45deg);
+    /* Bottom bar rotates */
+}
+
+/* Fullscreen menu */
+.fullscreen-menu {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: translateY(-100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+.fullscreen-menu.active {
+    transform: translateY(0);
+}
+
+.fullscreen-menu a {
+    color: var(--primary-color);
+    font-size: 3rem;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 20px 0;
+    text-transform: uppercase;
+    transition: transform 0.3s ease-in-out;
+}
+
+.fullscreen-menu a:hover {
+    transform: scale(1.2);
+}
+
+.fullscreen-menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.fullscreen-menu a:hover::after {
+    width: 100%;
+}
+
+.preloader-container{
+    position: fixed;
+    overflow: hidden;
+    z-index: 100;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.preloader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ddd;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+footer{
+    height: 100px !important;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
