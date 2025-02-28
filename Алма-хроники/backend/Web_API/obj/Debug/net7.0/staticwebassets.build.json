@@ -1,0 +1,125 @@
+{
+  "Version": 1,
+  "Hash": "K1tsw5pm/hVRTHjjRpNg5aR5fU3il+fvM2VsVUA1LE8=",
+  "Source": "test",
+  "BasePath": "_content/test",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "test\\wwwroot",
+      "Source": "test",
+      "ContentRoot": "C:\\xampp\\htdocs\\Алма-хроники\\backend\\Web_API\\wwwroot\\",
+      "BasePath": "_content/test",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\xampp\\htdocs\\Алма-хроники\\backend\\Web_API\\wwwroot\\text.txt",
+      "SourceId": "test",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\xampp\\htdocs\\Алма-хроники\\backend\\Web_API\\wwwroot\\",
+      "BasePath": "_content/test",
+      "RelativePath": "text#[.{fingerprint}]?.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "5ipweew5fc",
+      "Integrity": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\text.txt"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "text.5ipweew5fc.txt",
+      "AssetFile": "C:\\xampp\\htdocs\\Алма-хроники\\backend\\Web_API\\wwwroot\\text.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 21:42:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "5ipweew5fc"
+        },
+        {
+          "Name": "label",
+          "Value": "text.txt"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    },
+    {
+      "Route": "text.txt",
+      "AssetFile": "C:\\xampp\\htdocs\\Алма-хроники\\backend\\Web_API\\wwwroot\\text.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "0"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Thu, 27 Feb 2025 21:42:24 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+        }
+      ]
+    }
+  ]
+}
