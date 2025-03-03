@@ -20,10 +20,9 @@ public class ArchiveController : ControllerBase
             return "No file!";
         }
 
-        // Проверка дали файлът е изображение
+        // Проверка за позволени разширения
         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
         var extension = Path.GetExtension(file.FileName).ToLower();
-
         if (!allowedExtensions.Contains(extension))
         {
             return "Wrong extensions!";
@@ -31,23 +30,28 @@ public class ArchiveController : ControllerBase
 
         try
         {
-            // Създаваме директорията за качени изображения, ако не съществува
-            string uploadsFolder = imgUrl;
+            // Генерираме път за запис
+            string uploadsFolder = Path.Combine("/var/data", imgUrl);
             if (!Directory.Exists(uploadsFolder))
             {
                 Directory.CreateDirectory(uploadsFolder);
             }
 
-            // Генерираме уникално име за файла
-            string uniqueFileName = $"archive-img{Guid.NewGuid().ToString()}{extension}";
-            string filePath = Path.Combine("/var/data/", uploadsFolder, uniqueFileName);
+            string uniqueFileName = $"archive-img{Guid.NewGuid()}{extension}";
+            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
+            // Записваме файла
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 file.CopyTo(fileStream);
             }
 
-            return Path.Combine(uploadsFolder, uniqueFileName);
+            // Даваме правилни права
+            var fileInfo = new FileInfo(filePath);
+            fileInfo.Attributes = FileAttributes.Normal;
+
+            // Връщаме URL за публичен достъп
+            return $"/users/{imgUrl.TrimStart('/')}/{uniqueFileName}";
         }
         catch (Exception ex)
         {
