@@ -16,7 +16,7 @@ public class UserController : ControllerBase
     public UserController(string id)
     {
         Message = new Message();
-        FilePath = $"users/{id}/profile_info.json"; // Path to the JSON file
+        FilePath = $"/var/data/users/{id}/profile_info.json"; // Path to the JSON file
         Id = id;
     }
 
