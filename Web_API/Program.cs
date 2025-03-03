@@ -34,7 +34,8 @@ app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
         usersPath),
-    RequestPath = "/users"
+    RequestPath = "/users",
+    ServeUnknownFileTypes = true
 });
 
 
