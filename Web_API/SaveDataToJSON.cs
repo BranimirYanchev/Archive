@@ -29,7 +29,7 @@ static class SaveDataToJSON
 
         Database database = new Database();
 
-        folderPath = $"users/{id}";
+        folderPath = $"/var/data/users/{id}";
 
         try
         {
