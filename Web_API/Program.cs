@@ -22,10 +22,18 @@ var app = builder.Build();
 // Enable CORS globally
 app.UseCors("AllowAll");
 
+string usersPath = Path.Combine("/var/data", "users");
+
+// Проверяваме дали директорията съществува, ако не - създаваме я
+if (!Directory.Exists(usersPath))
+{
+    Directory.CreateDirectory(usersPath);
+}
+
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
-        Path.Combine(Directory.GetCurrentDirectory(), "users")),
+        usersPath),
     RequestPath = "/users"
 });
 
