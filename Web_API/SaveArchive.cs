@@ -94,7 +94,7 @@ class SaveArchive
 
     public Object SaveArchiveToJSON()
     {
-        string imgUrl = $"var/data/users/{AuthorId}/media";
+        string imgUrl = $"/var/data/users/{AuthorId}/media";
         imgUrl = new ArchiveController().UploadImage(Image, imgUrl);
 
         List<string> keywrds = Keywords[0].Split(',').Select(k => k.Trim()).ToList();
@@ -104,7 +104,7 @@ class SaveArchive
             return new { isSavedData = false, isDataCorrect = false };
         }
 
-        string directory = $"var/data/users/{AuthorId}";
+        string directory = $"/var/data/users/{AuthorId}";
         if (!Directory.Exists(directory))
         {
             Directory.CreateDirectory(directory);
@@ -174,7 +174,7 @@ class UpdateArchive
 
     public Object UpdateArchiveInJSON()
     {
-        string filePath = $"var/data/users/{AuthorId}/archives.json"; // Пътят към JSON файла
+        string filePath = $"/var/data/users/{AuthorId}/archives.json"; // Пътят към JSON файла
 
         if (!CheckData())
         {
@@ -228,7 +228,7 @@ class DeleteArchive
 
     public Object DeleteArchiveFromJSON(string id, string email)
     {
-        string filePath = $"var/data/users/{new Database().GetCurrentUserID(email)}/archives.json"; // Пътят към JSON файла
+        string filePath = $"/var/data/users/{new Database().GetCurrentUserID(email)}/archives.json"; // Пътят към JSON файла
 
         // Четене на текущото съдържание на JSON файла
         string json = File.ReadAllText(filePath);
