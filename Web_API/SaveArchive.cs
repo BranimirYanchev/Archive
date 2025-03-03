@@ -51,7 +51,7 @@ public class ArchiveController : ControllerBase
             fileInfo.Attributes = FileAttributes.Normal;
 
             // Връщаме URL за публичен достъп
-            return $"/{imgUrl.TrimStart('/')}/{uniqueFileName}";
+            return $"{imgUrl.TrimStart('/')}/{uniqueFileName}";
         }
         catch (Exception ex)
         {
