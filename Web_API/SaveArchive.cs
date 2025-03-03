@@ -94,7 +94,7 @@ class SaveArchive
 
     public Object SaveArchiveToJSON()
     {
-        string imgUrl = $"/var/data/users/{AuthorId}/media";
+        string imgUrl = $"/users/{AuthorId}/media";
         imgUrl = new ArchiveController().UploadImage(Image, imgUrl);
 
         List<string> keywrds = Keywords[0].Split(',').Select(k => k.Trim()).ToList();
