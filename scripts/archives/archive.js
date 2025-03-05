@@ -10,7 +10,7 @@ function setArchives() {
                 url: url,
                 type: "GET",
                 success: function (response) {
-                    $("#card-container").empty();
+                    $(".card-container").empty();
                     response.forEach(e => {
                         let category = "ученически живот";
                         if (e.category == "sport") category = "спорт";
