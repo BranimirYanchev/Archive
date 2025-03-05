@@ -101,5 +101,5 @@ $("#sort").change(function () {
 
         // Подреждане на картите в DOM
         $(".card-container").empty();
-        $(".card").parent().append(cards);
+        $(".card-container").append(cards);
     });
