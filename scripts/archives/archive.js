@@ -1,6 +1,9 @@
-setArchives();
+$("#category").change(function(){
+     let selectedValue = $(this).val();
+     setArchives(selectedValue);
+});
 
-function setArchives() {
+function setArchives(selectedValue="all") {
      toastr.info("Моля изчакайте!");
 
      $(".preloader-container").removeClass("d-none");  
@@ -15,6 +18,7 @@ function setArchives() {
                 success: function (response) {
                     $("#card-container").empty();
                     response.forEach(e => {
+                         if(selectedValue != "all" || selectedValue != e.category){break;}
                         let category = "ученически живот";
                         if (e.category == "sport") category = "спорт";
                         else if (e.category == "culture") category = "култура";
