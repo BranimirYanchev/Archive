@@ -19,7 +19,7 @@ function setArchives(selectedValue="all") {
                 url: url,
                 type: "GET",
                 success: function (response) {
-                    $("#card-container").empty();
+                    $(".card-container").empty();
                     response.forEach(e => {
                           if (!(selectedValue === e.category || selectedValue === "all")) {
                                console.log(1);
@@ -29,7 +29,7 @@ function setArchives(selectedValue="all") {
                         if (e.category == "sport") category = "спорт";
                         else if (e.category == "culture") category = "култура";
 
-                        $(".card-container").html(
+                        $(".card-container").html( $(".card-container").html() +  
                             ` <div class="card" id="${e.id}" authorid = "${i}">
                             <div class="card-header">
                                 <img src="https://archive-4vi4.onrender.com/${e.imageUrl}"alt="archive-img" />
