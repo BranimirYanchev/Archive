@@ -99,6 +99,10 @@ $("#sort").change(function () {
             }
         });
 
+          $(cards).on("click", function (){  
+               window.open(`archive_single.html?id=${this.id}&authorId=${$(this).attr("authorid")}`, "_self");
+          });
+
         // Подреждане на картите в DOM
         $(".card-container").empty();
         $(".card-container").append(cards);
