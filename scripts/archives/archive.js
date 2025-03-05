@@ -1,4 +1,4 @@
-$("#category").change(function(){
+$("#category").on("change", function(){
      let selectedValue = $(this).val();
      console.log(1);
      setArchives(selectedValue);
