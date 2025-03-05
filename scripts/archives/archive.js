@@ -2,7 +2,7 @@ setArchives();
 
 $("#category").on("change", function(){
      let selectedValue = $(this).val();
-     console.log(1);
+     console.log(selectedValue);
      setArchives(selectedValue);
 });
 
@@ -22,7 +22,7 @@ function setArchives(selectedValue="all") {
                     $("#card-container").empty();
                     response.forEach(e => {
                           if (!(selectedValue === e.category || selectedValue === "all")) {
-                            return; // Пропуска елементи, които не отговарят на категорията
+                            return;
                         }
                         let category = "ученически живот";
                         if (e.category == "sport") category = "спорт";
