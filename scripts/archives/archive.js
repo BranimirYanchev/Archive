@@ -29,8 +29,9 @@ function setArchives(selectedValue="all") {
                         if (e.category == "sport") category = "спорт";
                         else if (e.category == "culture") category = "култура";
 
-                        $(".card-container").html( $(".card-container").html() +  
-                            ` <div class="card" id="${e.id}" authorid = "${i}">
+                        $(".card-container").html( 
+                         $(".card-container").html() +  
+                         ` <div class="card" id="${e.id}" authorid = "${i}">
                             <div class="card-header">
                                 <img src="https://archive-4vi4.onrender.com/${e.imageUrl}"alt="archive-img" />
                             </div>
