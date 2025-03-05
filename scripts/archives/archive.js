@@ -88,18 +88,17 @@ $("#sort").change(function () {
                // Сортиране по дата (новите първи)
                let dateA = new Date($(a).find("small").text().trim());
                let dateB = new Date($(b).find("small").text().trim());
-               console.log(dateB - dateA);
                return dateB - dateA; // Обратен ред (по-новите първи)
           } else if (sortBy === "name") {
                // Сортиране по име (по азбучен ред)
                let nameA = $(a).find("h4").text().trim().toLowerCase();
                let nameB = $(b).find("h4").text().trim().toLowerCase();
-               console.log(nameA.localeCompare(nameB));
                return nameA.localeCompare(nameB);
             }
         });
 
           $(cards).on("click", function (){  
+               console.log(cards);
                window.open(`archive_single.html?id=${this.id}&authorId=${$(this).attr("authorid")}`, "_self");
           });
 
