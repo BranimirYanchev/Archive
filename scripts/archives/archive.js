@@ -22,6 +22,7 @@ function setArchives(selectedValue="all") {
                     $("#card-container").empty();
                     response.forEach(e => {
                           if (!(selectedValue === e.category || selectedValue === "all")) {
+                               console.log(1);
                             return;
                         }
                         let category = "ученически живот";
