@@ -1,3 +1,5 @@
+setArchives();
+
 $("#category").on("change", function(){
      let selectedValue = $(this).val();
      console.log(1);
