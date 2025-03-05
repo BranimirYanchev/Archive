@@ -1,4 +1,6 @@
 setArchives();
+$("#sort").val("");
+$("#sort").text("Подразбиране");
 
 $("#category").on("change", function(){
      let selectedValue = $(this).val();
