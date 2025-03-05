@@ -298,7 +298,7 @@ Section-3 Style
 }
 
 .flipbook .page {
-    background: white;
+    background: #e7dbc8;
     border: 1px solid #ccc;
     text-align: center;
     line-height: calc(80vh / 2);
@@ -1976,8 +1976,4 @@ Bookshelf styles
 footer {
     color: #5a3e2b;
     height: 100px;
-}
-
-turn-page-wrapper{
-    background: #e7dbc8;
 }
