@@ -33,7 +33,8 @@ function setArchives(selectedValue="all") {
                          console.log($(".card-container").html())
 
                         $(".card-container").html( 
-                         $(".card-container").html() +  `<div class="card" id="${e.id}" authorid = "${i}">
+                         $(".card-container").html() +  
+                         `<div class="card" id="${e.id}" authorid = "${i}">
                             <div class="card-header">
                                 <img src="https://archive-4vi4.onrender.com/${e.imageUrl}"alt="archive-img" />
                             </div>
@@ -76,3 +77,27 @@ function getLastUserId(callback){
         }
     });
 }
+
+$("#sort").change(function () {
+     let sortBy = $(this).val();
+        
+     let cards = $(".card").toArray();
+
+     cards.sort(function (a, b) {
+          if (sortBy === "date") {
+               // Сортиране по дата (новите първи)
+               let dateA = new Date($(a).find("small").text().trim());
+               let dateB = new Date($(b).find("small").text().trim());
+               return dateB - dateA; // Обратен ред (по-новите първи)
+          } else if (sortBy === "name") {
+               // Сортиране по име (по азбучен ред)
+               let nameA = $(a).find("h4").text().trim().toLowerCase();
+               let nameB = $(b).find("h4").text().trim().toLowerCase();
+               return nameA.localeCompare(nameB);
+            }
+        });
+
+        // Подреждане на картите в DOM
+          $(".card-container").empty();
+        $(".card").parent().append(cards);
+    });
