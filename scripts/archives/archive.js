@@ -16,11 +16,11 @@ function setArchives() {
                         if (e.category == "sport") category = "спорт";
                         else if (e.category == "news") category = "новини";
 
-                        $(".card-container").html(
+                            $(".card-container").html(
                             $(".card-container").html() + 
                             ` <div class="card" id="${e.id}" authorid = "${i}">
                             <div class="card-header">
-                                <img src="../../images/spqsht_selqnin.webp"alt="ballons" />
+                                <img src="https://archive-4vi4.onrender.com/${e.imageUrl}"alt="archive-img" />
                             </div>
                             <div class="card-body">
                                 <span class="tag tag-purple">${category}</span>
