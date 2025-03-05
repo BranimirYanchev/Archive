@@ -9,6 +9,8 @@ $("#category").on("change", function(){
 function setArchives(selectedValue="all") {
      toastr.info("Моля изчакайте!");
 
+     $(".card-container").empty();
+
      $(".preloader-container").removeClass("d-none");  
     // Извикване с callback
     getLastUserId(function(id) {
@@ -19,7 +21,6 @@ function setArchives(selectedValue="all") {
                 url: url,
                 type: "GET",
                 success: function (response) {
-                    $(".card-container").empty();
                     response.forEach(e => {
                           if (!(selectedValue === e.category || selectedValue === "all")) {
                                console.log(1);
