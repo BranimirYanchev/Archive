@@ -2,7 +2,6 @@ setArchives();
 
 $("#category").on("change", function(){
      let selectedValue = $(this).val();
-     console.log(selectedValue);
      setArchives(selectedValue);
 });
 
@@ -23,14 +22,11 @@ function setArchives(selectedValue="all") {
                 success: function (response) {
                     response.forEach(e => {
                           if (!(selectedValue === e.category || selectedValue === "all")) {
-                               console.log(1);
                             return;
                         }
                         let category = "ученически живот";
                         if (e.category == "sport") category = "спорт";
                         else if (e.category == "culture") category = "култура";
-
-                         console.log($(".card-container").html())
 
                         $(".card-container").html( 
                          $(".card-container").html() +  
