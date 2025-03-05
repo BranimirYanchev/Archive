@@ -94,8 +94,6 @@ $("#sort").change(function () {
                let nameA = $(a).find("h4").text().trim().toLowerCase();
                let nameB = $(b).find("h4").text().trim().toLowerCase();
                return nameA.localeCompare(nameB);
-          }else{
-               setArchives();
           }
         });
 
