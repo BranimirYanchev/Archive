@@ -19,7 +19,9 @@ function setArchives(selectedValue="all") {
                 success: function (response) {
                     $("#card-container").empty();
                     response.forEach(e => {
-                         if(selectedValue != "all" || selectedValue != e.category){continue;}
+                          if (selectedValue !== "all" && selectedValue !== e.category) {
+                            return; // Пропуска елементи, които не отговарят на категорията
+                        }
                         let category = "ученически живот";
                         if (e.category == "sport") category = "спорт";
                         else if (e.category == "culture") category = "култура";
