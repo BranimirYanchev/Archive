@@ -42,13 +42,14 @@ function formToJSON(form) {
 /* AJAX Data Sending Function */
 /* ----------------------------- */
 function sendData(data, method, url, type = "R") {
-    toastr.info("Моля изчакайте, докато се обработят вашите данни!");
+    $(".preloader-container").removeClass("d-none"); 
     $.ajax({
         url: url,
         type: method,
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (response) {
+             $(".preloader-container").addClass("d-none"); 
             if (response.url != "") {
                 sessionStorage.setItem("email", data.email);
                 sessionStorage.setItem("user_Id", response.id)
