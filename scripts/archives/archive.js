@@ -6,7 +6,7 @@ $("#category").on("change", function(){
 });
 
 function setArchives(selectedValue="all") {
-     toastr.info("Моля изчакайте!");
+     $(".preloader-container").removeClass("d-none"); 
 
      $(".card-container").empty();
 
@@ -75,6 +75,7 @@ function getLastUserId(callback){
 }
 
 $("#sort").change(function () {
+     $(".preloader-container").removeClass("d-none"); 
      let sortBy = $(this).val();
         
      let cards = $(".card").toArray();
@@ -100,5 +101,7 @@ $("#sort").change(function () {
      $(".card").on("click", function (){  
           window.open(`archive_single.html?id=${this.id}&authorId=${$(this).attr("authorid")}`, "_self");
      });
+
+     $(".preloader-container").addClass("d-none"); 
 
     });
