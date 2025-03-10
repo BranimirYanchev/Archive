@@ -150,7 +150,7 @@ function sendData(url){
         formData.append("id", archiveId);
     }
 
-    toastr.info("Моля изчакайте!");
+    $(".preloader-container").removeClass("d-none"); 
 
     $.ajax({
         url: url,
@@ -159,6 +159,7 @@ function sendData(url){
         contentType: false, 
         processData: false,
         success: function (response) {
+            $(".preloader-container").addClass("d-none"); 
             if(!isBeingEdited){
                 readNewArchiveData(response);
             }else{
@@ -178,13 +179,14 @@ setData();
 function setData() {
     let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/archives.json`;
 
-    toastr.info("Моля изчакайте!");
+    $(".preloader-container").removeClass("d-none"); 
 
     $.ajax({
         url: url,
         method: "GET",
         dataType: "json",
         success: function (data) {
+            $(".preloader-container").addClass("d-none"); 
             data.forEach(element => {
                 if(element.id == archiveId){
                     elements.title.val(element.title);
