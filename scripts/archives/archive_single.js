@@ -5,8 +5,8 @@ $(".burger-btn").on("click", () => toggleMenu());
 function setArchives() {
     const archiveId = new URLSearchParams(window.location.search).get("id");
     let authorId = new URLSearchParams(window.location.search).get("authorId");
-
-    toastr.info("Моля изчакайте!");
+    
+    $(".preloader-container").removeClass("d-none"); 
 
     if(authorId == null){
         authorId = sessionStorage.getItem("user_Id")
@@ -18,6 +18,7 @@ function setArchives() {
         url: url,
         type: "GET",
         success: function (response) {
+            $(".preloader-container").addClass("d-none"); 
             response.forEach(e => {
                 if(e.id ==  archiveId){
                     $(".section-content").append( 
