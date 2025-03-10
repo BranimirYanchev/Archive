@@ -64,7 +64,7 @@ togglePassBtnsT.on('click', function(){
 });
 
 $("#save-data-btn").on("click", function () {
-    toastr.info("Моля изчакайте!");
+    $(".preloader-container").removeClass("d-none"); 
     let formData = new FormData(); 
     Object.keys(isChanged).forEach((key, value) => {
         if(isChanged[key] && infoForm[key] != "" && infoForm[key] != undefined && key == "grade"){
@@ -107,6 +107,7 @@ $("#save-data-btn").on("click", function () {
         contentType: false, 
         processData: false,
         success: function (response) {
+            $(".preloader-container").addClass("d-none"); 
             let isTrue = false;
             Object.keys(isChanged).forEach((key, value) => {
                 if(isChanged[key] && !response.value[key] && key != "changePass"){
@@ -143,7 +144,7 @@ areFieldsChanged();
 // Set data function
 function setData() {
     setArchives();
-    toastr.info("Моля изчакайте!");
+    $(".preloader-container").removeClass("d-none"); 
 
     let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/profile_info.json?nocache=${new Date().getTime()}`;
 
@@ -153,6 +154,7 @@ function setData() {
         dataType: "json",
         cache: false, // Предотвратява кеширане
         success: function (data) {
+            $(".preloader-container").addClass("d-none"); 
             let response = data.personalInfo;
     
             console.log($(".section-2"));
@@ -218,12 +220,13 @@ function areFieldsChanged() {
 
 function setArchives() {
     let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem("user_Id")}/archives.json?nocache=${new Date().getTime()}`;
-    toastr.info("Моля изчакайте!");
+    $(".preloader-container").removeClass("d-none"); 
     $.ajax({
         url: url,
         type: "GET",
         cache: false,  // Принудително презареждане
         success: function (response) {
+            $(".preloader-container").addClass("d-none"); 
             $("#card-container").empty(); // Изчистваме старите елементи
     
             if (response.length == 0) {
