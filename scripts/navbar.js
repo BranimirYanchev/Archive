@@ -1,3 +1,4 @@
+$(".preloader-container").addClass("d-none"); 
 $(".burger-btn").on('click', function(e){
     toggleMenu();
 });
