@@ -333,3 +333,15 @@ function getUserId(){
         }
     });
 }
+
+ function checkIfEmailIsVerified(token, email) {
+    $.ajax({
+        url: `http://localhost:5175/api/account/confirm-email?token=${token}&email=${email}`,
+        type: "GET",
+        success: function (response) {
+            if(!response.isEmailConfirmed){
+                window.open("confirm-email.html", "_self");
+            }
+        }
+    });
+}
