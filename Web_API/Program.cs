@@ -18,6 +18,7 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddScoped<EmailService>();
 var app = builder.Build();
 
 // Enable CORS globally
