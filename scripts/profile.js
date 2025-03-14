@@ -336,7 +336,7 @@ function getUserId(){
 
  function checkIfEmailIsVerified(token, email) {
     $.ajax({
-        url: `http://localhost:5175/api/account/confirm-email?token=${token}&email=${email}`,
+        url: `https://archive-4vi4.onrender.com/api/account/confirm-email?token=${token}&email=${email}`,
         type: "GET",
         success: function (response) {
             if(!response.isEmailConfirmed){
