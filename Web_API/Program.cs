@@ -63,7 +63,7 @@ app.MapPost("/api/register", async (HttpContext context) =>
     CheckRegisterData data = new CheckRegisterData(role, email, firstName, lastName, password, repeatedPassword, code);
 
     // Let ASP.NET handle serialization
-    return data.Message();
+    return await data.Message(context);
 });
 
 app.MapPost("/api/login", async (HttpContext context) =>
