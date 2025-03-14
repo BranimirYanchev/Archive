@@ -139,6 +139,7 @@ $("#save-data-btn").on("click", function () {
 });
 
 setData();
+checkIfEmailIsVerified(null, sessionStorage.getItem("email"));
 areFieldsChanged();
 
 // Set data function
