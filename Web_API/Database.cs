@@ -182,20 +182,85 @@ class Database
         return url;
     }
 
-public bool DeleteArchiveFromDatabase(string archiveId)
-{
-    Database database = new Database();
-    using (MySqlConnection connection = database.Connect())
+    public bool DeleteArchiveFromDatabase(string archiveId)
     {
-        connection.Open();
-        using (var command = new MySqlCommand("DELETE FROM archives WHERE Id = @Id;", connection))
+        Database database = new Database();
+        using (MySqlConnection connection = database.Connect())
         {
-            command.Parameters.AddWithValue("@Id", archiveId);
-
-            int rowsAffected = command.ExecuteNonQuery(); // Изпълняваме DELETE заявката
-            return rowsAffected > 0; // Ако има изтрити редове, връщаме true
+            connection.Open();
+            using (var command = new MySqlCommand("DELETE FROM archives WHERE Id = @Id;", connection))
+            {
+                command.Parameters.AddWithValue("@Id", archiveId);
+    
+                int rowsAffected = command.ExecuteNonQuery(); // Изпълняваме DELETE заявката
+                return rowsAffected > 0; // Ако има изтрити редове, връщаме true
+            }
         }
     }
-}
+
+    public bool SaveToken(int userId, string token)
+    {
+        Database database = new Database(); // Предполагам, че имаш клас Database за връзка с MySQL
+
+        using (MySqlConnection connection = database.Connect())
+        {
+            connection.Open();
+            using (var command = new MySqlCommand("UPDATE users SET token = @Token WHERE Id = @UserId;", connection))
+            {
+                command.Parameters.AddWithValue("@UserId", userId);
+                command.Parameters.AddWithValue("@Token", token);
+
+                int rowsAffected = command.ExecuteNonQuery(); // Изпълняваме INSERT заявката
+                return rowsAffected > 0; // Ако е добавен ред, връщаме true
+            }
+        }
+    }
+
+    public bool CheckToken(string token)
+    {
+        Database database = new Database(); // Предполагам, че имаш клас Database за връзка с MySQL
+
+        using (MySqlConnection connection = database.Connect())
+        {
+            connection.Open();
+            using (var command = new MySqlCommand("SELECT COUNT(*) FROM users WHERE token = @Token;", connection))
+            {
+                command.Parameters.AddWithValue("@Token", token);
+
+                int count = Convert.ToInt32(command.ExecuteScalar()); // Връща броя на намерените редове
+
+                if (count > 0) // Ако намерим потребител с този token
+                {
+                    using (var updateCommand = new MySqlCommand("UPDATE users SET isEmailVerified = 1 WHERE token = @Token;", connection))
+                    {
+                        updateCommand.Parameters.AddWithValue("@Token", token);
+                        int rowsUpdated = updateCommand.ExecuteNonQuery();
+                        return rowsUpdated > 0;
+                    }
+                }
+                return false;
+            }
+        }
+    }
+
+    public bool CheckIfEmailIsVerified(string email)
+    {
+        Database database = new Database(); // Предполагам, че имаш клас Database за връзка с MySQL
+
+        using (MySqlConnection connection = database.Connect())
+        {
+            connection.Open();
+            using (var command = new MySqlCommand("SELECT COUNT(*) FROM users WHERE email = @Email AND isEmailVerified = 1;", connection))
+            {
+                command.Parameters.AddWithValue("@Email", email);
+
+                var result = command.ExecuteScalar();
+                int count = Convert.ToInt32(result);
+
+                return count > 0;
+            }
+        }
+    }
+
 
 }
