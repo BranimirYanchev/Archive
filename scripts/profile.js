@@ -138,7 +138,6 @@ $("#save-data-btn").on("click", function () {
     })
 });
 
-$(".preloader-container").addClass("d-none"); 
 checkIfEmailIsVerified(null, sessionStorage.getItem("email"));
 setData();
 areFieldsChanged();
@@ -344,8 +343,6 @@ function getUserId(){
             if(!response.isEmailConfirmed){
                 window.open("confirm-email.html", "_self");
             }
-
-            $(".preloader-container").removeClass("d-none"); 
         }
     });
 }
