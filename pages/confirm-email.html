@@ -95,6 +95,8 @@
                 success: function (response) {
                     if(response.isEmailConfirmed){
                         window.open("profile.html", "_self");
+                    }else{
+                        sendNewEmail(token, email)
                     }
                 },
                 error: function (xhr, status, error) {
