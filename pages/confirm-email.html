@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alma-Chronicles</title>
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- jQuery (Toastr depends on it) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #e7dbc8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #faf4e8;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            width: 80%;
+            max-width: 500px;
+        }
+        h2 {
+            color: #5a3e2b;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #5a3e2b;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 7px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Потвърждаване на имейл</h2>
+        <p id="statusMessage">Отидете в пощата си и отворете линка в съобщението от нас!</p>
+        <a href="#" class="btn">Изпрати линк отново</a>
+        <p id="errorMessage" class="error">Ако не получавате имейл, моля натиснете бутона по-горе!</p>
+    </div>
+
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null
+        };
+
+        // Примерен код за обработка на линк за потвърждение с уникален токен
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token'); // Вземаме токена от URL
+        const email = sessionStorage.getItem("email"); // Вземаме токена от URL
+
+        confirmEmail(token, email);
+
+        // Функция, която симулира потвърждението на имейла
+        function confirmEmail(token, email) {
+            // Това е примерен AJAX код, който ще изпрати токен за потвърждение
+
+            $.ajax({
+                url: `http://localhost:5175/api/account/confirm-email?token=${token}&email=${email}`,
+                type: "GET",
+                success: function (response) {
+                    if(response.isEmailConfirmed){
+                        window.open("profile.html", "_self");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        $(".btn").on("click", function(e){
+            e.preventDefault();
+            sendNewEmail(token, email)
+        })
+
+        function sendNewEmail(token, email) {
+            // Това е примерен AJAX код, който ще изпрати токен за потвърждение
+
+            $.ajax({
+                url: `https://archive-4vi4.onrender.com/api/account/send-new-email?token=${token}&email=${email}`,
+                type: "GET",
+                success: function (response) {
+                    if(response.isEmailConfirmed){
+                        window.open("profile.html", "_self");
+                    }
+
+                    if(response.isNewMessageSent){
+                        toastr.success("Съобщението беше изпратено!")
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
