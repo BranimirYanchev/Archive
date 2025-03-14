@@ -156,39 +156,44 @@ app.MapGet("/api/get_last_user_id", async (HttpContext context) =>
     return new {id = new Database().GetLastUserID()};
 });
 
-app.MapGet("/api/test", async (HttpContext context) =>
-{   
-    return new {status = "ОK!"};
+var pendingConfirmations = new ConcurrentDictionary<string, string>();
+
+app.MapGet("/api/account/confirm-email", (string token, string email) =>
+{
+    if(token == "null" && email != "null"){
+        return Results.Ok(new {isEmailConfirmed = new Database().CheckIfEmailIsVerified(email)});
+    }
+
+    if(new Database().CheckToken(token)){
+        return Results.Ok(new {isEmailConfirmed = true});
+    }else{
+        return Results.BadRequest(new {isEmailConfirmed = false});
+    }
 });
 
-// app.MapPost("/api/save_user_image", async (HttpContext context) =>
-// {
-//     var form = await context.Request.ReadFormAsync(); // Read form data
-//     var file = form.Files["file"]; // Get the uploaded file
-//     string id = form["id"].ToString();
+app.MapGet("/api/account/send-new-email", async (string token, string email, HttpContext context) =>
+{
+    var database = new Database();
 
-//     SaveImage saveImg = new SaveImage(file, id);
+    if (database.CheckIfEmailIsVerified(email))
+    {
+        return Results.Ok(new { isEmailConfirmed = true });
+    }
 
-//     return  saveImg.Message;
-// });
+    if (database.CheckToken(token))
+    {
+        return Results.Ok(new { isEmailConfirmed = true });
+    }
 
-// app.MapPost("/api/check_if_image_exists", async (HttpContext context) =>
-// {
-//     var form = await context.Request.ReadFormAsync(); // Read form data
-//     string id = form["id"];
+    string newToken = Guid.NewGuid().ToString();
+    var emailService = context.RequestServices.GetRequiredService<EmailService>();
+    await emailService.SendConfirmationEmailAsync(email, newToken);
 
-//     return new {url = new Database().GetProfileImgUrl(id)};
-// });
+    int userId = database.GetCurrentUserID(email);
+    database.SaveToken(userId, newToken);
 
-// app.MapPost("/api/delete_user_image", async (HttpContext context) =>
-// {
-//     var form = await context.Request.ReadFormAsync(); // Read form data
-//     string id = form["id"];
-
-//     System.Console.WriteLine(id);
-
-//     return new {isDeleted = new SaveImage(id).DeleteImg()};
-// });
+    return Results.Ok(new { isNewMessageSent = true });
+});
 
 
 app.Run();
