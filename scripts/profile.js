@@ -343,9 +343,9 @@ function getUserId(){
         success: function (response) {
             if(!response.isEmailConfirmed){
                 window.open("confirm-email.html", "_self");
-            }else{
-                $(".preloader-container").removeClass("d-none"); 
             }
+
+            $(".preloader-container").removeClass("d-none"); 
         }
     });
 }
