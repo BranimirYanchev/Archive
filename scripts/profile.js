@@ -138,8 +138,9 @@ $("#save-data-btn").on("click", function () {
     })
 });
 
-setData();
+$(".preloader-container").addClass("d-none"); 
 checkIfEmailIsVerified(null, sessionStorage.getItem("email"));
+setData();
 areFieldsChanged();
 
 // Set data function
@@ -342,6 +343,8 @@ function getUserId(){
         success: function (response) {
             if(!response.isEmailConfirmed){
                 window.open("confirm-email.html", "_self");
+            }else{
+                $(".preloader-container").removeClass("d-none"); 
             }
         }
     });
