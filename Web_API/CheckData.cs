@@ -3,6 +3,9 @@ using System;
 using MySql.Data.MySqlClient;
 using Microsoft.AspNetCore.SignalR;
 using Org.BouncyCastle.Bcpg.Sig;
+using MailKit.Net.Smtp;
+using MimeKit;
+using System.Runtime.InteropServices;
 
 // Login
 
@@ -151,7 +154,7 @@ class CheckRegisterData
         return true;
     }
 
-    public RegisterResponseMessage Message(bool isUserExists = false)
+    public async Task<RegisterResponseMessage> Message(HttpContext context, bool isUserExists = false)
     {
         Database database = new Database();
         // Example logic for creating a response
@@ -179,6 +182,13 @@ class CheckRegisterData
                 new DataOperations().InsertUser(id, Email, Password, Role);
                 SaveDataToJSON.SaveUserInfo(id, FirstName, LastName, Role);
                 url = "profile.html";
+
+                string token = Guid.NewGuid().ToString();
+
+                var emailService = context.RequestServices.GetRequiredService<EmailService>();
+                await emailService.SendConfirmationEmailAsync(Email, token);
+
+                database.SaveToken(id, token);
             }
         }
 
