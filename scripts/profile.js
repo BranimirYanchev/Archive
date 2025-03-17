@@ -50,7 +50,7 @@ $(".go-to-forms").on('click', () => {
 
 let editBtns = "";
 
-if(sessionStorage.getItem("email") == null && new URLSearchParams(window.location.search).get("userId") == null){
+if(!(sessionStorage.getItem("email") != null || new URLSearchParams(window.location.search).get("userId") != null)){
     window.open("forms.html", "_self")
 }else if(new URLSearchParams(window.location.search).get("userId") != null){
     userId = new URLSearchParams(window.location.search).get("userId");
