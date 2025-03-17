@@ -278,7 +278,7 @@ function setArchives() {
             });
     
             $(".card").on("click", function () {  
-                window.open(`archives/archive_single.html?id=${this.id}`, "_self");
+                window.open(`archives/archive_single.html?id=${this.id}&authorId=${userId}`, "_self");
             });
         }
     });    
