@@ -195,3 +195,8 @@ footer{
     outline: none;
     font-size: 1rem;
 }
+
+.user-info:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
