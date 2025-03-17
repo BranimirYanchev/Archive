@@ -55,6 +55,11 @@ function setArchives(selectedValue="all") {
                             window.open(`archive_single.html?id=${this.id}&authorId=${$(this).attr("authorid")}`, "_self");
                         });
 
+                         $(".user-info").on("click", function (e) {
+                             e.stopPropagation();
+                             window.open(`../profile.html?authorId=${$(this).closest(".card").attr("authorid")}`, "_self");
+                         });
+
                         $(".preloader-container").addClass("d-none");  
                     });
                 }  
