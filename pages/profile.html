@@ -200,7 +200,7 @@
     </footer>
 
     <script>
-        if(sessionStorage.getItem("email") == null){
+        if(sessionStorage.getItem("email") == null && new URLSearchParams(window.location.search).get("userId") == null){
             window.open('forms.html', '_self')
         }
     </script>
