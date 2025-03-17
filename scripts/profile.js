@@ -32,6 +32,8 @@ const password = {
 
 let imgType = "I";
 let email = sessionStorage.getItem("email");
+let userId = sessionStorage.getItem("user_Id");
+let isReadOnly = false;
 
 const errorMessages = {
     email: "Неправилен имейл!",
@@ -48,8 +50,11 @@ $(".go-to-forms").on('click', () => {
 
 let editBtns = "";
 
-if(sessionStorage.getItem("email") == null){
+if(sessionStorage.getItem("email") == null && new URLSearchParams(window.location.search).get("userId") == null){
     window.open("forms.html", "_self")
+}else if(new URLSearchParams(window.location.search).get("userId") != null){
+    userId = new URLSearchParams(window.location.search).get("userId");
+    isReadOnly = true;
 }
 
 const togglePassBtnsT = $('.toggle-non-slash');
@@ -94,7 +99,7 @@ $("#save-data-btn").on("click", function () {
     }
 
     if(formDataLength > 0){
-        formData.append("id", sessionStorage.getItem("user_Id"))
+        formData.append("id", userId)
     }
 
 
@@ -147,7 +152,11 @@ function setData() {
     setArchives();
     $(".preloader-container").removeClass("d-none"); 
 
-    let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/profile_info.json?nocache=${new Date().getTime()}`;
+    if(isReadOnly){
+        switchToReadOnlyMode();
+    }
+
+    let url = `https://archive-4vi4.onrender.com/users/${userId}/profile_info.json?nocache=${new Date().getTime()}`;
 
     $.ajax({
         url: url,
@@ -220,7 +229,7 @@ function areFieldsChanged() {
 }
 
 function setArchives() {
-    let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem("user_Id")}/archives.json?nocache=${new Date().getTime()}`;
+    let url = `https://archive-4vi4.onrender.com/users/${userId}/archives.json?nocache=${new Date().getTime()}`;
     $(".preloader-container").removeClass("d-none"); 
     $.ajax({
         url: url,
@@ -345,4 +354,16 @@ function getUserId(){
             }
         }
     });
+}
+
+function switchToReadOnlyMode(){
+    infoForm.grade[0].disabled = true;
+    description.attr("contenteditable", "false") ;
+    $($(".col-xxl-6")[1]).addClass("d-none");
+    $(".btn").addClass("d-none");
+    $(".add-button").addClass("d-none");
+    $(".section-title").css("margin-right", "0px");
+    $("h3").text("Профил");
+    $(".editBtn").addClass("d-none")
+    $("#empty_archive_container p").text("Потребителят не е публикувал архиви!");
 }
