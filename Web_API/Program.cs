@@ -158,6 +158,16 @@ app.MapGet("/api/get_last_user_id", async (HttpContext context) =>
     return new {id = new Database().GetLastUserID()};
 });
 
+app.MapPost("/api/get_user_email", async (HttpContext context) =>
+{
+    var form = await context.Request.ReadFormAsync(); // Read form data
+    string userId = form["userId"]; 
+
+    string email = new Database().GetUserEmailById(userId);
+
+    return Results.Ok(new {result = email});
+});
+
 var pendingConfirmations = new ConcurrentDictionary<string, string>();
 
 app.MapGet("/api/account/confirm-email", (string token, string email) =>
@@ -196,6 +206,7 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
 
     return Results.Ok(new { isNewMessageSent = true });
 });
+
 
 
 app.Run();
