@@ -356,7 +356,27 @@ function getUserId(){
     });
 }
 
+function getUserEmail(){
+    let formData = new FormData();
+        
+    formData.append("userId", userId);
+        
+    let url = "https://archive-4vi4.onrender.com/api/get_user_email";
+        
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        contentType: false, 
+        processData: false,
+        success: function (response) {
+            infoForm.email.val(response.result);
+        }
+    });
+}
+
 function switchToReadOnlyMode(){
+    getUserEmail();
     infoForm.grade[0].disabled = true;
     description.attr("contenteditable", "false") ;
     $($(".col-xxl-6")[1]).addClass("d-none");
