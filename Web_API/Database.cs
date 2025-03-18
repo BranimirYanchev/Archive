@@ -73,7 +73,29 @@ class Database
 
         return id;
     }
+    
+    public string GetUserEmailById(string userId)
+    {
+        string email = string.Empty;
+        Database database = new Database();
+        
+        using (MySqlConnection connection = database.Connect())
+        {
+            connection.Open();
+            using (var command = new MySqlCommand("SELECT email FROM users WHERE id = @Id", connection))
+            {
+                command.Parameters.AddWithValue("@Id", userId);
+                var result = command.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    email = result.ToString();
+                }
+            }
+        }
 
+        return email;
+    }
+    
     public int GetCurrentUserID(string email)
     {
         int id = 0; // Default value if no ID is found
