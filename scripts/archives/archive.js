@@ -14,16 +14,20 @@ function setArchives(selectedValue = "all") {
 
         for (let i = 1; i <= id; i++) {
             let url = `https://archive-4vi4.onrender.com/users/${i}/archives.json?nocache=${new Date().getTime()}`;
-
+        
             $.ajax({
                 url: url,
                 type: "GET",
                 success: function (response) {
                     response.forEach(e => {
                         if (!(selectedValue === e.category || selectedValue === "all")) return;
+        
+                        // 🔹 Добавяме authorId, за да знаем кой е авторът
+                        e.authorId = i;
+        
                         allArchives.push(e);
                     });
-
+        
                     renderArchives(allArchives);
                 }
             });
