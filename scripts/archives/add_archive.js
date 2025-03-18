@@ -5,6 +5,9 @@ const elements = {
     category: $("#category"),
 };
 
+$(".preloader-container").removeClass("d-none"); 
+
+
 let image = "";
 let isButtonClicked = false;
 
