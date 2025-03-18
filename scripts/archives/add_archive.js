@@ -181,8 +181,6 @@ setData();
 function setData() {
     let url = `https://archive-4vi4.onrender.com/users/${sessionStorage.getItem('user_Id')}/archives.json`;
 
-    $(".preloader-container").removeClass("d-none"); 
-
     $.ajax({
         url: url,
         method: "GET",
