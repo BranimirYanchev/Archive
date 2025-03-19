@@ -270,7 +270,10 @@ function setArchives() {
                     </div>`
                 );
             });
-    
+            
+            if(isReadOnly){
+                $(".editBtn").hide();
+            }
             $(".editBtn").on("click", function (e) {  
                 e.stopPropagation();
                 let cardId = $(this).closest(".card").attr("id");
