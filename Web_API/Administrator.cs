@@ -45,43 +45,40 @@ public class Administrator : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> HideArchive([FromBody] HideArchiveRequest request)
+    public Task<IResult> HideArchive([FromBody] HideArchiveRequest request)
     {
         if (request == null)
         {
-            return BadRequest(new { message = "Invalid request" });
+            return Results.BadRequest(new { message = "Invalid request" });
         }
 
         int userId = request.UserId;
         int archiveId = request.ArchiveId;
 
-        // Зареждане на архивите на потребителя
         var filePath = $"/var/data/users/{userId}/archives.json";
 
         if (!System.IO.File.Exists(filePath))
         {
-            return NotFound(new { message = "User archives not found" });
+            return Results.NotFound(new { message = "User archives not found" });
         }
 
-        string json = await System.IO.File.ReadAllTextAsync(filePath);
+        string json = System.IO.File.ReadAllText(filePath);
         var archives = JsonConvert.DeserializeObject<List<Archive>>(json) ?? new List<Archive>();
 
-        // Търсим архива с даденото ID
-        var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString());
+        var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString()); // Сравняваме правилно типовете
         if (archive == null)
         {
-            return NotFound(new { message = "Archive not found" });
+            return Results.NotFound(new { message = "Archive not found" });
         }
 
-        // Обновяваме статуса
         archive.Status = "hidden";
 
-        // Запазваме обратно в JSON файла
         string updatedJson = JsonConvert.SerializeObject(archives, Formatting.Indented);
-        await System.IO.File.WriteAllTextAsync(filePath, updatedJson);
+        System.IO.File.WriteAllText(filePath, updatedJson);
 
-        return Ok(new { message = "Archive hidden successfully" });
+        return Results.Ok(new { message = "Archive hidden successfully" });
     }
+
 }
 
 // Клас за десериализация на архиви

@@ -220,11 +220,10 @@ app.MapPost("/api/administrator/hide_archive", async (HttpContext context) =>
 
     if (request == null || request.UserId == 0 || request.ArchiveId == 0)
     {
-        return Results.BadRequest("Невалидни данни.");
+        return Results.BadRequest("Invalid data.");
     }
 
-    var result = new Administrator().HideArchive(request);
-    return Results.Ok(result);
+    return new Administrator().HideArchive(request);
 });
 
 
