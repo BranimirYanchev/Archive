@@ -56,8 +56,7 @@ public static class Administrator
             }
 
             var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString());
-
-            System.Console.WriteLine(archive[0]);
+            
             if (archive == null)
             {
                 return Results.NotFound("Архивът не е намерен.");
