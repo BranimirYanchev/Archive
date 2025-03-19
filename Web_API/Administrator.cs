@@ -85,15 +85,15 @@ public class Administrator : ControllerBase
 // Клас за десериализация на архиви
 public class Archive
 {
-    public string Id { get; set; }
-    public string Title { get; set; }
-    public string Author { get; set; }
-    public string Description { get; set; }
-    public string Category { get; set; }
-    public List<string> Keywords { get; set; }
-    public string ImageUrl { get; set; }
-    public string Timestamp { get; set; }
-    public string? Status { get; set; } // Новото поле
+    public string id { get; set; }
+    public string title { get; set; }
+    public string author { get; set; }
+    public string description { get; set; }
+    public string category { get; set; }
+    public List<string> keywords { get; set; }
+    public string imageUrl { get; set; }
+    public string timestamp { get; set; }
+    public string? status { get; set; } // Новото поле
 }
 
 public class User
