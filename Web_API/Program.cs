@@ -209,4 +209,16 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
 
 app.MapGet("/api/administrator/get_users_data", () => Administrator.GetUsersData());
 
+app.MapPost("/api/administrator/hide_archive", (HttpContext context) =>
+{
+    var request = context.Request.ReadFromJsonAsync<HideArchiveRequest>().Result;
+
+    if (request == null || request.UserId == 0 || request.ArchiveId == 0)
+    {
+        return Results.BadRequest("Невалидни данни.");
+    }
+
+    return Administrator.HideArchive(request.UserId, request.ArchiveId);
+});
+
 app.Run();

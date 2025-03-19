@@ -34,6 +34,59 @@ public static class Administrator
         }
         return Results.Ok(users);
     }
+
+    public static IResult HideArchive(int userId, int archiveId)
+    {
+        string filePath = $"/var/data/users/{userId}/archives.json";
+
+        if (!File.Exists(filePath))
+        {
+            return Results.NotFound("Файлът с архиви не съществува.");
+        }
+
+        try
+        {
+            string json = File.ReadAllText(filePath);
+            var archives = JsonSerializer.Deserialize<List<Archive>>(json);
+
+            if (archives == null)
+            {
+                return Results.Problem("Грешка при зареждане на архивите.");
+            }
+
+            var archive = archives.FirstOrDefault(a => a.Id == archiveId);
+            if (archive == null)
+            {
+                return Results.NotFound("Архивът не е намерен.");
+            }
+
+            archive.Status = "hidden"; // Добавяме новото поле
+
+            // Запазваме обновените данни обратно в JSON файла
+            File.WriteAllText(filePath, JsonSerializer.Serialize(archives, new JsonSerializerOptions { WriteIndented = true }));
+
+            return Results.Ok("Архивът е успешно скрит.");
+        }
+        catch (Exception ex)
+        {
+            return Results.Problem($"Грешка при обработката: {ex.Message}");
+        }
+    }
+
+    // Клас за десериализация на архиви
+    public class Archive
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Description { get; set; }
+        public string Category { get; set; }
+        public List<string> Keywords { get; set; }
+        public string ImageUrl { get; set; }
+        public string Timestamp { get; set; }
+        public string? Status { get; set; } // Новото поле
+    }
+
 }
 
 public class User
