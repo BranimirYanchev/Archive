@@ -71,7 +71,7 @@ public class Administrator : ControllerBase
             return Results.NotFound(new { message = "Archive not found" });
         }
 
-        archive.Status = "hidden";
+        archive.status = "hidden";
 
         string updatedJson = JsonConvert.SerializeObject(archives, Formatting.Indented);
         await System.IO.File.WriteAllTextAsync(filePath, updatedJson);
