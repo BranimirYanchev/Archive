@@ -207,7 +207,7 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
     return Results.Ok(new { isNewMessageSent = true });
 });
 
-app.MapGet("/api/administrator/get_users_data", () => new Administrator().GetUsersData());
+app.MapGet("/api/administrator/get_users_data", async () => await new Administrator().GetUsersData());
 
 app.MapPost("/api/administrator/hide_archive", async (HttpContext context) =>
 {
