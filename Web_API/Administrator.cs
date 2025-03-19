@@ -17,18 +17,19 @@ public class Administrator : ControllerBase
 {
     public Administrator() { }
 
-    public IResult GetUsersData()
+    public async Task<IResult> GetUsersData()
     {
         List<User> users = new List<User>();
         Database database = new Database();
         using (MySqlConnection connection = database.Connect())
         {
-            connection.Open();
+            await connection.OpenAsync(); // Използвай async версията
+
             using (var command = new MySqlCommand("SELECT id, email, role FROM users", connection))
             {
-                using (var reader = command.ExecuteReader())
+                using (var reader = await command.ExecuteReaderAsync()) // async четене
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync()) // async обхождане на резултатите
                     {
                         users.Add(new User
                         {
@@ -66,7 +67,7 @@ public class Administrator : ControllerBase
         var archives = JsonConvert.DeserializeObject<List<Archive>>(json) ?? new List<Archive>();
 
         // Търсим архива с даденото ID
-        var archive = archives.FirstOrDefault(a => a.Id == archiveId);
+        var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString());
         if (archive == null)
         {
             return NotFound(new { message = "Archive not found" });

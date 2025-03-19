@@ -213,6 +213,9 @@ app.MapPost("/api/administrator/hide_archive", async (HttpContext context) =>
 {
     var request = await context.Request.ReadFromJsonAsync<HideArchiveRequest>();
 
+    int userId = request.UserId;
+    int archiveId = request.ArchiveId;
+
     if (request == null || request.UserId == 0 || request.ArchiveId == 0)
     {
         return Results.BadRequest("Невалидни данни.");
