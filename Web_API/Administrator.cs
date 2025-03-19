@@ -65,7 +65,7 @@ public class Administrator : ControllerBase
         string json = await System.IO.File.ReadAllTextAsync(filePath);
         var archives = JsonConvert.DeserializeObject<List<Archive>>(json) ?? new List<Archive>();
 
-        var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString());
+        var archive = archives.FirstOrDefault(a => a.id == archiveId.ToString());
         if (archive == null)
         {
             return Results.NotFound(new { message = "Archive not found" });
