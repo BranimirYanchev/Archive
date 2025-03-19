@@ -13,9 +13,10 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json.Linq;
 
-public static class Administrator
+public class Administrator
 {
-    public static IResult GetUsersData()
+    public Administrator(){}
+    public IResult GetUsersData()
     {
         List<User> users = new List<User>();
         Database database = new Database();

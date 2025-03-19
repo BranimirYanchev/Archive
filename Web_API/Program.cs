@@ -207,7 +207,7 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
     return Results.Ok(new { isNewMessageSent = true });
 });
 
-app.MapGet("/api/administrator/get_users_data", () => Administrator.GetUsersData());
+app.MapGet("/api/administrator/get_users_data", () => new Administrator().GetUsersData());
 
 app.MapPost("/api/administrator/hide_archive", (HttpContext context) =>
 {
@@ -218,7 +218,13 @@ app.MapPost("/api/administrator/hide_archive", (HttpContext context) =>
         return Results.BadRequest("Невалидни данни.");
     }
 
-    return Administrator.HideArchive(request.UserId, request.ArchiveId);
+    var request = new HideArchiveRequest
+    {
+        UserId = userId,
+        ArchiveId = archiveId
+    };
+
+    return new Administrator().HideArchive(request);
 });
 
 app.Run();
