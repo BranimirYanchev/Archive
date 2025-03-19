@@ -55,7 +55,7 @@ public static class Administrator
                 return Results.Problem("Грешка при зареждане на архивите.");
             }
 
-            var archive = archives.FirstOrDefault(a => int.Parse(a.Id) == archiveId);
+            var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString());
 
             System.Console.WriteLine(archive[0]);
             if (archive == null)
@@ -79,7 +79,7 @@ public static class Administrator
     // Клас за десериализация на архиви
     public class Archive
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }
