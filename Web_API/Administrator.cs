@@ -7,6 +7,11 @@ using Org.BouncyCastle.Bcpg.Sig;
 using MailKit.Net.Smtp;
 using MimeKit;
 using System.Runtime.InteropServices;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json.Linq;
 
 public static class Administrator
 {
@@ -36,44 +41,45 @@ public static class Administrator
         return Results.Ok(users);
     }
 
-    public static IResult HideArchive(int userId, int archiveId)
+    [HttpPost]
+    public IActionResult HideArchive([FromBody] HideArchiveRequest request)
     {
-        string filePath = $"/var/data/users/{userId}/archives.json";
-
-        if (!File.Exists(filePath))
+        if (request == null)
         {
-            return Results.NotFound("Файлът с архиви не съществува.");
+            return BadRequest(new { message = "Invalid request" });
         }
 
-        try
+        int userId = request.UserId;
+        int archiveId = request.ArchiveId;
+
+        // Зареждане на архивите на потребителя
+        var filePath = $"/var/data/users/{userId}/archives.json";
+
+        if (!System.IO.File.Exists(filePath))
         {
-            string json = File.ReadAllText(filePath);
-            var archives = JsonSerializer.Deserialize<List<Archive>>(json);
-
-            if (archives == null)
-            {
-                return Results.Problem("Грешка при зареждане на архивите.");
-            }
-
-            var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString());
-            
-            if (archive == null)
-            {
-                return Results.NotFound("Архивът не е намерен.");
-            }
-
-            archive.Status = "hidden"; // Добавяме новото поле
-
-            // Запазваме обновените данни обратно в JSON файла
-            File.WriteAllText(filePath, JsonSerializer.Serialize(archives, new JsonSerializerOptions { WriteIndented = true }));
-
-            return Results.Ok("Архивът е успешно скрит.");
+            return NotFound(new { message = "User archives not found" });
         }
-        catch (Exception ex)
+
+        string json = System.IO.File.ReadAllText(filePath);
+        var archives = JsonConvert.DeserializeObject<List<Archive>>(json) ?? new List<Archive>();
+
+        // Търсим архива с даденото ID
+        var archive = archives.FirstOrDefault(a => a.Id == archiveId);
+        if (archive == null)
         {
-            return Results.Problem($"Грешка при обработката: {ex.Message}");
+            return NotFound(new { message = "Archive not found" });
         }
+
+        // Обновяваме статуса
+        archive.Status = "hidden";
+
+        // Запазваме обратно в JSON файла
+        string updatedJson = JsonConvert.SerializeObject(archives, Formatting.Indented);
+        System.IO.File.WriteAllText(filePath, updatedJson);
+
+        return Ok(new { message = "Archive hidden successfully" });
     }
+
 
     // Клас за десериализация на архиви
     public class Archive
