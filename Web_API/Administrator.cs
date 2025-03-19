@@ -45,7 +45,7 @@ public class Administrator : ControllerBase
     }
 
     [HttpPost]
-    public Task<IResult> HideArchive([FromBody] HideArchiveRequest request)
+    public async Task<IResult> HideArchive([FromBody] HideArchiveRequest request)
     {
         if (request == null)
         {
@@ -62,10 +62,10 @@ public class Administrator : ControllerBase
             return Results.NotFound(new { message = "User archives not found" });
         }
 
-        string json = System.IO.File.ReadAllText(filePath);
+        string json = await System.IO.File.ReadAllTextAsync(filePath);
         var archives = JsonConvert.DeserializeObject<List<Archive>>(json) ?? new List<Archive>();
 
-        var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString()); // Сравняваме правилно типовете
+        var archive = archives.FirstOrDefault(a => a.Id == archiveId.ToString());
         if (archive == null)
         {
             return Results.NotFound(new { message = "Archive not found" });
@@ -74,10 +74,11 @@ public class Administrator : ControllerBase
         archive.Status = "hidden";
 
         string updatedJson = JsonConvert.SerializeObject(archives, Formatting.Indented);
-        System.IO.File.WriteAllText(filePath, updatedJson);
+        await System.IO.File.WriteAllTextAsync(filePath, updatedJson);
 
         return Results.Ok(new { message = "Archive hidden successfully" });
     }
+
 
 }
 
