@@ -13,9 +13,10 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json.Linq;
 
-public class Administrator
+public class Administrator : ControllerBase
 {
-    public Administrator(){}
+    public Administrator() { }
+
     public IResult GetUsersData()
     {
         List<User> users = new List<User>();
@@ -43,7 +44,7 @@ public class Administrator
     }
 
     [HttpPost]
-    public IActionResult HideArchive([FromBody] HideArchiveRequest request)
+    public async Task<IActionResult> HideArchive([FromBody] HideArchiveRequest request)
     {
         if (request == null)
         {
@@ -61,7 +62,7 @@ public class Administrator
             return NotFound(new { message = "User archives not found" });
         }
 
-        string json = System.IO.File.ReadAllText(filePath);
+        string json = await System.IO.File.ReadAllTextAsync(filePath);
         var archives = JsonConvert.DeserializeObject<List<Archive>>(json) ?? new List<Archive>();
 
         // Търсим архива с даденото ID
@@ -76,26 +77,24 @@ public class Administrator
 
         // Запазваме обратно в JSON файла
         string updatedJson = JsonConvert.SerializeObject(archives, Formatting.Indented);
-        System.IO.File.WriteAllText(filePath, updatedJson);
+        await System.IO.File.WriteAllTextAsync(filePath, updatedJson);
 
         return Ok(new { message = "Archive hidden successfully" });
     }
+}
 
-
-    // Клас за десериализация на архиви
-    public class Archive
-    {
-        public string Id { get; set; }
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public string Description { get; set; }
-        public string Category { get; set; }
-        public List<string> Keywords { get; set; }
-        public string ImageUrl { get; set; }
-        public string Timestamp { get; set; }
-        public string? Status { get; set; } // Новото поле
-    }
-
+// Клас за десериализация на архиви
+public class Archive
+{
+    public string Id { get; set; }
+    public string Title { get; set; }
+    public string Author { get; set; }
+    public string Description { get; set; }
+    public string Category { get; set; }
+    public List<string> Keywords { get; set; }
+    public string ImageUrl { get; set; }
+    public string Timestamp { get; set; }
+    public string? Status { get; set; } // Новото поле
 }
 
 public class User
