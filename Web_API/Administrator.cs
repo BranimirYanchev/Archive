@@ -55,7 +55,9 @@ public static class Administrator
                 return Results.Problem("Грешка при зареждане на архивите.");
             }
 
-            var archive = archives.FirstOrDefault(a => a.Id == archiveId);
+            var archive = archives.FirstOrDefault(a => int.Parse(a.Id) == archiveId);
+
+            System.Console.WriteLine(archive[0]);
             if (archive == null)
             {
                 return Results.NotFound("Архивът не е намерен.");
