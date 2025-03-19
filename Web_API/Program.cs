@@ -207,6 +207,6 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
     return Results.Ok(new { isNewMessageSent = true });
 });
 
-
+app.MapGet("/api/administrator/get_users_data", () => Administrator.GetUsersData());
 
 app.Run();
