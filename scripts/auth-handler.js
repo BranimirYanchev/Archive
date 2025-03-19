@@ -49,16 +49,15 @@ function sendData(data, method, url, type = "R") {
         contentType: "application/json",
         data: JSON.stringify(data),
         success: function (response) {
-             $(".preloader-container").addClass("d-none"); 
             if (response.url != "") {
                 sessionStorage.setItem("email", data.email);
                 sessionStorage.setItem("user_Id", response.id)
                 sessionStorage.setItem("isUserLogged", true);
-                sessionStorage.setItem('password', data.password);
                 sessionStorage.setItem("hasToReload", true);
                 sessionStorage.setItem("role", data.role);
                 window.open(response.url, "_self");
             } else {
+                $(".preloader-container").addClass("d-none"); 
                 if (type == "R") {
                     handleRegisterData(response);
                     return;

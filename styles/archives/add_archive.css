@@ -115,7 +115,7 @@ input, textarea , select{
 .custom-file-upload input {
     display: none;
 }
-.submit-btn, .delete-btn {
+.submit-btn, .delete-btn, .hide-btn {
     background: #28a745;
     color: white;
     padding: 12px;
@@ -126,7 +126,7 @@ input, textarea , select{
     font-size: 16px;
     transition: 0.3s;
 }
-.submit-btn:hover {
+.submit-btn:hover, .hide-btn:hover{
     background: #218838;
 }
 

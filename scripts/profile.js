@@ -57,6 +57,11 @@ if(!(sessionStorage.getItem("email") != null || new URLSearchParams(window.locat
     isReadOnly = true;
 }
 
+if(sessionStorage.getItem("role") == "administrator" && !isReadOnly){
+    window.open("administrator.html?token=", "_self");
+}
+
+
 const togglePassBtnsT = $('.toggle-non-slash');
 const togglePassBtnsS = $('.toggle-slash');
 
@@ -164,10 +169,13 @@ function setData() {
         dataType: "json",
         cache: false, // Предотвратява кеширане
         success: function (data) {
-            $(".preloader-container").addClass("d-none"); 
             let response = data.personalInfo;
-    
-            console.log($(".section-2"));
+            
+            if(response.Role == "administrator"){
+                window.open("administrator.html?token=", "_self")
+            }
+            $(".preloader-container").addClass("d-none"); 
+            
             if (response.Role == "parent") {
                 $(".section-2").addClass("d-none");
             }
@@ -271,7 +279,7 @@ function setArchives() {
                 );
             });
             
-            if(isReadOnly){
+            if(isReadOnly && sessionStorage.getItem("role") !== "administrator"){
                 $(".editBtn").hide();
             }
             $(".editBtn").on("click", function (e) {  

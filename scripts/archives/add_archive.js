@@ -14,6 +14,11 @@ if (sessionStorage.getItem("email") == null) {
     window.open("../forms.html", "_self")
 }
 
+if(sessionStorage.getItem("role") == "administrator"){
+    $(".submit-btn").hide();
+    $(".hide-btn").removeClass("d-none");
+}
+
 let isBeingEdited = true;
 const archiveId = new URLSearchParams(window.location.search).get("id");
 
@@ -45,6 +50,26 @@ $(".delete-btn").on("click", function(e){
     e.preventDefault();
     let url = "https://archive-4vi4.onrender.com/api/delete_archive";
     sendData(url);
+});
+
+$(".hide-btn").on("click", function () {
+    $.ajax({
+        url: "https://archive-4vi4.onrender.com/api/administrator/hide_archive",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            userId: parseInt(sessionStorage.getItem("user_Id")),
+            archiveId: parseInt(archiveId)
+        }),
+        success: function (response) {
+            console.log("Архивът е успешно скрит:", response);
+            alert("Архивът беше скрит успешно!");
+        },
+        error: function (xhr, status, error) {
+            console.error("Грешка при скриването на архива:", error);
+            alert("Възникна грешка при скриването на архива.");
+        }
+    });
 });
 
 $("#keywordInput").keypress(function (event) {
@@ -192,7 +217,7 @@ function setData() {
                     elements.title.val(element.title);
                     elements.description.html(element.description);
                     elements.category.val(element.category);
-                    element.keywords.forEach(e => {
+                    element.Keywords.forEach(e => {
                         $("#tags").html($("#tags").html() + `<div class="tag">${e}<span onclick="$(this).parent().remove()">×</span></div>`)
                     })
                 }
