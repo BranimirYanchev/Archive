@@ -1,5 +1,6 @@
 using System.Text.RegularExpressions;
 using System;
+using System.Text.Json;
 using MySql.Data.MySqlClient;
 using Microsoft.AspNetCore.SignalR;
 using Org.BouncyCastle.Bcpg.Sig;
@@ -94,4 +95,10 @@ public class User
     public int Id { get; set; }
     public string Email { get; set; }
     public string Role { get; set; }
+}
+
+public class HideArchiveRequest
+{
+    public int UserId { get; set; }
+    public int ArchiveId { get; set; }
 }
