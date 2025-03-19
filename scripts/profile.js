@@ -387,7 +387,5 @@ function switchToReadOnlyMode(){
     $(".add-button").addClass("d-none");
     $(".section-title").css("margin-right", "0px");
     $("h3").text("Профил");
-    console.log($(".editBtn"));
-    $("i").hide();
     $("#empty_archive_container p").text("Потребителят не е публикувал архиви!");
 }
