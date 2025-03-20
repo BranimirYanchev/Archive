@@ -45,7 +45,7 @@ public class Administrator : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IResult> HideArchive([FromBody] HideArchiveRequest request)
+    public async Task<IResult> HideOrShowArchive([FromBody] HideArchiveRequest request, string status)
     {
         if (request == null)
         {
@@ -71,15 +71,13 @@ public class Administrator : ControllerBase
             return Results.NotFound(new { message = "Archive not found" });
         }
 
-        archive.status = "hidden";
+        archive.status = status;
 
         string updatedJson = JsonConvert.SerializeObject(archives, Formatting.Indented);
         await System.IO.File.WriteAllTextAsync(filePath, updatedJson);
 
         return Results.Ok(new { message = "Archive hidden successfully" });
     }
-
-
 }
 
 // Клас за десериализация на архиви

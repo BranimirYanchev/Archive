@@ -223,8 +223,21 @@ app.MapPost("/api/administrator/hide_archive", async (HttpContext context) =>
         return Results.BadRequest("Invalid data.");
     }
 
-    return await new Administrator().HideArchive(request);
+    return await new Administrator().HideArchive(request, "hidden");
 });
+
+app.MapPost("/api/administrator/hide_archive", async (HttpContext context) =>
+{
+    var request = await context.Request.ReadFromJsonAsync<HideArchiveRequest>();
+
+    if (request == null || request.UserId == 0 || request.ArchiveId == 0)
+    {
+        return Results.BadRequest("Invalid data.");
+    }
+
+    return await new Administrator().HideOrShowArchive(request, "");
+});
+
 
 
 app.Run();
