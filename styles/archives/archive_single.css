@@ -13,13 +13,8 @@ main{
     padding-bottom: 0 !important;
 }
 
-.burger-btn{
-    top: 6% !important;
-    left: 92.5%;
-    margin: -2% !important;
-}
-
 .section-content {
+    width: 75%;
     height: 95%;
     margin-bottom: 5%;
     padding-bottom: 2%;
@@ -169,3 +164,40 @@ input, textarea {
 Section-1 Style
 --------------------------------------------- 
 */
+
+.burger-btn{
+    top: 3% !important;
+    left: 90.5%;
+}
+
+@media (max-width: 680px) {
+    .heading > h1{
+        font-size: 33px;
+    }
+
+    .content-conatiner > p{
+        font-size: 15px;
+    }
+
+    .section-content{
+        width: 100% !important;
+    }
+
+    .burger-btn{
+        margin-top: 6% !important;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 600px) {
+    .burger-btn{
+        margin-top: 6% !important;
+        left: 86.5%;
+    }
+}
+
+@media (max-width: 500px) {
+    .burger-btn{
+        margin-top: 6% !important;
+        left: 84.5%;
+    }
+}

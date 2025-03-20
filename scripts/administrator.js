@@ -1,5 +1,10 @@
+if(sessionStorage.getItem("email") == null){
+    window.open("forms.html", "_self");
+}
+
 $(document).ready(function() {
     sessionStorage.setItem("role", "administrator");
+    
     $.ajax({
         url: 'https://archive-4vi4.onrender.com/api/administrator/get_users_data', // Заменете с вашия бекенд URL
         method: 'GET',

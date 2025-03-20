@@ -43,3 +43,11 @@
      font-size: 18px;
      margin-top: 20px;
 }
+
+.burger-btn > div{
+    background-color: var(--secondary-color);
+}
+
+.open > div{
+    background-color: var(--primary-color) !important;
+}

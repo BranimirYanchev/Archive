@@ -223,8 +223,8 @@ main {
 }
 
 .card {
-    flex-direction: row !important;
     margin: 10px;
+    flex-direction: row;
     background-color: #faf4e8 !important;
     border-radius: 20px;
     box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);

@@ -47,6 +47,7 @@ footer{
 
 .filter-box {
     padding: 15px;
+    flex-wrap: wrap;
     border-radius: 8px;
     display: flex;
     margin-top: -0.5%;
@@ -67,38 +68,32 @@ footer{
 
 
 /* Archives */
-
-.container {
+.card-container {
+    width: 100%;
     display: flex;
-    width: 1040px;
-    justify-content: space-evenly;
     flex-wrap: wrap;
-}
-
-.header>h1 {
-    display: flex;
+    justify-content: center; /* Центриране */
     align-items: center;
-    font-size: 55px;
+    gap: 20px;
 }
 
 .card {
-    flex-direction: row !important;
-    margin: 10px;
+    display: flex;
+    width: 90%;
     background-color: #faf4e8 !important;
     border-radius: 20px;
     box-shadow: 0 0 20px 10px rgba(0, 0, 0, 0.6);
     overflow: hidden;
-    width: 90%;
 }
 
 .card-header {
-    height: 100%;
-    width: 61%;
+    width: 40%;
+    height: 290px;
 }
 
 .card-header img {
     width: 100%;
-    height: 259px;
+    height: 100%;
     object-fit: cover;
 }
 
@@ -109,7 +104,48 @@ footer{
     align-items: flex-start;
     padding: 20px;
     min-height: 250px;
-    width: 120%;
+    width: 60%;
+}
+
+/* Респонсив настройки */
+@media (min-width: 955px) {
+    .card{
+        flex-direction: row !important;
+    }
+}
+
+@media (max-width: 955px) {
+    #searchInput{
+        width: 70%;
+    }
+
+    .card-container {
+        flex-direction: column; /* Подрежда картите вертикално */
+    }
+
+    .card {
+        flex-direction: column !important; /* Превключва към портрет */
+        max-width: 400px;
+    }
+
+    .card-header {
+        width: 100%;
+        height: 200px; /* Запазва добър вид на снимката */
+    }
+
+    .card-body {
+        width: 100%;
+    }
+}
+
+@media (max-width: 625px) {
+    #searchInput{
+        width: 100%;
+    }
+
+    .header > h1{
+        display: none;
+    }
 }
 
 .open>div {

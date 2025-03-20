@@ -14,11 +14,6 @@ if (sessionStorage.getItem("email") == null) {
     window.open("../forms.html", "_self")
 }
 
-if(sessionStorage.getItem("role") == "administrator"){
-    $(".submit-btn").hide();
-    $(".hide-btn").removeClass("d-none");
-}
-
 let isBeingEdited = true;
 const archiveId = new URLSearchParams(window.location.search).get("id");
 
@@ -53,23 +48,13 @@ $(".delete-btn").on("click", function(e){
 });
 
 $(".hide-btn").on("click", function () {
-    $.ajax({
-        url: "https://archive-4vi4.onrender.com/api/administrator/hide_archive",
-        type: "POST",
-        contentType: "application/json",
-        data: JSON.stringify({
-            userId: parseInt(sessionStorage.getItem("user_Id")),
-            archiveId: parseInt(archiveId)
-        }),
-        success: function (response) {
-            console.log("Архивът е успешно скрит:", response);
-            alert("Архивът беше скрит успешно!");
-        },
-        error: function (xhr, status, error) {
-            console.error("Грешка при скриването на архива:", error);
-            alert("Възникна грешка при скриването на архива.");
-        }
-    });
+    let url = "https://archive-4vi4.onrender.com/api/administrator/hide_archive"; 
+    hideOrShowArchive(url);
+});
+
+$(".show-btn").on("click", function () {
+    let url = "https://archive-4vi4.onrender.com/api/administrator/show_archive"; 
+    hideOrShowArchive(url);
 });
 
 $("#keywordInput").keypress(function (event) {
@@ -116,6 +101,24 @@ $("#imageUpload").on("change", function (event) {
         previewContainer.append(previewBox);
     };
 });
+
+function hideOrShowArchive(url){
+    $.ajax({
+        url: url,
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+            userId: parseInt(sessionStorage.getItem("user_Id")),
+            archiveId: parseInt(archiveId)
+        }),
+        success: function (response) {
+            window.open("../administrator.html", "_self");
+        },
+        error: function (xhr, status, error) {
+            alert("Възникна грешка.");
+        }
+    });
+}
 
 function readNewArchiveData(response){
     if(response.isSavedData){
@@ -211,17 +214,23 @@ function setData() {
         method: "GET",
         dataType: "json",
         success: function (data) {
-            $(".preloader-container").addClass("d-none"); 
             data.forEach(element => {
                 if(element.id == archiveId){
                     elements.title.val(element.title);
                     elements.description.html(element.description);
                     elements.category.val(element.category);
-                    element.Keywords.forEach(e => {
+                    element.keywords.forEach(e => {
                         $("#tags").html($("#tags").html() + `<div class="tag">${e}<span onclick="$(this).parent().remove()">×</span></div>`)
                     })
                 }
+
+                if(sessionStorage.getItem("role") == "administrator" && element.status == "hidden"){
+                    $(".submit-btn").hide();
+                    $(".show-btn").removeClass("d-none");
+                }
             });
+
+            $(".preloader-container").addClass("d-none"); 
         },
     });
 }

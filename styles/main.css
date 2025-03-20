@@ -200,3 +200,13 @@ footer{
         transform: rotate(360deg);
     }
 }
+
+@media (max-width: 1117px) {
+    .fullscreen-menu > :first-child{
+        display: none;
+    }
+
+    .fullscreen-menu > :last-child{
+        display: none;
+    }
+}

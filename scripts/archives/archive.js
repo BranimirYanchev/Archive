@@ -43,6 +43,10 @@ function renderArchives(archives) {
         if (e.category == "sport") category = "спорт";
         else if (e.category == "culture") category = "култура";
 
+        if(e.status != null && e.status == "hidden"){
+            return false;
+        }
+
         $(".card-container").append(`
                 <div class="card" id="${e.id}" authorid="${e.authorId}">
                     <div class="card-header">

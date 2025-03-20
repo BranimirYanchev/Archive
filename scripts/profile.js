@@ -255,8 +255,12 @@ function setArchives() {
     
             response.forEach(e => {
                 let category = "ученически живот";
-                if (e.category == "sport") category = "спорт";
-                else if (e.category == "culture") category = "култура";
+                if(e.status != "hidden"){
+                    if (e.category == "sport") category = "спорт";
+                    else if (e.category == "culture") category = "култура";
+                }else{
+                    category = "СКРИТ"
+                }
     
                 $("#card-container").append(
                     `<div class="card" id=${e.id}>
@@ -282,6 +286,7 @@ function setArchives() {
             if(isReadOnly && sessionStorage.getItem("role") !== "administrator"){
                 $(".editBtn").hide();
             }
+
             $(".editBtn").on("click", function (e) {  
                 e.stopPropagation();
                 let cardId = $(this).closest(".card").attr("id");
