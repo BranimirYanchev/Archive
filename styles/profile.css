@@ -340,3 +340,30 @@ main {
     outline: none;
     font-size: 1rem;
 }
+
+@media (max-width: 980px){
+    .burger-btn{
+        left: 79.5%;
+        top: 4.5%;
+    }
+}
+
+@media (max-width: 955px) {
+    .card-container {
+        flex-direction: column; /* Подрежда картите вертикално */
+    }
+
+    .card {
+        flex-direction: column !important; /* Превключва към портрет */
+        max-width: 400px;
+    }
+
+    .card-header {
+        width: 100%;
+        height: 281px; /* Запазва добър вид на снимката */
+    }
+
+    .card-body {
+        width: 100%;
+    }
+}

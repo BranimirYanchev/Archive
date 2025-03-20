@@ -7,10 +7,12 @@
 </head>
 <body>
     <script>
-        if (window.innerWidth === 1120) {
+        console.log(window.innerWidth);
+        if (window.innerWidth <= 1120) {
             window.open("pages/archives/archives.html", "_self");
+        }else{
+            window.open("pages/index.html", "_self");
         }
-        window.open("pages/index.html", "_self");
     </script>
 </body>
 </html>
