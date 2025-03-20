@@ -226,7 +226,7 @@ app.MapPost("/api/administrator/hide_archive", async (HttpContext context) =>
     return await new Administrator().HideArchive(request, "hidden");
 });
 
-app.MapPost("/api/administrator/hide_archive", async (HttpContext context) =>
+app.MapPost("/api/administrator/show_archive", async (HttpContext context) =>
 {
     var request = await context.Request.ReadFromJsonAsync<HideArchiveRequest>();
 
