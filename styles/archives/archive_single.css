@@ -170,6 +170,12 @@ Section-1 Style
     left: 90.5%;
 }
 
+@media (min-width: 925px) {
+    .burger-btn{
+        left: 95.5%;
+    }
+}
+
 @media (max-width: 680px) {
     .heading > h1{
         font-size: 33px;
@@ -190,8 +196,8 @@ Section-1 Style
 
 @media (min-width: 500px) and (max-width: 600px) {
     .burger-btn{
-        margin-top: 6% !important;
-        left: 86.5%;
+        margin-top: 7% !important;
+        left: 89.5%;
     }
 }
 
