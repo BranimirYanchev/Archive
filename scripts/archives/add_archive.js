@@ -221,12 +221,17 @@ function setData() {
                     elements.category.val(element.category);
                     element.keywords.forEach(e => {
                         $("#tags").html($("#tags").html() + `<div class="tag">${e}<span onclick="$(this).parent().remove()">×</span></div>`)
-                    })
-                }
+                    });
 
-                if(sessionStorage.getItem("role") == "administrator" && element.status == "hidden"){
-                    $(".submit-btn").hide();
-                    $(".show-btn").removeClass("d-none");
+                    console.log(element.status);
+
+                    if(sessionStorage.getItem("role") == "administrator" && element.status == "hidden"){
+                        $(".submit-btn").hide();
+                        $(".show-btn").removeClass("d-none");
+                    }else if(sessionStorage.getItem("role") == "administrator"){
+                        $(".submit-btn").hide();
+                        $(".hide-btn").removeClass("d-none");
+                    }
                 }
             });
 

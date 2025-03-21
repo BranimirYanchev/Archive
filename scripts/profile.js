@@ -199,6 +199,10 @@ function setData() {
                     sessionStorage.setItem("name", response.FirstName + " " + response.LastName);
                 }
             }
+
+            if(sessionStorage.getItem("role") == "administrator"){
+                sessionStorage.setItem("email", e.em)
+            }
     
             description.html(data.description);
         },
@@ -281,6 +285,12 @@ function setArchives() {
                         </div>
                     </div>`
                 );
+
+                if(category == "СКРИТ"){
+                    console.log($(".tag"));
+                    $(".tag").addClass("red-color");
+                    $(".tag-purple").removeClass("tag-purple");
+                }
             });
             
             if(isReadOnly && sessionStorage.getItem("role") !== "administrator"){
@@ -387,6 +397,9 @@ function getUserEmail(){
         processData: false,
         success: function (response) {
             infoForm.email.val(response.result);
+            if(sessionStorage.getItem("role") == "administrator"){
+                sessionStorage.setItem("email", response.result);
+            }
         }
     });
 }

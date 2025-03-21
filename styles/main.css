@@ -210,3 +210,10 @@ footer{
         display: none;
     }
 }
+
+@media (max-width: 768px) {
+    .burger-btn{
+        width: 33px;
+        height: 39px;
+    }
+}

@@ -1,5 +1,15 @@
 let allArchives = [];
 
+$("#category").val("all");
+$("#sort").val("");
+
+if(new URLSearchParams(window.location.search).get("category")){
+    setArchives(new URLSearchParams(window.location.search).get("category"));
+    $("#category").val(new URLSearchParams(window.location.search).get("category"));
+}else{
+    setArchives();
+}
+
 $("#category").on("change", function () {
     let selectedValue = $(this).val();
     setArchives(selectedValue);
@@ -115,24 +125,32 @@ $("#sort").change(function () {
     $(".preloader-container").removeClass("d-none");
     let sortBy = $(this).val();
 
+    if(sortBy == ""){
+        setArchives();
+    }
+
     let cards = $(".card").toArray();
 
     cards.sort(function (a, b) {
         if (sortBy === "date") {
-            let dateA = new Date($(a).find("small").text().trim());
-            let dateB = new Date($(b).find("small").text().trim());
+            let dateTextA = $(a).find("small").text().trim();
+            let dateTextB = $(b).find("small").text().trim();
+    
+            let datePartsA = dateTextA.split("/"); // Разделяме по "/"
+            let datePartsB = dateTextB.split("/");
+    
+            // Преобразуваме във формат "гггг-мм-дд", който new Date() разпознава
+            let dateA = new Date(`${datePartsA[2]}-${datePartsA[1]}-${datePartsA[0]}`);
+            let dateB = new Date(`${datePartsB[2]}-${datePartsB[1]}-${datePartsB[0]}`);
+    
             return dateB - dateA; // Обратен ред (по-новите първи)
         } else if (sortBy === "name") {
             let nameA = $(a).find("h4").text().trim().toLowerCase();
             let nameB = $(b).find("h4").text().trim().toLowerCase();
             return nameA.localeCompare(nameB);
         }
-    });
+    });    
 
     $(".card-container").empty().append(cards);
     $(".preloader-container").addClass("d-none");
-});
-
-$(document).ready(function () {
-    setArchives();
 });
