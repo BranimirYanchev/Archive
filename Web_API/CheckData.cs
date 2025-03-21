@@ -177,8 +177,9 @@ class CheckRegisterData
         {
             isUserExists = new CheckUserInDatabase().IsUserExists(Email, Password);
 
-            if (!isUserExists)
+            if (!isUserExists && Role != "administrator")
             {
+                
                 new DataOperations().InsertUser(id, Email, Password, Role);
                 SaveDataToJSON.SaveUserInfo(id, FirstName, LastName, Role);
                 url = "profile.html";
