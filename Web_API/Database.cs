@@ -270,6 +270,26 @@ class Database
         }
     }
 
+    public bool CheckIfEmailIsVerified(string email)
+    {
+        Database database = new Database(); // Предполагам, че имаш клас Database за връзка с MySQL
+
+        using (MySqlConnection connection = database.Connect())
+        {
+            connection.Open();
+            using (var command = new MySqlCommand("SELECT COUNT(*) FROM users WHERE email = @Email AND isEmailVerified = 1;", connection))
+            {
+                command.Parameters.AddWithValue("@Email", email);
+
+                var result = command.ExecuteScalar();
+                int count = Convert.ToInt32(result);
+
+                return count > 0;
+            }
+        }
+    }
+
+
     public bool DeleteProfile(string id)
     {
         Database database = new Database(); // Предполагам, че имаш клас Database за връзка с MySQL
