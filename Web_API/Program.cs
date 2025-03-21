@@ -238,6 +238,11 @@ app.MapPost("/api/administrator/show_archive", async (HttpContext context) =>
     return await new Administrator().HideOrShowArchive(request, "");
 });
 
+app.MapPost("/api/administrator/delete-profile", (string userId) =>
+{
+    return Results.Ok(new { isProfileDeleted = new Database().DeleteProfile(userId)});
+});
+
 
 
 app.Run();

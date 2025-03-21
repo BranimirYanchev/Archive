@@ -29,11 +29,13 @@ class Database
                 command.Parameters.AddWithValue("@Id", id);
             }
 
-            if(!string.IsNullOrEmpty(email)){
+            if (!string.IsNullOrEmpty(email))
+            {
                 command.Parameters.AddWithValue("@Email", email);
             }
 
-            if(!string.IsNullOrEmpty(password)){
+            if (!string.IsNullOrEmpty(password))
+            {
                 command.Parameters.AddWithValue("@PasswordHash", password);
             }
 
@@ -73,12 +75,12 @@ class Database
 
         return id;
     }
-    
+
     public string GetUserEmailById(string userId)
     {
         string email = string.Empty;
         Database database = new Database();
-        
+
         using (MySqlConnection connection = database.Connect())
         {
             connection.Open();
@@ -95,7 +97,7 @@ class Database
 
         return email;
     }
-    
+
     public int GetCurrentUserID(string email)
     {
         int id = 0; // Default value if no ID is found
@@ -119,7 +121,7 @@ class Database
         return id;
     }
 
-    public bool InsertProfileImagePath(string id, string imgUrl="")
+    public bool InsertProfileImagePath(string id, string imgUrl = "")
     {
         Database database = new Database();
         using (MySqlConnection connection = database.Connect())
@@ -127,9 +129,12 @@ class Database
             connection.Open();
             using (var command = new MySqlCommand("UPDATE users SET `img-url` = @ImgUrl WHERE `Id` = @Id;", connection))
             {
-                if(imgUrl == ""){
+                if (imgUrl == "")
+                {
                     command.Parameters.AddWithValue("@ImgUrl", null);
-                }else{
+                }
+                else
+                {
                     command.Parameters.AddWithValue("@ImgUrl", imgUrl);
                 }
 
@@ -213,7 +218,7 @@ class Database
             using (var command = new MySqlCommand("DELETE FROM archives WHERE Id = @Id;", connection))
             {
                 command.Parameters.AddWithValue("@Id", archiveId);
-    
+
                 int rowsAffected = command.ExecuteNonQuery(); // Изпълняваме DELETE заявката
                 return rowsAffected > 0; // Ако има изтрити редове, връщаме true
             }
@@ -265,21 +270,29 @@ class Database
         }
     }
 
-    public bool CheckIfEmailIsVerified(string email)
+    public bool DeleteProfile(string id)
     {
         Database database = new Database(); // Предполагам, че имаш клас Database за връзка с MySQL
 
         using (MySqlConnection connection = database.Connect())
         {
             connection.Open();
-            using (var command = new MySqlCommand("SELECT COUNT(*) FROM users WHERE email = @Email AND isEmailVerified = 1;", connection))
+            using (var command = new MySqlCommand("DELETE FROM users WHERE id = @Id;", connection))
             {
-                command.Parameters.AddWithValue("@Email", email);
+                command.Parameters.AddWithValue("@Id", id);
 
-                var result = command.ExecuteScalar();
-                int count = Convert.ToInt32(result);
-
-                return count > 0;
+                int affectedRows = command.ExecuteNonQuery();
+                if (affectedRows > 0)
+                {
+                    // Изтриване на директорията
+                    string directoryPath = Path.Combine("users", id);
+                    if (Directory.Exists(directoryPath))
+                    {
+                        Directory.Delete(directoryPath, true); // true -> трие всичко вътре
+                    }
+                    return true;
+                }
+                return false;
             }
         }
     }
