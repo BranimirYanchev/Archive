@@ -207,3 +207,11 @@ Section-1 Style
         left: 84.5%;
     }
 }
+
+.open-profile{
+    cursor: pointer;
+}
+
+.open-profile:hover{
+    text-decoration: underline;
+}

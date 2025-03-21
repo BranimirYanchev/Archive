@@ -24,7 +24,7 @@ function setArchives() {
                     $(".section-content").append( 
                         ` <div class="heading text-center mt-5" id=${e.id}>
                             <h1>${e.title}</h1>
-                            <h2>${e.timestamp} | ${e.author}</h2>
+                            <h2>${e.timestamp} | <span class="open-profile">${e.author}</span></h2>
                             <hr style="width: 70%; margin-left: 15%">
                         </div>
     
@@ -38,6 +38,12 @@ function setArchives() {
                     );
                 }
             });
+
+            $(".open-profile").on("click", function () {
+                let authorId = new URLSearchParams(window.location.search).get("authorId");
+                window.location.href = `../profile.html?userId=${authorId}`;
+            });
+                  
         },
         error: function (error){
             window.open("archives.html", "_self");

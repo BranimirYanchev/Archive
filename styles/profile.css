@@ -348,6 +348,12 @@ main {
     }
 }
 
+@media (min-width: 955px) {
+    .card {
+        flex-direction: row !important; /* Подрежда картите вертикално */
+    }
+}
+
 @media (max-width: 955px) {
     .card-container {
         flex-direction: column; /* Подрежда картите вертикално */
