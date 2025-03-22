@@ -155,7 +155,6 @@ areFieldsChanged();
 // Set data function
 function setData() {
     setArchives();
-    $(".preloader-container").removeClass("d-none"); 
 
     if(isReadOnly){
         switchToReadOnlyMode();
@@ -201,9 +200,9 @@ function setData() {
             }
 
             if(sessionStorage.getItem("role") == "administrator"){
-                sessionStorage.setItem("email", e.em)
+                sessionStorage.setItem("email", getUserEmail(sessionStorage.getItem("userId")))
             }
-    
+            
             description.html(data.description);
         },
         error: function (xhr, status, error) {
@@ -382,7 +381,7 @@ function getUserId(){
     });
 }
 
-function getUserEmail(){
+async function getUserEmail(){
     let formData = new FormData();
         
     formData.append("userId", userId);
@@ -404,8 +403,13 @@ function getUserEmail(){
     });
 }
 
-function switchToReadOnlyMode(){
-    getUserEmail();
+async function switchToReadOnlyMode(){
+    $(".preloader-container").addClass("d-none"); 
+    $(".description-container").addClass("justify-content-center");
+    $(".edit-heading").text("Профилна снимка");
+    $(".edit-heading").addClass("text-center");
+    await getUserEmail();
+    $(".preloader-container").removeClass("d-none"); 
     infoForm.grade[0].disabled = true;
     description.attr("contenteditable", "false") ;
     $($(".col-xxl-6")[1]).addClass("d-none");
