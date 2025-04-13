@@ -251,7 +251,7 @@ app.MapPost("/api/verify_log/create_token", async (HttpContext context) =>
         return Results.BadRequest("Invalid data.");
 
     string token = new DataOperations().GenerateToken();
-    var result = await new Database().SaveToken(userId, token);
+    var result = new Database().SaveToken(userId, token);
 
     return result != null
         ? Results.Ok(new { isTokenCreated = true, token = result })
