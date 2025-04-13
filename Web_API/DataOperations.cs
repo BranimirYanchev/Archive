@@ -34,4 +34,20 @@ class DataOperations
 
         myConnection.Close();
     }
+
+        // Генериране на уникален токен
+    public string GenerateToken()
+    {
+        Random random = new Random();
+
+        const string validChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        char[] tokenChars = new char[32]; // 32-символен токен
+
+        for (int i = 0; i < tokenChars.Length; i++)
+        {
+            tokenChars[i] = validChars[random.Next(validChars.Length)];
+        }
+
+        return new string(tokenChars);
+    }
 }

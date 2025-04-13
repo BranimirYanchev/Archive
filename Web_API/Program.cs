@@ -243,6 +243,51 @@ app.MapPost("/api/administrator/delete-profile", (string userId) =>
     return Results.Ok(new { isProfileDeleted = new Database().DeleteProfile(userId)});
 });
 
+app.MapPost("/api/verify_log/create_token", async (HttpContext context) =>
+{
+    var request = await context.Request.ReadFromJsonAsync<CreateTokenRequest>();
+
+    if (request == null || string.IsNullOrEmpty(request.UserId))
+    {
+        return Results.BadRequest("Invalid data.");
+    }
+
+    string token = new DataOperations().GenerateToken();
+    var result = await new Database().CreateToken(request.UserId, token);
+
+    if (result != null)
+    {
+        return Results.Ok(new { isTokenCreated = true, token = result });
+    }
+    else
+    {
+        return Results.Ok(new { isTokenCreated = false });
+    }
+});
+
+app.MapPost("/api/verify_log/checkToken", async (HttpContext context) =>
+{
+    var request = await context.Request.ReadFromJsonAsync<CheckTokenRequest>();
+
+    if (request == null || string.IsNullOrEmpty(request.Token) || string.IsNullOrEmpty(request.Email))
+    {
+        return Results.BadRequest("Invalid data.");
+    }
+
+    var result = await new Database().CheckTokenAsync(request.Token, request.Email, request.UserId);
+
+    if (result)
+    {
+        return Results.Ok(new { isTokenValid = true });
+    }
+    else
+    {
+        return Results.Ok(new { isTokenValid = false });
+    }
+});
+
+
+
 
 
 app.Run();
