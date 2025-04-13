@@ -253,7 +253,7 @@ app.MapPost("/api/verify_log/create_token", async (HttpContext context) =>
     int userId = body["userId"].GetInt32();
 
     string token = new DataOperations().GenerateToken();
-    var result = await new Database().CreateToken(userId, token);
+    var result = await new Database().SaveToken(userId, token);
 
     return result != null
         ? Results.Ok(new { isTokenCreated = true, token = result })
