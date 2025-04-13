@@ -256,11 +256,11 @@ app.MapPost("/api/verify_log/create_token", async (HttpContext context) =>
     var result = new Database().SaveToken(userId, token);
 
     return result != null
-        ? Results.Ok(new { isTokenCreated = true, token = result })
+        ? Results.Ok(new { isTokenCreated = true, token = token })
         : Results.Ok(new { isTokenCreated = false });
 });
 
-app.MapPost("/api/verify_log/checkToken", async (HttpContext context) =>
+app.MapPost("/api/verify_log/check_token", async (HttpContext context) =>
 {
     var body = await context.Request.ReadFromJsonAsync<Dictionary<string, string>>();
 
