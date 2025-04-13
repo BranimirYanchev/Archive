@@ -245,13 +245,15 @@ app.MapPost("/api/administrator/delete-profile", (string userId) =>
 
 app.MapPost("/api/verify_log/create_token", async (HttpContext context) =>
 {
-    var body = await context.Request.ReadFromJsonAsync<Dictionary<string, string>>();
+    var body = await context.Request.ReadFromJsonAsync<Dictionary<string, JsonElement>>();
 
-    if (body == null || !body.ContainsKey("UserId") || !int.TryParse(body["UserId"], out int userId))
+    if (body == null || !body.ContainsKey("userId"))
         return Results.BadRequest("Invalid data.");
 
+    int userId = body["userId"].GetInt32();
+
     string token = new DataOperations().GenerateToken();
-    var result = new Database().SaveToken(userId, token);
+    var result = await new Database().CreateToken(userId, token);
 
     return result != null
         ? Results.Ok(new { isTokenCreated = true, token = result })
