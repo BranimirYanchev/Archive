@@ -245,49 +245,35 @@ app.MapPost("/api/administrator/delete-profile", (string userId) =>
 
 app.MapPost("/api/verify_log/create_token", async (HttpContext context) =>
 {
-    var request = await context.Request.ReadFromJsonAsync<CreateTokenRequest>();
+    var body = await context.Request.ReadFromJsonAsync<Dictionary<string, string>>();
 
-    if (request == null || string.IsNullOrEmpty(request.UserId))
-    {
+    if (body == null || !body.ContainsKey("UserId") || !int.TryParse(body["UserId"], out int userId))
         return Results.BadRequest("Invalid data.");
-    }
 
     string token = new DataOperations().GenerateToken();
-    var result = await new Database().CreateToken(request.UserId, token);
+    var result = await new Database().CreateToken(userId, token);
 
-    if (result != null)
-    {
-        return Results.Ok(new { isTokenCreated = true, token = result });
-    }
-    else
-    {
-        return Results.Ok(new { isTokenCreated = false });
-    }
+    return result != null
+        ? Results.Ok(new { isTokenCreated = true, token = result })
+        : Results.Ok(new { isTokenCreated = false });
 });
 
 app.MapPost("/api/verify_log/checkToken", async (HttpContext context) =>
 {
-    var request = await context.Request.ReadFromJsonAsync<CheckTokenRequest>();
+    var body = await context.Request.ReadFromJsonAsync<Dictionary<string, string>>();
 
-    if (request == null || string.IsNullOrEmpty(request.Token) || string.IsNullOrEmpty(request.Email))
+    if (body == null || 
+        !body.TryGetValue("Token", out string token) || 
+        !body.TryGetValue("Email", out string email) || 
+        !body.TryGetValue("UserId", out string userIdStr) || 
+        !int.TryParse(userIdStr, out int userId))
     {
         return Results.BadRequest("Invalid data.");
     }
 
-    var result = await new Database().CheckTokenAsync(request.Token, request.Email, request.UserId);
+    bool result = await new Database().CheckTokenAsync(token, email, userId);
 
-    if (result)
-    {
-        return Results.Ok(new { isTokenValid = true });
-    }
-    else
-    {
-        return Results.Ok(new { isTokenValid = false });
-    }
+    return Results.Ok(new { isTokenValid = result });
 });
-
-
-
-
 
 app.Run();
