@@ -265,8 +265,7 @@ app.MapPost("/api/verify_log/checkToken", async (HttpContext context) =>
     if (body == null || 
         !body.TryGetValue("Token", out string token) || 
         !body.TryGetValue("Email", out string email) || 
-        !body.TryGetValue("UserId", out string userIdStr) || 
-        !int.TryParse(userIdStr, out int userId))
+        !body.TryGetValue("UserId", out string userId))
     {
         return Results.BadRequest("Invalid data.");
     }
