@@ -265,9 +265,9 @@ app.MapPost("/api/verify_log/check_token", async (HttpContext context) =>
     var body = await context.Request.ReadFromJsonAsync<Dictionary<string, string>>();
 
     if (body == null || 
-        !body.TryGetValue("Token", out string token) || 
-        !body.TryGetValue("Email", out string email) || 
-        !body.TryGetValue("UserId", out string userId))
+        !body.TryGetValue("token", out string token) || 
+        !body.TryGetValue("email", out string email) || 
+        !body.TryGetValue("userId", out string userId))
     {
         return Results.BadRequest("Invalid data.");
     }
