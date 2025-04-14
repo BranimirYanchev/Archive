@@ -187,6 +187,10 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
 {
     var database = new Database();
 
+    if(token == ""){
+        return Results.Ok(new { isMessageSent = true });
+    }
+
     if (database.CheckIfEmailIsVerified(email))
     {
         return Results.Ok(new { isEmailConfirmed = true });
