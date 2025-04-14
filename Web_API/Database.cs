@@ -258,6 +258,7 @@ class Database
 
                 if (count > 0) // Ако намерим потребител с този token
                 {
+                    System.Console.WriteLine(count);
                     using (var updateCommand = new MySqlCommand("UPDATE users SET isEmailVerified = 1 WHERE token = @Token;", connection))
                     {
                         updateCommand.Parameters.AddWithValue("@Token", token);
