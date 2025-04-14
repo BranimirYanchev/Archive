@@ -187,7 +187,11 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
 {
     var database = new Database();
 
+    string newToken = Guid.NewGuid().ToString();
+    var emailService = context.RequestServices.GetRequiredService<EmailService>();
+
     if(token == ""){
+        await emailService.SendConfirmationEmailAsync(email, newToken);
         return Results.Ok(new { isNewMessageSent = true });
     }
 
@@ -201,8 +205,6 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
         return Results.Ok(new { isEmailConfirmed = true });
     }
 
-    string newToken = Guid.NewGuid().ToString();
-    var emailService = context.RequestServices.GetRequiredService<EmailService>();
     await emailService.SendConfirmationEmailAsync(email, newToken);
 
     int userId = database.GetCurrentUserID(email);
