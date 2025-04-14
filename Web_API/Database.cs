@@ -225,14 +225,19 @@ class Database
         }
     }
 
-    public bool SaveToken(int userId, string token)
+    public bool SaveToken(int userId, string token, string type)
     {
         Database database = new Database(); // Предполагам, че имаш клас Database за връзка с MySQL
+        string sql = "UPDATE users SET token = @Token WHERE Id = @UserId;";
 
         using (MySqlConnection connection = database.Connect())
         {
+            if(type == "email"){
+                sql = "UPDATE users SET email_token = @Token WHERE Id = @UserId;";
+            }
+
             connection.Open();
-            using (var command = new MySqlCommand("UPDATE users SET token = @Token WHERE Id = @UserId;", connection))
+            using (var command = new MySqlCommand(sql, connection))
             {
                 command.Parameters.AddWithValue("@UserId", userId);
                 command.Parameters.AddWithValue("@Token", token);
@@ -250,7 +255,7 @@ class Database
         using (MySqlConnection connection = database.Connect())
         {
             connection.Open();
-            using (var command = new MySqlCommand("SELECT COUNT(*) FROM users WHERE token = @Token;", connection))
+            using (var command = new MySqlCommand("SELECT COUNT(*) FROM users WHERE email_token = @Token;", connection))
             {
                 command.Parameters.AddWithValue("@Token", token);
 
@@ -259,7 +264,7 @@ class Database
                 if (count > 0) // Ако намерим потребител с този token
                 {
                     System.Console.WriteLine(count);
-                    using (var updateCommand = new MySqlCommand("UPDATE users SET isEmailVerified = 1 WHERE token = @Token;", connection))
+                    using (var updateCommand = new MySqlCommand("UPDATE users SET isEmailVerified = 1 WHERE email_token = @Token;", connection))
                     {
                         updateCommand.Parameters.AddWithValue("@Token", token);
                         int rowsUpdated = updateCommand.ExecuteNonQuery();

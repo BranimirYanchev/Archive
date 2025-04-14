@@ -192,8 +192,6 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
         return Results.Ok(new { isEmailConfirmed = true });
     }
 
-    System.Console.WriteLine(token);
-
     if (database.CheckToken(token))
     {
         return Results.Ok(new { isEmailConfirmed = true });
@@ -204,7 +202,7 @@ app.MapGet("/api/account/send-new-email", async (string token, string email, Htt
     await emailService.SendConfirmationEmailAsync(email, newToken);
 
     int userId = database.GetCurrentUserID(email);
-    database.SaveToken(userId, newToken);
+    database.SaveToken(userId, newToken, "email");
 
     return Results.Ok(new { isNewMessageSent = true });
 });
@@ -255,7 +253,7 @@ app.MapPost("/api/verify_log/create_token", async (HttpContext context) =>
     int userId = body["userId"].GetInt32();
 
     string token = Guid.NewGuid().ToString();
-    var result = new Database().SaveToken(userId, token);
+    var result = new Database().SaveToken(userId, token, "");
 
     return result != null
         ? Results.Ok(new { isTokenCreated = true, token = token })
