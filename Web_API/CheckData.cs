@@ -179,7 +179,6 @@ class CheckRegisterData
 
             if (!isUserExists && Role != "administrator")
             {
-                
                 new DataOperations().InsertUser(id, Email, Password, Role);
                 SaveDataToJSON.SaveUserInfo(id, FirstName, LastName, Role);
                 url = "profile.html";
@@ -189,7 +188,7 @@ class CheckRegisterData
                 var emailService = context.RequestServices.GetRequiredService<EmailService>();
                 await emailService.SendConfirmationEmailAsync(Email, token);
 
-                database.SaveToken(id, token);
+                database.SaveToken(id, token, "email");
             }
         }
 
