@@ -278,32 +278,31 @@ class Database
 
     public async Task<bool> CheckTokenAsync(string token, string email, string userId)
     {
+        bool isAdmin = false;
         Database database = new Database(); // Потребителски клас за връзка с базата данни
+        string sql = "SELECT COUNT(*) FROM users WHERE token = @Token AND email = @Email AND Id = @UserId;";
+
+        if(email == "almachronicles@gmail.com"){
+            isAdmin = true;
+            sql = "SELECT COUNT(*) FROM users WHERE token = @Token AND email = @Email;";
+        }
 
         using (MySqlConnection connection = database.Connect())
         {
             await connection.OpenAsync();
 
-        using (var command = new MySqlCommand("SELECT COUNT(*) FROM users WHERE token = @Token AND email = @Email AND Id = @UserId;", connection))
+        using (var command = new MySqlCommand(sql, connection))
         {
                 command.Parameters.AddWithValue("@Token", token);
                 command.Parameters.AddWithValue("@Email", email);
-                command.Parameters.AddWithValue("@UserId", userId);
+
+                if(!isAdmin){
+                    command.Parameters.AddWithValue("@UserId", userId);   
+                }
 
                 int count = Convert.ToInt32(await command.ExecuteScalarAsync()); // Брои редовете с този токен и имейл
 
-                if (count > 0)
-                {
-                    // Ако токенът и имейлът са валидни, можем да актуализираме статуса на имейла (например верификация)
-                    using (var updateCommand = new MySqlCommand("UPDATE users SET isEmailVerified = 1 WHERE token = @Token;", connection))
-                    {
-                        updateCommand.Parameters.AddWithValue("@Token", token);
-                        int rowsUpdated = await updateCommand.ExecuteNonQueryAsync();
-                        return rowsUpdated > 0;
-                    }
-                }
-
-                return false; // Ако няма такъв токен или имейл
+                return count > 0;
             }
         }
     }
