@@ -283,6 +283,7 @@ class Database
         string sql = "SELECT COUNT(*) FROM users WHERE token = @Token AND email = @Email AND Id = @UserId;";
 
         if(email == "almachronicles@gmail.com"){
+            System.Console.WriteLine(1);
             isAdmin = true;
             sql = "SELECT COUNT(*) FROM users WHERE token = @Token AND email = @Email;";
         }
