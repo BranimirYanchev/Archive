@@ -303,6 +303,14 @@ class Database
 
                 int count = Convert.ToInt32(await command.ExecuteScalarAsync()); // Брои редовете с този токен и имейл
 
+
+                System.Console.WriteLine($"isAdmin: {isAdmin}");
+                System.Console.WriteLine($"SQL: {sql}");
+                System.Console.WriteLine($"Token: {token}");
+                System.Console.WriteLine($"Email: {email}");
+                System.Console.WriteLine($"UserId: {userId}");
+                System.Console.WriteLine("Резултат от заявка: " + count);
+
                 return count > 0;
             }
         }
