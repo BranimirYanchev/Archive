@@ -1,65 +1,94 @@
+/* ---------------------- */
+/* ⚙️ Toastr конфигурация */
+/* ---------------------- */
 toastr.options = {
-    "closeButton": true,
-    "debug": false,
-    "newestOnTop": true,
-    "progressBar": true,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": true,
-    "onclick": null
+    closeButton: true,
+    debug: false,
+    newestOnTop: true,
+    progressBar: true,
+    positionClass: "toast-top-right",
+    preventDuplicates: true,
+    onclick: null
 };
 
-// Примерен код за обработка на линк за потвърждение с уникален токен
+hidePreloader();
+
+/* ------------------------------------- */
+/* 🔍 Взимане на токен и имейл от сесия */
+/* ------------------------------------- */
 const urlParams = new URLSearchParams(window.location.search);
-const token = urlParams.get('token'); // Вземаме токена от URL
-const email = sessionStorage.getItem("email"); // Вземаме токена от URL
+const token = urlParams.get('token'); // 🎟️ Вземаме токена от URL
+const email = sessionStorage.getItem("email"); // 📩 Имейл от sessionStorage
 
-confirmEmail(token, email);
+// 🛡️ Проверка дали имаме нужните данни преди да продължим
+if (token && email) {
+    confirmEmail(token, email); // 📬 Потвърждаваме имейла с AJAX заявка
+}else{
+    sendNewEmail("", email);
+}
 
-// Функция, която симулира потвърждението на имейла
+/* -------------------------------------- */
+/* 📡 AJAX заявка за потвърждение на имейл */
+/* -------------------------------------- */
 function confirmEmail(token, email) {
-    // Това е примерен AJAX код, който ще изпрати токен за потвърждение
-
     $.ajax({
         url: `https://archive-4vi4.onrender.com/api/account/confirm-email?token=${token}&email=${email}`,
         type: "GET",
         success: function (response) {
-            if(response.isEmailConfirmed){
-                window.open("profile.html", "_self");
-            }else if(token == null){
-                sendNewEmail(token, email)
-            }else{
-                $(".error").text("Моля отворете последния изпратен линк!")
-                toastr.error("Моля отворете последния изпратен линк!");
+            // ✅ Имейлът е успешно потвърден – пращаме потребителя към профила
+            if (response.isEmailConfirmed) {
+                // window.open("profile.html", "_self");
+            } else {
+                // ⚠️ Линкът е вече изтекъл или невалиден
+                $(".error").text("Моля отворете последния изпратен линк!");
+                toastr.error("Моля отворете последния изпратен линк! 🔁");
             }
         },
         error: function (xhr, status, error) {
-            console.log(error);
+            console.error(error);
+            toastr.error("Възникна грешка при потвърждението на имейла. ❌");
         }
     });
 }
 
-$(".btn").on("click", function(e){
+/* -------------------------------- */
+/* 🔁 Изпращане на нов имейл при клик */
+/* -------------------------------- */
+$(".btn").on("click", function(e) {
     e.preventDefault();
-    sendNewEmail(token, email);
-})
 
+    // 🛡️ Проверка за налични данни преди изпращане
+    if (token && email) {
+        sendNewEmail(token, email); // 📬 Изпращаме нов линк
+    } else {
+        toastr.error("Липсва токен или имейл! ❌");
+    }
+});
+
+/* ----------------------------------- */
+/* 📡 AJAX заявка за нов линк по имейл */
+/* ----------------------------------- */
 function sendNewEmail(token, email) {
-    // Това е примерен AJAX код, който ще изпрати токен за потвърждение
-
     $.ajax({
         url: `https://archive-4vi4.onrender.com/api/account/send-new-email?token=${token}&email=${email}`,
         type: "GET",
         success: function (response) {
-            if(response.isEmailConfirmed){
+            // ✅ Имейлът вече е потвърден – пращаме към профила
+            if (response.isEmailConfirmed) {
                 window.open("profile.html", "_self");
-            }
-
-            if(response.isNewMessageSent){
-                toastr.success("Съобщението беше изпратено!")
+            } 
+            // ✅ Ново съобщение е успешно изпратено
+            else if (response.isNewMessageSent) {
+                toastr.success("Съобщението беше изпратено! 📧✨");
+            } 
+            // ❌ Нещо се объркало
+            else {
+                toastr.error("Възникна грешка при изпращането на нов линк. 😓");
             }
         },
         error: function (xhr, status, error) {
-            console.log(error);
+            console.error(error);
+            toastr.error("Възникна грешка при заявката. ❗");
         }
     });
 }

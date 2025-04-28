@@ -236,3 +236,25 @@ footer{
     cursor: pointer;
     text-decoration: underline;
 }
+
+.custom-page-btn {
+    background-color: transparent;
+    color: #333;
+    border: 1px solid var(--secondary-color);
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    font-weight: 500;
+}
+
+.custom-page-btn:hover {
+    background-color: #f0f0f0;
+    border-color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.custom-page-btn.active {
+    background-color: var(--secondary-color);
+    color: #fff;
+    border-color: var(--secondary-color);
+}

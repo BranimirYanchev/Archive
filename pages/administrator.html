@@ -14,10 +14,12 @@
 
     <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/administrator.css">
-
 </head>
 
 <body>
+    <!-- 🔓 Бутон Изход -->
+    <button id="logoutBtn" class="logout-btn">Изход</button>
+
     <div class="btn-container">
         <button
             class="burger-btn d-flex flex-column justify-content-between align-items-center p-0 border-0 bg-transparent z-3 ms-auto"
@@ -33,6 +35,7 @@
             <a class="go-to-profile" href="forms.html">Вход</a>
         </div>
     </div>
+
     <div class="container">
         <h2>Списък с профили</h2>
         <table>
@@ -46,13 +49,20 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Данните ще се зареждат динамично -->
             </tbody>
         </table>
     </div>
 
     <script>
         var profileUrl = "profile.html";
-        var formsUrl = "forms.html"
+        var formsUrl = "forms.html";
+
+        // 🔐 Изход бутон — чисти sessionStorage и праща към forms.html
+        document.getElementById("logoutBtn").addEventListener("click", function () {
+            sessionStorage.clear();
+            window.location.href = "forms.html";
+        });
     </script>
 
     <script src="../scripts/navbar.js"></script>

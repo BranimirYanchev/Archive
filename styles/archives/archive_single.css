@@ -63,6 +63,10 @@ main{
     max-height: 550px;
 }
 
+.image-container>img:hover{
+    cursor: pointer;
+}
+
 .open>div {
     background: #faf4e8 !important;
 }
@@ -214,4 +218,43 @@ Section-1 Style
 
 .open-profile:hover{
     text-decoration: underline;
+}
+
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9);
+}
+
+.image-modal .modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80vh;
+    transition: transform 0.3s ease;
+    cursor: zoom-in;
+    object-fit: contain;
+}
+
+.image-modal .close {
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.image-modal.zoomed .modal-content {
+    transform: scale(1.8);
+    cursor: zoom-out;
 }

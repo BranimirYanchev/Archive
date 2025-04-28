@@ -1,6 +1,7 @@
 /* -------------------------- */
 /* Session Storage Handling */
 /* -------------------------- */
+hidePreloader(); 
 let id = sessionStorage.getItem('id');
 const formContainers = [$('#signInForm')[0], $('#signUpForm')[0]];
 const submitBtns = $('.submit-button');

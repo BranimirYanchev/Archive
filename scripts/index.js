@@ -15,6 +15,7 @@ const swiper = new Swiper('.swiper-container', {
 });
 
 $(document).ready(function () {
+    hidePreloader();
     // Функция за преоразмеряване на книгата
     function resizeFlipbook() {
         const windowWidth = $(window).width();

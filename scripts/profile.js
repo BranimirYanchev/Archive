@@ -1,4 +1,5 @@
 let hasUserImage = false;
+hidePreloader();
 
 const infoForm = {
     firstName: $("input[name='firstName']"),
@@ -57,10 +58,13 @@ if(!(sessionStorage.getItem("email") != null || new URLSearchParams(window.locat
     isReadOnly = true;
 }
 
+if(!isReadOnly){
+    checkToken();
+}
+
 if(sessionStorage.getItem("role") == "administrator" && !isReadOnly){
     window.open("administrator.html?token=", "_self");
 }
-
 
 const togglePassBtnsT = $('.toggle-non-slash');
 const togglePassBtnsS = $('.toggle-slash');
@@ -74,7 +78,6 @@ togglePassBtnsT.on('click', function(){
 });
 
 $("#save-data-btn").on("click", function () {
-    $(".preloader-container").removeClass("d-none"); 
     let formData = new FormData(); 
     Object.keys(isChanged).forEach((key, value) => {
         if(isChanged[key] && infoForm[key] != "" && infoForm[key] != undefined && key == "grade"){
@@ -107,7 +110,6 @@ $("#save-data-btn").on("click", function () {
         formData.append("id", userId)
     }
 
-
     let url = "https://archive-4vi4.onrender.com/api/update_data";
 
     $.ajax({
@@ -117,7 +119,7 @@ $("#save-data-btn").on("click", function () {
         contentType: false, 
         processData: false,
         success: function (response) {
-            $(".preloader-container").addClass("d-none"); 
+            checkToken();
             let isTrue = false;
             Object.keys(isChanged).forEach((key, value) => {
                 if(isChanged[key] && !response.value[key] && key != "changePass"){
@@ -148,7 +150,7 @@ $("#save-data-btn").on("click", function () {
     })
 });
 
-checkIfEmailIsVerified(null, sessionStorage.getItem("email"));
+// checkIfEmailIsVerified(null, sessionStorage.getItem("email"));
 setData();
 areFieldsChanged();
 
@@ -173,7 +175,6 @@ function setData() {
             if(response.Role == "administrator"){
                 window.open("administrator.html?token=", "_self")
             }
-            $(".preloader-container").addClass("d-none"); 
             
             if (response.Role == "parent") {
                 $(".section-2").addClass("d-none");
@@ -241,13 +242,15 @@ function areFieldsChanged() {
 
 function setArchives() {
     let url = `https://archive-4vi4.onrender.com/users/${userId}/archives.json?nocache=${new Date().getTime()}`;
-    $(".preloader-container").removeClass("d-none"); 
+
     $.ajax({
         url: url,
         type: "GET",
         cache: false,  // Принудително презареждане
         success: function (response) {
-            $(".preloader-container").addClass("d-none"); 
+            if(!isReadOnly){
+                checkToken();
+            }
             $("#card-container").empty(); // Изчистваме старите елементи
     
             if (response.length == 0) {
@@ -381,35 +384,46 @@ function getUserId(){
     });
 }
 
-async function getUserEmail(){
+async function getUserEmail() {
     let formData = new FormData();
-        
     formData.append("userId", userId);
-        
+
     let url = "https://archive-4vi4.onrender.com/api/get_user_email";
-        
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: formData,
-        contentType: false, 
-        processData: false,
-        success: function (response) {
-            infoForm.email.val(response.result);
-            if(sessionStorage.getItem("role") == "administrator"){
-                sessionStorage.setItem("email", response.result);
-            }
+
+    try {
+        let response = await fetch(url, {
+            method: "POST",
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
-    });
+
+        let data = await response.json();
+
+        if (!isReadOnly) {
+            checkToken();
+        }
+        
+        infoForm.email.val(data.result);
+        
+        if (sessionStorage.getItem("role") === "administrator") {
+            sessionStorage.setItem("email", data.result);
+        }
+
+    } catch (error) {
+        console.error("Error fetching user email:", error);
+    }
 }
 
+
 async function switchToReadOnlyMode(){
-    $(".preloader-container").addClass("d-none"); 
     $(".description-container").addClass("justify-content-center");
     $(".edit-heading").text("Профилна снимка");
     $(".edit-heading").addClass("text-center");
     await getUserEmail();
-    $(".preloader-container").removeClass("d-none"); 
+
     infoForm.grade[0].disabled = true;
     description.attr("contenteditable", "false") ;
     $($(".col-xxl-6")[1]).addClass("d-none");
