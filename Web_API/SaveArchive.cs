@@ -232,7 +232,7 @@ class DeleteArchive
 
     public Object DeleteArchiveFromJSON(string id, string email)
     {
-        string userId = new Database().GetCurrentUserID(email);
+        int userId = new Database().GetCurrentUserID(email);
         string filePath = $"/var/data/users/{userId}/archives.json";
 
         // Четене на текущото съдържание на JSON файла
