@@ -150,7 +150,10 @@ $("#save-data-btn").on("click", function () {
     })
 });
 
-// checkIfEmailIsVerified(null, sessionStorage.getItem("email"));
+const url = 'https://example.com/?token=abc123';
+const urlParams = new URLSearchParams(window.location.search);
+
+checkIfEmailIsVerified(urlParams.get('token'), sessionStorage.getItem("email"));
 setData();
 areFieldsChanged();
 

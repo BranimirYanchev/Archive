@@ -189,25 +189,75 @@ function renderArchivesPage(page) {
     updateSortArrows();
 }
 
-// 📑 Странициране
-function renderPagination(total, page) {
+function renderPagination(total, currentPage) {
     const totalPages = Math.ceil(total / archivesPerPage);
     const container = $(".pagination-container");
     container.empty();
 
-    for (let i = 1; i <= totalPages; i++) {
-        container.append(`
-            <button class="page-btn custom-page-btn mx-1 ${i === page ? 'active' : ''}" data-page="${i}">
-                ${i}
-            </button>
-        `);
+    const pageButtons = [];
+
+    // ← Стрелка
+    if (currentPage > 1) {
+        pageButtons.push(`<button class="nav-arrow" data-page="${currentPage - 1}" title="Назад">←</button>`);
     }
 
-    $(".page-btn").on("click", function () {
+    // Винаги показваме страница 1
+    pageButtons.push(`<button class="page-btn custom-page-btn mx-1 ${currentPage === 1 ? 'active' : ''}" data-page="1">1</button>`);
+
+    // Диапазон от средни страници (до 3 бутона)
+    let middlePages = [];
+
+    if (totalPages <= 5) {
+        // Ако страниците са малко – показваме всички
+        for (let i = 2; i < totalPages; i++) {
+            middlePages.push(i);
+        }
+    } else {
+        if (currentPage <= 3) {
+            middlePages = [2, 3, 4];
+        } else if (currentPage >= totalPages - 2) {
+            middlePages = [totalPages - 3, totalPages - 2, totalPages - 1];
+        } else {
+            middlePages = [currentPage - 1, currentPage, currentPage + 1];
+        }
+    }
+
+    if (middlePages[0] > 2) {
+        pageButtons.push(`<span class="dots">...</span>`);
+    }
+
+    for (let i of middlePages) {
+        if (i > 1 && i < totalPages) {
+            pageButtons.push(`<button class="page-btn custom-page-btn mx-1 ${currentPage === i ? 'active' : ''}" data-page="${i}">${i}</button>`);
+        }
+    }
+
+    if (middlePages[middlePages.length - 1] < totalPages - 1) {
+        pageButtons.push(`<span class="dots">...</span>`);
+    }
+
+    // Последна страница (ако не е 1)
+    if (totalPages > 1) {
+        pageButtons.push(`<button class="page-btn custom-page-btn mx-1 ${currentPage === totalPages ? 'active' : ''}" data-page="${totalPages}">${totalPages}</button>`);
+    }
+
+    // → Стрелка
+    if (currentPage < totalPages) {
+        pageButtons.push(`<button class="nav-arrow" data-page="${currentPage + 1}" title="Напред">→</button>`);
+    }
+
+    container.append(pageButtons.join(""));
+
+    // Клик събития
+    container.off("click").on("click", ".page-btn, .nav-arrow", function () {
         const targetPage = Number($(this).data("page"));
-        renderArchivesPage(targetPage);
+        if (!isNaN(targetPage)) {
+            renderArchivesPage(targetPage);
+        }
     });
 }
+
+
 
 // 📡 Последен user ID
 async function getLastUserId() {
@@ -215,6 +265,7 @@ async function getLastUserId() {
     const data = await res.json();
     return data.id - 1;
 }
+
 
 // 📅 Преобразуване на дата за сортиране
 function parseDate(dateString) {

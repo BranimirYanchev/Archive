@@ -18,7 +18,7 @@ hidePreloader();
 /* ------------------------------------- */
 const urlParams = new URLSearchParams(window.location.search);
 const token = urlParams.get('token'); // 🎟️ Вземаме токена от URL
-const email = sessionStorage.getItem("email"); // 📩 Имейл от sessionStorage
+const email = urlParams.get("email"); // 📩 Имейл от sessionStorage
 
 // 🛡️ Проверка дали имаме нужните данни преди да продължим
 if (token && email) {
