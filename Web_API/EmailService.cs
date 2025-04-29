@@ -22,7 +22,7 @@ public class EmailService
         message.To.Add(new MailboxAddress("", toEmail));
         message.Subject = "Потвърждение на имейл!";
 
-        string confirmationLink = $"{_configuration["AppSettings:FrontendUrl"]}?token={token}";
+        string confirmationLink = $"{_configuration["AppSettings:FrontendUrl"]}?token={token}&email={toEmail}";
         message.Body = new TextPart("html")
         {
             Text = $"<p>Натиснете линка отдолу за да потвърдите вашият имейл:</p><a href='{confirmationLink}'>Потвърди имейл</a>"
