@@ -71,7 +71,7 @@ class SaveArchive
     public string Id { get; set; }
     public string AuthorId { get; set; }
     public string Author { get; set; }
-    public IFormFile Image { get; set; } 
+    public IFormFile Image { get; set; }
     public SaveArchive(string title, string description, string category, string[] keywords, string email, string author, IFormFile file)
     {
         Title = title;
@@ -228,15 +228,18 @@ class UpdateArchive
 
 class DeleteArchive
 {
-    public DeleteArchive(){}
+    public DeleteArchive() { }
 
     public Object DeleteArchiveFromJSON(string id, string email)
     {
-        string filePath = $"/var/data/users/{new Database().GetCurrentUserID(email)}/archives.json"; // Пътят към JSON файла
+        string userId = new Database().GetCurrentUserID(email);
+        string filePath = $"/var/data/users/{userId}/archives.json";
 
         // Четене на текущото съдържание на JSON файла
         string json = File.ReadAllText(filePath);
         dynamic data = JsonConvert.DeserializeObject(json);
+
+        string imagePathToDelete = null;
 
         // Обновяване на стойностите
         for (int i = 0; i < data.Count; i++)
@@ -245,8 +248,9 @@ class DeleteArchive
 
             if (item.Value<int>("id") == int.Parse(id)) // Ако намерим елемента по ID
             {
+                imagePathToDelete = item.Value<string>("imageUrl"); // Запазваме пътя на снимката
                 data.RemoveAt(i); // Изтриваме елемента от JArray
-                break; // Прекратяваме цикъла, след като намерим и изтрием елемента
+                break;
             }
         }
 
@@ -254,11 +258,24 @@ class DeleteArchive
         string updatedJson = JsonConvert.SerializeObject(data, Formatting.Indented);
         File.WriteAllText(filePath, updatedJson);
 
-        if(new Database().DeleteArchiveFromDatabase(id)){
+        // Изтриване на снимката, ако е открит imageUrl
+        if (!string.IsNullOrEmpty(imagePathToDelete))
+        {
+            string imageFullPath = Path.Combine("/var/data", imagePathToDelete.Replace("/", Path.DirectorySeparatorChar.ToString()));
+            if (File.Exists(imageFullPath))
+            {
+                File.Delete(imageFullPath);
+            }
+        }
+
+        // Изтриване от базата данни
+        if (new Database().DeleteArchiveFromDatabase(id))
+        {
             return new { isArchiveDeleted = true };
         }
 
         return new { isArchiveDeleted = false };
     }
+
 }
 

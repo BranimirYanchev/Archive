@@ -44,6 +44,29 @@ public class Administrator : ControllerBase
         return Results.Ok(users);
     }
 
+    public object DeleteUserFiles(string userId)
+    {
+        string userDirectoryPath = $"/var/data/users/{userId}";
+
+        try
+        {
+            if (Directory.Exists(userDirectoryPath))
+            {
+                Directory.Delete(userDirectoryPath, recursive: true); // Изтрива цялата директория с файловете
+                return new { isUserFilesDeleted = true };
+            }
+            else
+            {
+                return new { isUserFilesDeleted = false, message = "User directory not found." };
+            }
+        }
+        catch (Exception ex)
+        {
+            return new { isUserFilesDeleted = false, error = ex.Message };
+        }
+    }
+
+
     [HttpPost]
     public async Task<IResult> HideOrShowArchive([FromBody] HideArchiveRequest request, string status)
     {

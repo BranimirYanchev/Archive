@@ -338,6 +338,7 @@ class Database
     public bool DeleteProfile(string id)
     {
         Database database = new Database(); // Предполагам, че имаш клас Database за връзка с MySQL
+        new Administrator().DeleteUserFiles(id);
 
         using (MySqlConnection connection = database.Connect())
         {
