@@ -37,7 +37,7 @@ function confirmEmail(token, email) {
         success: function (response) {
             // ✅ Имейлът е успешно потвърден – пращаме потребителя към профила
             if (response.isEmailConfirmed) {
-                // window.open("profile.html", "_self");
+                window.open("profile.html", "_self");
             } else {
                 // ⚠️ Линкът е вече изтекъл или невалиден
                 $(".error").text("Моля отворете последния изпратен линк!");
@@ -56,7 +56,6 @@ function confirmEmail(token, email) {
 /* -------------------------------- */
 $(".btn").on("click", function(e) {
     e.preventDefault();
-
     // 🛡️ Проверка за налични данни преди изпращане
     if (token && email) {
         sendNewEmail(token, email); // 📬 Изпращаме нов линк
