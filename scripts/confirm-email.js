@@ -22,6 +22,7 @@ const email = urlParams.get("email"); // 📩 Имейл от sessionStorage
 
 // 🛡️ Проверка дали имаме нужните данни преди да продължим
 if (token && email) {
+    console.log(1);
     confirmEmail(token, email); // 📬 Потвърждаваме имейла с AJAX заявка
 }else{
     sendNewEmail("", email);
@@ -68,10 +69,13 @@ $(".btn").on("click", function(e) {
 /* 📡 AJAX заявка за нов линк по имейл */
 /* ----------------------------------- */
 function sendNewEmail(token, email) {
+    email = sessionStorage.getItem("email");
     $.ajax({
         url: `https://archive-4vi4.onrender.com/api/account/send-new-email?token=${token}&email=${email}`,
         type: "GET",
         success: function (response) {
+            console.log(email);
+            console.log(response)
             // ✅ Имейлът вече е потвърден – пращаме към профила
             if (response.isEmailConfirmed) {
                 window.open("profile.html", "_self");
