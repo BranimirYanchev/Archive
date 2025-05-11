@@ -206,6 +206,15 @@ function setData() {
             if(sessionStorage.getItem("role") == "administrator"){
                 sessionStorage.setItem("email", getUserEmail(sessionStorage.getItem("userId")))
             }
+
+            if (response.ProfilePictureUrl && response.ProfilePictureUrl !== "") {
+                const cleanedUrl = response.ProfilePictureUrl.replace("/var/data", "");
+                $("#profile-img").attr("src", `https://archive-4vi4.onrender.com${cleanedUrl}`);                
+            } else {
+                $("#profile-img").hide();
+                $("#profile-img-icon").show();
+            }
+            
             
             description.html(data.description);
         },
@@ -225,18 +234,21 @@ function areFieldsChanged() {
         });
     });
 
-    // $("#imageFile").on("change", function () {
-    //     isChanged.profileImg = true;
-
-    //     // Pass the selected file to the setImage function
-    //     imageOperations(this.files, "I", "http://Localhost:5175/api/save_user_image");
-    //     preventSpam($("#uploadImgBtn"))
-    // });
-
+    $("#imageFile").on("change", function () {
+        const files = this.files;
+        if (files.length === 0) return;
+    
+        isChanged.profileImg = true;
+        imageOperations(files, "I", "https://archive-4vi4.onrender.com/api/user/upload_profile_picture");
+    
+        preventSpam($("#uploadImgBtn"));
+    });
+    
     $("#removeImgBtn").on("click", function (e) {
         e.preventDefault();
-        imageOperations("", "D", "https://archive-4vi4.onrender.com/api/delete_user_image");
+        imageOperations("", "D", "https://archive-4vi4.onrender.com/api/user/delete_profile_picture");
     });
+    
 
     description.on("click", function(){
         isChanged.description = true;
@@ -314,6 +326,76 @@ function setArchives() {
         }
     });    
 }
+
+function imageOperations(files, imgType, url) {
+    let formData = new FormData();
+
+    if (imgType === "I") {
+        const file = files[0];
+
+        if (!file) {
+            toastr.error("Не е избран файл!");
+            return;
+        }
+
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+        const maxSizeMB = 2;
+
+        if (!validTypes.includes(file.type)) {
+            toastr.error("Грешен файлов тип!");
+            return;
+        }
+
+        if (file.size > maxSizeMB * 1024 * 1024) {
+            toastr.error("Файлът е твърде голям!");
+            return;
+        }
+
+        // Превю на избраната снимка
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            $("#profile-img").attr("src", e.target.result);
+        };
+        reader.readAsDataURL(file);
+        
+        $("#profile-img-icon").hide();
+        $("#profile-img").show();
+
+        formData.append("profilePicture", file);
+    }else{
+        $("#profile-img-icon").show();
+        $("#profile-img").hide();
+    }
+
+    formData.append("email", email);
+    formData.append("imgType", imgType);
+    formData.append("userId", sessionStorage.getItem("user_Id"));
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (imgType === "I" && response.success) {
+                toastr.success("Снимката беше качена успешно!");
+                location.reload();
+            } else if (imgType === "D" && response.success) {
+                toastr.success("Снимката беше премахната!");
+                $("#profile-img").attr("src", "/assets/img/placeholder.png"); // сложи път към твоята дефолтна
+                location.reload();
+            } else {
+                returnErrorMessage(response);
+            }
+        },
+        error: function () {
+            toastr.error("Грешка при качване на снимката.");
+        }
+    });
+}
+
+
 
 function returnErrorMessage(response) {
     let errorMessages = {
