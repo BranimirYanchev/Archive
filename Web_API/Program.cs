@@ -284,4 +284,48 @@ app.MapPost("/api/verify_log/check_token", async (HttpContext context) =>
     return Results.Ok(new { isTokenValid = result });
 });
 
+app.MapPost("/api/user/upload_profile_picture", async (HttpRequest request) =>
+{
+    var form = await request.ReadFormAsync();
+
+    if (!form.TryGetValue("userId", out var userIdString) || !int.TryParse(userIdString, out int userId))
+    {
+        return Results.BadRequest("Invalid or missing userId.");
+    }
+
+    var file = form.Files["profilePicture"];
+    if (file == null || file.Length == 0)
+    {
+        return Results.BadRequest("No file uploaded.");
+    }
+
+    try
+    {
+        string fileName = $"profile_picture_{DateTime.UtcNow.Ticks}.png";
+        string directory = $"/var/data/users/{userId}/media";
+        string filePath = Path.Combine(directory, fileName);
+        string relativePath = $"/var/data/users/{userId}/media/{fileName}";
+
+        // Създай папката, ако не съществува
+        if (!Directory.Exists(directory))
+            Directory.CreateDirectory(directory);
+
+        // Запиши файла
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            await file.CopyToAsync(stream);
+        }
+
+        // Обнови JSON файла
+        SaveDataToJSON.AddOrUpdateProfilePicturePath(userId, relativePath);
+
+        return Results.Ok(new { message = "Profile picture uploaded.", path = relativePath });
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem($"Error saving file: {ex.Message}");
+    }
+});
+
+
 app.Run();

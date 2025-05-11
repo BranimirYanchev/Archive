@@ -71,5 +71,52 @@ static class SaveDataToJSON
             Console.WriteLine($"Грешка при запис в JSON: {ex.Message}");
         }
     }
+    
+    public static void AddOrUpdateProfilePicturePath(int id, string imagePath)
+    {
+        string jsonFilePath = $"/var/data/users/{id}/profile_info.json";
+
+        try
+        {
+            // Ако няма JSON файл, създай нов
+            if (!File.Exists(jsonFilePath))
+            {
+                SaveUserInfo(id, "", "", "");
+            }
+
+            // Прочети текущия JSON
+            string json = File.ReadAllText(jsonFilePath);
+            var jsonDoc = JsonDocument.Parse(json);
+            var personalInfo = jsonDoc.RootElement.GetProperty("personalInfo");
+
+            // Нов обект с добавено поле
+            var updatedInfo = new
+            {
+                personalInfo = new
+                {
+                    FirstName = personalInfo.GetProperty("FirstName").GetString(),
+                    LastName = personalInfo.GetProperty("LastName").GetString(),
+                    Role = personalInfo.GetProperty("Role").GetString(),
+                    Grade = personalInfo.TryGetProperty("Grade", out var grade) ? grade.GetString() : "",
+                    Timestamp = personalInfo.GetProperty("Timestamp").GetString(),
+                    ProfilePictureUrl = imagePath
+                }
+            };
+
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+
+            string updatedJson = JsonSerializer.Serialize(updatedInfo, options);
+            File.WriteAllText(jsonFilePath, updatedJson, new System.Text.UTF8Encoding(false));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating profile_info.json: {ex.Message}");
+        }
+    }
+
 
 }
