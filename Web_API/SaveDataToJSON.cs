@@ -71,7 +71,7 @@ static class SaveDataToJSON
             Console.WriteLine($"Грешка при запис в JSON: {ex.Message}");
         }
     }
-    
+
     public static void AddOrUpdateProfilePicturePath(int id, string imagePath)
     {
         string jsonFilePath = $"/var/data/users/{id}/profile_info.json";
@@ -118,5 +118,105 @@ static class SaveDataToJSON
         }
     }
 
+    [HttpPost("upload_profile_picture")]
+    public static void AddOrUpdateProfilePicturePath(int id, string newImagePath)
+    {
+        string jsonFilePath = $"/var/data/users/{id}/profile_info.json";
+
+        try
+        {
+            // Ако няма JSON файл, създай празен
+            if (!File.Exists(jsonFilePath))
+            {
+                SaveUserInfo(id, "", "", "");
+            }
+
+            string json = File.ReadAllText(jsonFilePath);
+            var jsonDoc = JsonDocument.Parse(json);
+            var personalInfo = jsonDoc.RootElement.GetProperty("personalInfo");
+
+            // Изтриване на старата снимка, ако има
+            if (personalInfo.TryGetProperty("ProfilePictureUrl", out var oldProp))
+            {
+                string? oldPath = oldProp.GetString();
+                if (!string.IsNullOrWhiteSpace(oldPath) && File.Exists(oldPath))
+                {
+                    File.Delete(oldPath);
+                }
+            }
+
+            // Нов обект с актуализирано поле
+            var updatedInfo = new
+            {
+                personalInfo = new
+                {
+                    FirstName = personalInfo.GetProperty("FirstName").GetString(),
+                    LastName = personalInfo.GetProperty("LastName").GetString(),
+                    Role = personalInfo.GetProperty("Role").GetString(),
+                    Grade = personalInfo.TryGetProperty("Grade", out var grade) ? grade.GetString() : "",
+                    Timestamp = personalInfo.GetProperty("Timestamp").GetString(),
+                    ProfilePictureUrl = newImagePath
+                }
+            };
+
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+
+            string updatedJson = JsonSerializer.Serialize(updatedInfo, options);
+            File.WriteAllText(jsonFilePath, updatedJson, new System.Text.UTF8Encoding(false));
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating profile_info.json: {ex.Message}");
+        }
+    }
+
+    public static void DeleteProfilePicture(int userId)
+    {
+        string jsonFilePath = $"/var/data/users/{userId}/profile_info.json";
+
+        if (!File.Exists(jsonFilePath))
+            throw new FileNotFoundException("User JSON file not found.");
+
+        string json = File.ReadAllText(jsonFilePath);
+        var jsonDoc = JsonDocument.Parse(json);
+        var personalInfo = jsonDoc.RootElement.GetProperty("personalInfo");
+
+        string? oldImagePath = personalInfo.TryGetProperty("ProfilePictureUrl", out var picProp)
+            ? picProp.GetString()
+            : null;
+
+        // Изтрий снимката от диска
+        if (!string.IsNullOrWhiteSpace(oldImagePath) && File.Exists(oldImagePath))
+        {
+            File.Delete(oldImagePath);
+        }
+
+        // Обнови JSON-а с празен линк
+        var updatedInfo = new
+        {
+            personalInfo = new
+            {
+                FirstName = personalInfo.GetProperty("FirstName").GetString(),
+                LastName = personalInfo.GetProperty("LastName").GetString(),
+                Role = personalInfo.GetProperty("Role").GetString(),
+                Grade = personalInfo.TryGetProperty("Grade", out var grade) ? grade.GetString() : "",
+                Timestamp = personalInfo.GetProperty("Timestamp").GetString(),
+                ProfilePictureUrl = ""
+            }
+        };
+
+        var options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+        };
+
+        string updatedJson = JsonSerializer.Serialize(updatedInfo, options);
+        File.WriteAllText(jsonFilePath, updatedJson, new System.Text.UTF8Encoding(false));
+    }
 
 }

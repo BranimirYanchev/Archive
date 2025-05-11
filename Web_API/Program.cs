@@ -301,22 +301,18 @@ app.MapPost("/api/user/upload_profile_picture", async (HttpRequest request) =>
 
     try
     {
-        string fileName = $"profile_picture_{DateTime.UtcNow.Ticks}.png";
         string directory = $"/var/data/users/{userId}/media";
+        Directory.CreateDirectory(directory);
+
+        string fileName = $"profile_picture_{DateTime.UtcNow.Ticks}.png";
         string filePath = Path.Combine(directory, fileName);
         string relativePath = $"/var/data/users/{userId}/media/{fileName}";
 
-        // Създай папката, ако не съществува
-        if (!Directory.Exists(directory))
-            Directory.CreateDirectory(directory);
-
-        // Запиши файла
         using (var stream = new FileStream(filePath, FileMode.Create))
         {
             await file.CopyToAsync(stream);
         }
 
-        // Обнови JSON файла
         SaveDataToJSON.AddOrUpdateProfilePicturePath(userId, relativePath);
 
         return Results.Ok(new { message = "Profile picture uploaded.", path = relativePath });
@@ -326,6 +322,30 @@ app.MapPost("/api/user/upload_profile_picture", async (HttpRequest request) =>
         return Results.Problem($"Error saving file: {ex.Message}");
     }
 });
+
+app.MapPost("/api/user/delete_profile_picture", async (HttpRequest request) =>
+{
+    var form = await request.ReadFormAsync();
+
+    if (!form.TryGetValue("userId", out var userIdString) || !int.TryParse(userIdString, out int userId))
+        return Results.BadRequest("Invalid or missing userId.");
+
+    try
+    {
+        SaveDataToJSON.DeleteProfilePicture(userId);
+        return Results.Ok(new { message = "Profile picture deleted." });
+    }
+    catch (FileNotFoundException)
+    {
+        return Results.NotFound("User data not found.");
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem($"Error deleting profile picture: {ex.Message}");
+    }
+});
+
+
 
 
 app.Run();
