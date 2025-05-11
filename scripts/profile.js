@@ -35,6 +35,7 @@ let imgType = "I";
 let email = sessionStorage.getItem("email");
 let userId = sessionStorage.getItem("user_Id");
 let isReadOnly = false;
+let isAdmin = false;
 
 const errorMessages = {
     email: "Неправилен имейл!",
@@ -59,11 +60,17 @@ if(!(sessionStorage.getItem("email") != null || new URLSearchParams(window.locat
 }
 
 if(!isReadOnly){
-    checkToken();
+    checkToken(isAdmin);
 }
 
 if(sessionStorage.getItem("role") == "administrator" && !isReadOnly){
     window.open("administrator.html?token=", "_self");
+}
+
+if(sessionStorage.getItem("role") == "administrator"){
+    console.log(1);
+    isAdmin = true;
+    checkToken(isAdmin)
 }
 
 const togglePassBtnsT = $('.toggle-non-slash');
@@ -119,7 +126,7 @@ $("#save-data-btn").on("click", function () {
         contentType: false, 
         processData: false,
         success: function (response) {
-            checkToken();
+            checkToken(isAdmin);
             let isTrue = false;
             Object.keys(isChanged).forEach((key, value) => {
                 if(isChanged[key] && !response.value[key] && key != "changePass"){
@@ -264,7 +271,7 @@ function setArchives() {
         cache: false,  // Принудително презареждане
         success: function (response) {
             if(!isReadOnly){
-                checkToken();
+                checkToken(isAdmin);
             }
             $("#card-container").empty(); // Изчистваме старите елементи
     
@@ -357,14 +364,14 @@ function imageOperations(files, imgType, url) {
             $("#profile-img").attr("src", e.target.result);
         };
         reader.readAsDataURL(file);
-        
-        $("#profile-img-icon").hide();
-        $("#profile-img").show();
+
+        profileImgSettings.profileImgIcon.hide();
+        profileImgSettings.profileImg.show();
 
         formData.append("profilePicture", file);
     }else{
-        $("#profile-img-icon").show();
-        $("#profile-img").hide();
+        profileImgSettings.profileImgIcon.show();
+        profileImgSettings.profileImg.hide();
     }
 
     formData.append("email", email);
@@ -488,7 +495,7 @@ async function getUserEmail() {
         let data = await response.json();
 
         if (!isReadOnly) {
-            checkToken();
+            checkToken(isAdmin);
         }
         
         infoForm.email.val(data.result);
@@ -512,7 +519,10 @@ async function switchToReadOnlyMode(){
     infoForm.grade[0].disabled = true;
     description.attr("contenteditable", "false") ;
     $($(".col-xxl-6")[1]).addClass("d-none");
-    $(".btn").addClass("d-none");
+    if(!isAdmin){
+        $$($(".btn")[1]).addClass("d-none");
+    }
+    $($(".btn")[0]).addClass("d-none");
     $(".add-button").addClass("d-none");
     $(".section-title").css("margin-right", "0px");
     $("h3").text("Профил");

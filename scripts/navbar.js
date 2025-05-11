@@ -44,7 +44,7 @@ toastr.options = {
 let tokenCheckFailures = 0; // брояч за неуспешни опити
 
 /* 🔐 Проверка на временния токен за логване */
-async function checkToken(isAdmin = false) {
+async function checkToken(isAdmin = false, url = "forms.html") {
     let email = sessionStorage.getItem("email");
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("user_Id");
@@ -75,7 +75,7 @@ async function checkToken(isAdmin = false) {
                 // Ако и вторият опит е неуспешен — грешка и пренасочване
                 toastr.error("Невалиден токен! Моля, влезте отново.");
                 sessionStorage.removeItem("tokenCheckFailures");
-                return window.open("forms.html", "_self");
+                return window.open(url, "_self");
             }
         } else {
             // Токенът е валиден
@@ -92,7 +92,7 @@ async function checkToken(isAdmin = false) {
         if (tokenCheckFailures >= 3) {
             toastr.error("🔁 Прекалено много грешки при проверка. Пренасочване...");
             sessionStorage.removeItem("tokenCheckFailures");
-            window.open("forms.html", "_self");
+            window.open(url, "_self");
         } else {
             setTimeout(() => checkToken(isAdmin), 1000); // Повторен опит със същата стойност на isAdmin
         }

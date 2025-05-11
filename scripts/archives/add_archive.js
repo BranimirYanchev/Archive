@@ -15,7 +15,7 @@ if (!sessionStorage.getItem("email")) {
     window.open("../forms.html", "_self");
 }
 
-checkToken();
+checkToken(false, "../forms.html");
 
 let isBeingEdited = true;
 const archiveId = new URLSearchParams(window.location.search).get("id");
