@@ -15,14 +15,6 @@ if (sessionStorage.getItem("email")) {
     $("#fullscreenMenu a:eq(2)")
         .attr("href", profileUrl)
         .html("Профил");
-
-    // Променяме href на бутона "Go to Profile"
-
-    if(sessionStorage.getItem("role") === "administrator" ){
-        $(".go-to-profile").attr("href", "administrator.html");
-    }else{
-            $(".go-to-profile").attr("href", profileUrl);
-    }
 }else{
     $("#fullscreenMenu a:eq(2)")
     .attr("href" ,formsUrl)
