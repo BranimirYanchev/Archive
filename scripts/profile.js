@@ -520,7 +520,7 @@ async function switchToReadOnlyMode(){
     description.attr("contenteditable", "false") ;
     $($(".col-xxl-6")[1]).addClass("d-none");
     if(!isAdmin){
-        $$($(".btn")[1]).addClass("d-none");
+        $($(".btn")[1]).addClass("d-none");
     }
     $($(".btn")[0]).addClass("d-none");
     $(".add-button").addClass("d-none");
